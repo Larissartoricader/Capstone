@@ -1,10 +1,10 @@
 import { recipes } from "@/lib/recipes";
 import RecipeCard from "./RecipeCard";
-
+import styled from "styled-components";
+export const StyledList = styled.ul`
+  list-style: none;
+`;
 export default function RecipeList() {
-  const StyledList = styled.ul`
-    list-style: none;
-  `;
   return (
     <StyledList>
       {recipes.map((recipe) => (
