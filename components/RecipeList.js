@@ -4,7 +4,7 @@ export default function RecipeList() {
   return (
     <ul>
       {recipes.map((recipe) => (
-        <li>
+        <li key={recipe.id}>
           <RecipeCard recipe={recipe} />
         </li>
       ))}
