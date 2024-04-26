@@ -1,9 +1,9 @@
 import RecipeList from "@/components/RecipeList";
-import RecipeCard from "@/components/RecipeCard";
+
 export default function HomePage() {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <h1>Recipes Overview</h1>
       <RecipeList />
     </div>
   );
