@@ -3,6 +3,11 @@ export default function RecipeCard({ recipe }) {
     <>
       <h2>{recipe.title}</h2>
       <p>Symptoms:</p>
+      <ul>
+        {recipe.symptoms.map((symptom) => (
+          <li key={symptom}>{symptom}</li>
+        ))}
+      </ul>
     </>
   );
 }
