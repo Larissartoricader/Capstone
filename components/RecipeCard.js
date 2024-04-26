@@ -1,6 +1,6 @@
 import Image from "next/image";
-
 import { StyledList } from "./RecipeList";
+
 export default function RecipeCard({ recipe }) {
   return (
     <>
