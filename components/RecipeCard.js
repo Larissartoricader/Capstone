@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import { Bookmark } from "./Bookmark";
+import { useState } from "react";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -23,10 +25,25 @@ const StyledListHeader = styled.p`
 
 const StyledListItems = styled.li`
   margin-bottom: 0.5vh;
-  border: 1px solid black;
+`;
+
+const StyledHeadlineWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const StyledCardWrapper = styled.div`
+  width: 100%;
 `;
 
 export default function RecipeCard({ recipe }) {
+  const [isBookmarked, setIsBookmarked] = useState(recipe.isBookmarked);
+
+  const toggleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+  };
+
   return (
     <StyledArticle>
       <Image
@@ -35,8 +52,11 @@ export default function RecipeCard({ recipe }) {
         height={100}
         alt="bottle of rum e.g. remedy"
       ></Image>
-      <div>
-        <StyledHeadline>{recipe.title}</StyledHeadline>
+      <StyledCardWrapper>
+        <StyledHeadlineWrapper>
+          <StyledHeadline>{recipe.title}</StyledHeadline>
+          <Bookmark onClick={toggleBookmark} isBookmarked={isBookmarked} />
+        </StyledHeadlineWrapper>
         <StyledListHeader>Symptoms:</StyledListHeader>
         <StyledList>
           {recipe.symptoms.map((symptom) => (
@@ -44,7 +64,7 @@ export default function RecipeCard({ recipe }) {
           ))}
         </StyledList>
         <Link href={`/${recipe.id}`}>Read More</Link>
-      </div>
+      </StyledCardWrapper>
     </StyledArticle>
   );
 }

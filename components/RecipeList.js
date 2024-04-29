@@ -1,4 +1,3 @@
-import { recipes } from "@/lib/recipes";
 import RecipeCard from "./RecipeCard";
 import styled from "styled-components";
 
@@ -10,7 +9,7 @@ const StyledList = styled.ul`
   padding: 0 5vw;
 `;
 
-export default function RecipeList() {
+export default function RecipeList({ recipes }) {
   return (
     <StyledList>
       {recipes.map((recipe) => (
