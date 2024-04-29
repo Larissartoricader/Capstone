@@ -12,6 +12,8 @@ export default function RecipeForm({ onAddNewRecipe }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
+    userRecipe.ingredients = userRecipe.ingredients.split(",");
+    userRecipe.symptoms = userRecipe.symptoms.split(",");
     onAddNewRecipe(userRecipe);
     event.target.reset();
   }

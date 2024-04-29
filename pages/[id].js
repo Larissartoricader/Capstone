@@ -29,7 +29,7 @@ const ContentContainer = styled.div`
   margin-top: 100px;
 `;
 
-export default function RecipeDetailsPage() {
+export default function RecipeDetailsPage({ recipes }) {
   const router = useRouter();
   const { id } = router.query;
 
