@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
 
 const StyledNav = styled.nav`
@@ -23,7 +23,7 @@ const StyledLink = styled.a`
     props.active &&
     css`
       color: #ffffff;
-      background-color: #0070f3;
+      background-color: #000000;
       border-radius: 5px;
     `}
 `;
@@ -31,10 +31,19 @@ const StyledLink = styled.a`
 export default function NavigationBar() {
   const router = useRouter();
 
+  const isActive = (path) => {
+    return router.pathname === path;
+  };
+
   return (
     <StyledNav>
-      <StyledLink onClick={() => router.push("/")}>Home</StyledLink>
-      <StyledLink onClick={() => router.push("/bookmarks")}>
+      <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
+        Home
+      </StyledLink>
+      <StyledLink
+        onClick={() => router.push("/bookmarks")}
+        active={isActive("/bookmarks")}
+      >
         Bookmarks
       </StyledLink>
     </StyledNav>
