@@ -8,24 +8,34 @@ const StyledForm = styled.form`
 `;
 
 export default function RecipeForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const userRecipe = Object.fromEntries(formData);
+    formData.reset();
+    return userRecipe;
+  }
+
   return (
     <>
-      <h2>Add or Edit your Recipe</h2>
-      <StyledForm>
+      <h2>Add your Recipe</h2>
+      <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="title">Title*</label>
         <input
           type="text"
           placeholder="What's the recipe's name?"
           min="4"
+          max="50"
           id="title"
           name="title"
           required
         ></input>
-        <label htmlFor="ingredients">Ingedients*</label>
+        <label htmlFor="ingredients">Ingredients*</label>
         <input
           type="text"
           placeholder="Separate the ingredients by comma"
           min="4"
+          max="100"
           id="ingredients"
           name="ingredients"
         ></input>
@@ -34,18 +44,30 @@ export default function RecipeForm() {
           type="text"
           placeholder="e.g Add thyme to the water"
           min="4"
+          max="300"
           required
           id="preparation"
           name="preparation"
         ></input>
-        <label htmlFor="symptom">Symptom</label>
+        <label htmlFor="usage">Usage</label>
         <input
           type="text"
-          placeholder="min 2 Symptom"
+          placeholder="How to use it?"
+          min="4"
+          max="300"
           required
-          id="symptom"
-          name="symptom"
+          id="usage"
+          name="usage"
         ></input>
+        <label htmlFor="symptoms">Symptoms</label>
+        <input
+          type="text"
+          placeholder="min 2 Symptoms"
+          required
+          id="symptoms"
+          name="symptoms"
+        ></input>
+        <button type="submit">Submit</button>
       </StyledForm>
     </>
   );
