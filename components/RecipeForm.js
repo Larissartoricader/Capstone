@@ -22,20 +22,28 @@ export default function RecipeForm({ onAddNewRecipe }) {
     //Update Ingredients Array with the new ones//
     event.target.reset();
   }
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
+  console.log(ingredientSuggestion);
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-    const userInputLowerCase = userInput.toLowerCase().trim();
-    console.log(userInputLowerCase);
+
+    const userInputLowerCase = userInput.toLowerCase();
+
     const ingredientsLowerCase = ingredients.map((ingredient) =>
       ingredient.toLowerCase()
     );
-
-    const ingredientMatchingUserInput = ingredients.find((ingredient) =>
-      ingredient.startsWith(userInputLowerCase)
-    );
-
-    setIngredientSuggestion(ingredientMatchingUserInput);
-    console.log(ingredientSuggestion);
+    if (userInputLowerCase.length > 0) {
+      const ingredientMatchingUserInput = ingredientsLowerCase.find(
+        (ingredient) => ingredient.startsWith(userInputLowerCase)
+      );
+      const ingredientWithFirstLetterUpperCase = capitalizeFirstLetter(
+        ingredientMatchingUserInput
+      );
+      setIngredientSuggestion(ingredientWithFirstLetterUpperCase);
+    } else return;
   }
 
   return (
