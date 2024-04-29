@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 const StyledList = styled.ul`
@@ -42,6 +43,7 @@ export default function RecipeCard({ recipe }) {
             <StyledListItems key={symptom}>{symptom}</StyledListItems>
           ))}
         </StyledList>
+        <Link href={`/${recipe.id}`}>Read More</Link>
       </div>
     </StyledArticle>
   );
