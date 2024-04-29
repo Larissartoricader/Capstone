@@ -7,13 +7,13 @@ const StyledForm = styled.form`
   margin-left: 10px;
 `;
 
-export default function RecipeForm() {
+export default function RecipeForm({ onAddNewRecipe }) {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
-    formData.reset();
-    return userRecipe;
+    onAddNewRecipe(userRecipe);
+    event.target.reset();
   }
 
   return (
