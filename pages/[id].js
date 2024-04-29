@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { recipes } from "../lib/recipe";
+
 import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
+import { recipes } from "@/lib/recipes";
 
 const BackgroundContainer = styled.div`
   position: absolute;
