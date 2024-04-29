@@ -1,3 +1,5 @@
+import { ingredients } from "@/lib/ingredients";
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledForm = styled.form`
@@ -8,6 +10,8 @@ const StyledForm = styled.form`
 `;
 
 export default function RecipeForm({ onAddNewRecipe }) {
+  const [ingredientSuggestion, setIngredientSuggestion] = useState();
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -15,7 +19,23 @@ export default function RecipeForm({ onAddNewRecipe }) {
     userRecipe.ingredients = userRecipe.ingredients.split(",");
     userRecipe.symptoms = userRecipe.symptoms.split(",");
     onAddNewRecipe(userRecipe);
+    //Update Ingredients Array with the new ones//
     event.target.reset();
+  }
+  function handleIngredientsChange(event) {
+    const userInput = event.target.value;
+    const userInputLowerCase = userInput.toLowerCase().trim();
+    console.log(userInputLowerCase);
+    const ingredientsLowerCase = ingredients.map((ingredient) =>
+      ingredient.toLowerCase()
+    );
+
+    const ingredientMatchingUserInput = ingredients.find((ingredient) =>
+      ingredient.startsWith(userInputLowerCase)
+    );
+
+    setIngredientSuggestion(ingredientMatchingUserInput);
+    console.log(ingredientSuggestion);
   }
 
   return (
@@ -40,6 +60,8 @@ export default function RecipeForm({ onAddNewRecipe }) {
           max="100"
           id="ingredients"
           name="ingredients"
+          defaultValue={ingredientSuggestion}
+          onChange={handleIngredientsChange}
         ></input>
         <label htmlFor="preparation">Preparation</label>
         <input
