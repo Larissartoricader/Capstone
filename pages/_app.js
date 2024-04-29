@@ -7,7 +7,10 @@ export default function App({ Component, pageProps }) {
   const [recipes, setRecipes] = useState(initialRecipes);
   function handleAddNewRecipe(newRecipe) {
     newRecipe.id = uid();
-    console.log(newRecipe);
+
+    newRecipe.editable = true;
+    const updatedRecipes = [...recipes, newRecipe];
+    console.log(updatedRecipes);
   }
   return (
     <>
