@@ -1,8 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function RecipeDetails({ currentRecipe }) {
   const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
-  const ListItem = styled.div`
+
+  const ListItem = styled.ul`
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -11,7 +13,44 @@ export default function RecipeDetails({ currentRecipe }) {
     display: flex;
     flex-direction: column;
     width: 80%;
+    margin: 5px;
+    padding: 25px;
   `;
+
+  const CollapsibleButton = styled.button`
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    margin: 5px;
+    width: 80%;
+    border-radius: 5px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  `;
+
+  const CollapsibleContent = styled.div`
+    padding: 0 18px;
+    margin: 5px;
+    width: 80%;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    max-height: ${(props) => (props.isOpen ? "500px" : "0")};
+    transition: max-height 0.3s ease-out;
+  `;
+
+  const [isPreparationOpen, setIsPreparationOpen] = useState(false);
+  const [isUsageOpen, setIsUsageOpen] = useState(false);
+
+  const togglePreparationCollapse = () => {
+    setIsPreparationOpen(!isPreparationOpen);
+  };
+
+  const toggleUsageCollapse = () => {
+    setIsUsageOpen(!isUsageOpen);
+  };
 
   return (
     <article aria-label="Recipe Details">
@@ -22,13 +61,19 @@ export default function RecipeDetails({ currentRecipe }) {
           <li key={index}>{ingredient}</li>
         ))}
       </ListItem>
-
-      <h3>Preperation</h3>
-      <button>Preparation</button>
-      <p>{preparation}</p>
-      <p>Usage: {usage}</p>
+      <CollapsibleButton onClick={togglePreparationCollapse}>
+        Open the Preperation
+      </CollapsibleButton>
+      <CollapsibleContent isOpen={isPreparationOpen}>
+        <p>{preparation}</p>
+      </CollapsibleContent>
+      <CollapsibleButton onClick={toggleUsageCollapse}>
+        Open the Usage
+      </CollapsibleButton>
+      <CollapsibleContent isOpen={isUsageOpen}>
+        <p>{usage}</p>
+      </CollapsibleContent>
       <h3> Symptoms</h3>
-
       <ListItem>
         {symptoms.map((symptoms, index) => (
           <li key={index}>{symptoms}</li>
