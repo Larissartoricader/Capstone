@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
 
     newRecipe.editable = true;
     const updatedRecipes = [...recipes, newRecipe];
-    console.log(updatedRecipes);
+    setRecipes(updatedRecipes);
   }
   return (
     <>
