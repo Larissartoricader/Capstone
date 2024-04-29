@@ -2,26 +2,28 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const StyledNav = styled.nav`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
   padding: 1rem;
-  background: #f0f0f0;
+  background: #ffffff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledLink = styled.a`
-  padding: 0.5rem;
-  margin-right: 1rem;
-  color: #333;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 export default function NavigationBar() {
   return (
-    <nav>
-      <Link href="/">Home</Link>
-      <Link href="/bookmarks">Bookmarks</Link>
-    </nav>
+    <StyledNav>
+      <StyledLink href="/">Home</StyledLink>
+      <StyledLink href="/bookmarks">Bookmarks</StyledLink>
+    </StyledNav>
   );
 }
