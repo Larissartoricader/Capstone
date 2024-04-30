@@ -1,4 +1,5 @@
 import { ingredients } from "@/lib/ingredients";
+import { render } from "@testing-library/react";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -17,10 +18,12 @@ export default function RecipeForm({ onAddNewRecipe }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
+    // TODO: Get ingredients from selected ingredients array
     userRecipe.ingredients = userRecipe.ingredients.split(",");
     userRecipe.symptoms = userRecipe.symptoms.split(",");
     onAddNewRecipe(userRecipe);
-    //Update Ingredients Array with the new ones//
+    // TODO: Empty selected ingredients array
+    // TODO: Update Ingredients Array with the new ones//
     event.target.reset();
   }
   function capitalizeFirstLetter(string) {
@@ -53,8 +56,20 @@ export default function RecipeForm({ onAddNewRecipe }) {
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
   }
 
-  console.log(selectedIngredients);
+  function handleDeleteSelectedIngredient(ingredientToBeDeleted) {
+    setSelectedIngredients(
+      selectedIngredients.filter(
+        (ingredient) => ingredient !== ingredientToBeDeleted
+      )
+    );
+  }
 
+  function renderUserIngredient(event) {
+    selectedIngredients.includes(event.target.value) ||
+      setSelectedIngredients([...selectedIngredients, event.target.value]);
+  }
+
+  console.log(selectedIngredients);
   return (
     <>
       <h2>Add your Recipe</h2>
@@ -79,6 +94,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
           name="ingredients"
           defaultValue={ingredientSuggestion}
           onChange={handleIngredientsChange}
+          onKeyPress={renderUserIngredient}
         ></input>
         {ingredientSuggestion && (
           <div
@@ -91,9 +107,19 @@ export default function RecipeForm({ onAddNewRecipe }) {
           </div>
         )}
         <ul>
-          {selectedIngredients.map((ingredient) => {
-            <li>{ingredient}</li>;
-          })}
+          {selectedIngredients.map((ingredient) => (
+            <li key={ingredient}>
+              <p>{ingredient}</p>
+              <p
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => handleDeleteSelectedIngredient(ingredient)}
+              >
+                ❌
+              </p>
+            </li>
+          ))}
         </ul>
         <label htmlFor="preparation">Preparation</label>
         <input
