@@ -20,6 +20,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     // TODO: Get ingredients from selected ingredients array
+    userRecipe.ingredients = selectedIngredients;
     userRecipe.ingredients = userRecipe.ingredients.split(",");
     userRecipe.symptoms = userRecipe.symptoms.split(",");
     onAddNewRecipe(userRecipe);
