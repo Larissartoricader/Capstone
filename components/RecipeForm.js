@@ -33,7 +33,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
     selectedIngredients.includes(ingredientSuggestion) ||
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
   }
-  // TODO: Die suggestion sollte danach wieder verschwinden. Man kann aber hier nicht zwei Setter callen. (+ analog bei symptoms) könnte man die suggestion an einer weitern stelle zwischenspeichern und das dann hier nutzen?
+  // TODO: Die suggestion sollte danach wieder verschwinden. Man kann aber hier nicht zwei Setter callen. (+ analog bei symptoms) könnte man die suggestion an einer weiteren stelle zwischenspeichern und das dann hier nutzen?
 
   function selectUserIngredient(event) {
     if (
@@ -81,8 +81,8 @@ export default function RecipeForm({ onAddNewRecipe }) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = selectedIngredients;
     onAddNewRecipe(userRecipe);
-    // TODO: Empty selected ingredients array
-    // TODO: Update Ingredients Array with the new ones//
+    // TODO: Update Ingredients Array with the new ones (schwierig, wenn wir nicht dafür auch schon wieder einen state benutzen wollen! wir können nicht von hier aus die andere datei ändern.)
+    // TODO: Empty selected ingredients + symptoms arrays (aber man kann hier nicht zwei setter callen..)
     event.target.reset();
   }
 

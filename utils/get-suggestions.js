@@ -19,11 +19,12 @@ export function getSuggestion(
         ? item.includes(userInputLowerCase)
         : setterOfDisplayedSuggestion("")
     );
+    if (!itemMatchingUserInput) {
+      return;
+    }
     const itemFirstLetterUpperCase = capitalizeFirstLetter(
       itemMatchingUserInput
     );
     setterOfDisplayedSuggestion(itemFirstLetterUpperCase);
-  } else {
-    setterOfDisplayedSuggestion("");
   }
 }
