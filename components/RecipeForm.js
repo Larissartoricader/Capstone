@@ -11,6 +11,7 @@ const StyledForm = styled.form`
 
 export default function RecipeForm({ onAddNewRecipe }) {
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -26,7 +27,6 @@ export default function RecipeForm({ onAddNewRecipe }) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
 
-  console.log(ingredientSuggestion);
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
 
@@ -47,7 +47,13 @@ export default function RecipeForm({ onAddNewRecipe }) {
       setIngredientSuggestion(""); //ginger does not apper anymorec :D
     }
   }
-  // Functions update to be used also with Symptoms.
+  function handleClickIngredientSuggestion() {
+    //When clicking the suggestion the choosen ingridient is rendered below
+    selectedIngredients.includes(ingredientSuggestion) ||
+      setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
+  }
+
+  console.log(selectedIngredients);
 
   return (
     <>
@@ -74,8 +80,21 @@ export default function RecipeForm({ onAddNewRecipe }) {
           defaultValue={ingredientSuggestion}
           onChange={handleIngredientsChange}
         ></input>
-        {ingredientSuggestion && <div>Suggestion: {ingredientSuggestion}</div>}
-        {/* Suggestion Result appers */}
+        {ingredientSuggestion && (
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={handleClickIngredientSuggestion}
+          >
+            <div>Suggestion: {ingredientSuggestion}</div>
+          </div>
+        )}
+        <ul>
+          {selectedIngredients.map((ingredient) => {
+            <li>{ingredient}</li>;
+          })}
+        </ul>
         <label htmlFor="preparation">Preparation</label>
         <input
           type="text"
