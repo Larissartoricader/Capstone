@@ -2,6 +2,7 @@ import { ingredients } from "@/lib/ingredients";
 import { render } from "@testing-library/react";
 import { useState } from "react";
 import styled from "styled-components";
+import { capitalizeFirstLetter } from "@/utils/capitalize-first-letter";
 
 const StyledForm = styled.form`
   display: flex;
@@ -25,9 +26,6 @@ export default function RecipeForm({ onAddNewRecipe }) {
     // TODO: Empty selected ingredients array
     // TODO: Update Ingredients Array with the new ones//
     event.target.reset();
-  }
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
 
   function handleIngredientsChange(event) {
