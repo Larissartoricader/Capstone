@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-
-// import { useState } from "react";
 import BookmarkIcon from "./BookmarkIcon";
+import { recipes } from "@/lib/recipes";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -43,12 +42,6 @@ export default function RecipeCard({
   bookmarkedRecipesIDs,
   recipe,
 }) {
-  // const [isBookmarked, setIsBookmarked] = useState(recipes.isBookmarked);
-
-  // const toggleBookmark = () => {
-  //   setIsBookmarked(!isBookmarked);
-  // };
-
   return (
     <StyledArticle>
       <Image

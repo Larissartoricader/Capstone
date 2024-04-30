@@ -2,7 +2,7 @@ import GlobalStyle from "../styles";
 import { useState } from "react";
 import { recipes } from "@/lib/recipes";
 export default function App({ Component, pageProps }) {
-  const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useState([]);
+  const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useState([2]);
 
   function checkIfRecipeIsBookmarked(id) {
     return bookmarkedRecipesIDs.includes(id);
@@ -21,13 +21,19 @@ export default function App({ Component, pageProps }) {
     });
   }
 
+  // function handleBookmarkedIcon(recipe) {
+  //   const id = recipe.id;
+  //   checkIfRecipeIsBookmarked(id)
+  //     ? removeRecipeFromBookmarked(id)
+  //     : addRecipeToBookmarked(id);
+  // }
+
   function handleBookmarkedIcon(recipe) {
     const id = recipe.id;
     checkIfRecipeIsBookmarked(id)
       ? removeRecipeFromBookmarked(id)
       : addRecipeToBookmarked(id);
   }
-  console.log(bookmarkedRecipesIDs);
 
   return (
     <>
