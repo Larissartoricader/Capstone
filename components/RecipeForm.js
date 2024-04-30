@@ -2,7 +2,7 @@ import { ingredients } from "@/lib/ingredients";
 import { render } from "@testing-library/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { capitalizeFirstLetter } from "@/utils/capitalize-first-letter";
+import { getSuggestion } from "@/utils/get-suggestions";
 
 const StyledForm = styled.form`
   display: flex;
@@ -19,7 +19,6 @@ export default function RecipeForm({ onAddNewRecipe }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
-    // TODO: Get ingredients from selected ingredients array
     userRecipe.ingredients = selectedIngredients;
 
     onAddNewRecipe(userRecipe);
@@ -30,23 +29,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-
-    const userInputLowerCase = userInput.toLowerCase();
-
-    const ingredientsLowerCase = ingredients.map((ingredient) =>
-      ingredient.toLowerCase()
-    );
-    if (userInputLowerCase.length > 0) {
-      const ingredientMatchingUserInput = ingredientsLowerCase.find(
-        (ingredient) => ingredient.startsWith(userInputLowerCase)
-      );
-      const ingredientWithFirstLetterUpperCase = capitalizeFirstLetter(
-        ingredientMatchingUserInput
-      );
-      setIngredientSuggestion(ingredientWithFirstLetterUpperCase);
-    } else {
-      setIngredientSuggestion("");
-    }
+    getSuggestion(userInput, ingredients, setIngredientSuggestion);
   }
 
   // ADD SUGGESTED INGREDIENT to selected ingredients
