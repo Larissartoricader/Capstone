@@ -43,30 +43,33 @@ export default function RecipeForm({ onAddNewRecipe }) {
         (ingredient) => ingredient.startsWith(userInputLowerCase)
       );
       const ingredientWithFirstLetterUpperCase = capitalizeFirstLetter(
-        ingredientMatchingUserInput //We need a If here
+        ingredientMatchingUserInput
       );
       setIngredientSuggestion(ingredientWithFirstLetterUpperCase);
     } else {
-      setIngredientSuggestion(""); //ginger does not apper anymorec :D
+      setIngredientSuggestion("");
     }
   }
+
+  // ADD SUGGESTED INGREDIENT to selected ingredients
   function handleClickIngredientSuggestion() {
-    //When clicking the suggestion the choosen ingridient is rendered below
     selectedIngredients.includes(ingredientSuggestion) ||
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
   }
 
+  // ADD USER INPUT to selected ingredients
+  function renderUserIngredient(event) {
+    selectedIngredients.includes(event.target.value) ||
+      setSelectedIngredients([...selectedIngredients, event.target.value]);
+  }
+
+  // REMOVE INGREDIENT from selected ingredients
   function handleDeleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
         (ingredient) => ingredient !== ingredientToBeDeleted
       )
     );
-  }
-
-  function renderUserIngredient(event) {
-    selectedIngredients.includes(event.target.value) ||
-      setSelectedIngredients([...selectedIngredients, event.target.value]);
   }
 
   console.log(selectedIngredients);
