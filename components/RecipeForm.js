@@ -1,5 +1,5 @@
 import { ingredients } from "@/lib/ingredients";
-import { render } from "@testing-library/react";
+import { symptoms } from "@/lib/symptoms";
 import { useState } from "react";
 import styled from "styled-components";
 import { getSuggestion } from "@/utils/get-suggestions";
@@ -12,40 +12,35 @@ const StyledForm = styled.form`
 `;
 
 export default function RecipeForm({ onAddNewRecipe }) {
+  // PT.1: ON CHANGE
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const userRecipe = Object.fromEntries(formData);
-    userRecipe.ingredients = selectedIngredients;
-
-    onAddNewRecipe(userRecipe);
-    // TODO: Empty selected ingredients array
-    // TODO: Update Ingredients Array with the new ones//
-    event.target.reset();
-  }
+  const [symptomSuggestion, setSymptomSuggestion] = useState();
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
     getSuggestion(userInput, ingredients, setIngredientSuggestion);
   }
 
-  // ADD SUGGESTED INGREDIENT to selected ingredients
-  function handleClickIngredientSuggestion() {
+  function handleSymptomsChange(event) {
+    const userInput = event.target.value;
+    getSuggestion(userInput, symptoms, setSymptomSuggestion);
+  }
+
+  // PT.2: Display user's choices below input field (before submitting)
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+
+  function selectSuggestedIngredient() {
     selectedIngredients.includes(ingredientSuggestion) ||
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
   }
+  // TODO: Die suggestion sollte danach wieder verschwinden. Man kann aber hier nicht zwei Setter callen. (+ analog bei symptoms) könnte man die suggestion an einer weitern stelle zwischenspeichern und das dann hier nutzen?
 
-  // ADD USER INPUT to selected ingredients
-  function renderUserIngredient(event) {
+  function selectUserIngredient(event) {
     selectedIngredients.includes(event.target.value) ||
       setSelectedIngredients([...selectedIngredients, event.target.value]);
   }
 
-  // REMOVE INGREDIENT from selected ingredients
-  function handleDeleteSelectedIngredient(ingredientToBeDeleted) {
+  function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
         (ingredient) => ingredient !== ingredientToBeDeleted
@@ -53,7 +48,36 @@ export default function RecipeForm({ onAddNewRecipe }) {
     );
   }
 
-  console.log(selectedIngredients);
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+
+  function selectSuggestedSymptom() {
+    selectedSymptoms.includes(symptomSuggestionSuggestion) ||
+      setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
+  }
+
+  function selectUserSymptom(event) {
+    selectedSymptoms.includes(event.target.value) ||
+      setSelectedSymptoms([...selectedSymptoms, event.target.value]);
+  }
+
+  function deleteSelectedSymptom(symptomToBeDeleted) {
+    setSelectedSymptoms(
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
+    );
+  }
+
+  // PT.3: Submitting the form input
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const userRecipe = Object.fromEntries(formData);
+    userRecipe.ingredients = selectedIngredients;
+    onAddNewRecipe(userRecipe);
+    // TODO: Empty selected ingredients array
+    // TODO: Update Ingredients Array with the new ones//
+    event.target.reset();
+  }
+
   return (
     <>
       <h2>Add your Recipe</h2>
@@ -76,18 +100,17 @@ export default function RecipeForm({ onAddNewRecipe }) {
           max="100"
           id="ingredients"
           name="ingredients"
-          defaultValue={ingredientSuggestion}
           onChange={handleIngredientsChange}
-          onKeyPress={renderUserIngredient}
+          onKeyPress={selectUserIngredient}
         ></input>
         {ingredientSuggestion && (
           <div
             style={{
               cursor: "pointer",
             }}
-            onClick={handleClickIngredientSuggestion}
+            onClick={selectSuggestedIngredient}
           >
-            <div>Suggestion: {ingredientSuggestion}</div>
+            Suggestion: {ingredientSuggestion}
           </div>
         )}
         <ul>
@@ -98,7 +121,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
                 style={{
                   cursor: "pointer",
                 }}
-                onClick={() => handleDeleteSelectedIngredient(ingredient)}
+                onClick={() => deleteSelectedIngredient(ingredient)}
               >
                 ❌
               </p>
@@ -132,7 +155,34 @@ export default function RecipeForm({ onAddNewRecipe }) {
           required
           id="symptoms"
           name="symptoms"
+          onChange={handleSymptomsChange}
         ></input>
+        {symptomSuggestion && (
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={selectSuggestedSymptom}
+          >
+            Suggestion: {symptomSuggestion}
+          </div>
+        )}
+        <ul>
+          {selectedSymptoms.map((symptom) => (
+            <li key={symptom}>
+              <p>{symptom}</p>
+              <p
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => deleteSelectedSymptom(symptom)}
+              >
+                ❌
+              </p>
+            </li>
+          ))}
+        </ul>
+
         <button type="submit">Submit</button>
       </StyledForm>
     </>
