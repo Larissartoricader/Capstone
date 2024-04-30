@@ -1,4 +1,9 @@
 import { capitalizeFirstLetter } from "./capitalize-first-letter";
+
+function startsWithSubString(mainString, subString) {
+  return mainString.substring(0, subString.length) === subString;
+}
+
 export function getSuggestion(
   userInput,
   arrayToGetSuggestionsFrom,
@@ -10,7 +15,9 @@ export function getSuggestion(
   );
   if (userInputLowerCase.length > 0) {
     const itemMatchingUserInput = arrayLowerCase.find((item) =>
-      item.startsWith(userInputLowerCase)
+      startsWithSubString(item, userInputLowerCase)
+        ? item.includes(userInputLowerCase)
+        : setterOfDisplayedSuggestion("")
     );
     const itemFirstLetterUpperCase = capitalizeFirstLetter(
       itemMatchingUserInput
