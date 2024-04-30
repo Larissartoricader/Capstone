@@ -9,12 +9,20 @@ const StyledList = styled.ul`
   padding: 0 5vw;
 `;
 
-export default function RecipeList({ recipes }) {
+export default function RecipeList({
+  recipes,
+  onHandleBookmarkedIcon,
+  bookmarkedRecipesIDs,
+}) {
   return (
     <StyledList>
       {recipes.map((recipe) => (
         <li key={recipe.id}>
-          <RecipeCard recipe={recipe} />
+          <RecipeCard
+            onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+            recipes={recipes}
+          />
         </li>
       ))}
     </StyledList>

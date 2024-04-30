@@ -1,7 +1,7 @@
 import RecipeList from "@/components/RecipeList";
 import styled from "styled-components";
 
-export default function HomePage({ recipes, updateRecipes }) {
+export default function HomePage({ recipes }) {
   console.log("recipes", recipes);
   const StyledHeadline = styled.h1`
     text-align: center;

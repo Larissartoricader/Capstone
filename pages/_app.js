@@ -1,10 +1,33 @@
-import { getRecipes } from "@/lib/app-state";
 import GlobalStyle from "../styles";
-
 import { useState } from "react";
+import { recipes } from "@/lib/recipes";
 export default function App({ Component, pageProps }) {
-  const loadedRecipes = getRecipes();
-  const [recipes, updateRecipes] = useState(loadedRecipes);
+  const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useState([]);
+
+  function checkIfRecipeIsBookmarked(id) {
+    return bookmarkedRecipesIDs.includes(id);
+  }
+
+  function addRecipeToBookmarked(id) {
+    setBookmarkedRecipesIDs([id, ...bookmarkedRecipesIDs]);
+  }
+
+  function removeRecipeFromBookmarked(id) {
+    setBookmarkedRecipesIDs(() => {
+      const RecipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
+        (item) => item !== id
+      );
+      return RecipeIsBookmarkedWithoutCertainID;
+    });
+  }
+
+  function handleBookmarkedIcon(recipe) {
+    const id = recipes.id;
+    checkIfRecipeIsBookmarked(id)
+      ? removeRecipeFromBookmarked(id)
+      : addRecipeToBookmarked(id);
+  }
+  console.log(bookmarkedRecipesIDs);
 
   return (
     <>
@@ -12,7 +35,8 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         recipes={recipes}
-        updateRecipes={updateRecipes}
+        onHandleBookmarkedIcon={handleBookmarkedIcon}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
       />
     </>
   );
