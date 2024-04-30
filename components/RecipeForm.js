@@ -51,7 +51,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
 
   function selectSuggestedSymptom() {
-    selectedSymptoms.includes(symptomSuggestionSuggestion) ||
+    selectedSymptoms.includes(symptomSuggestion) ||
       setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
   }
 
