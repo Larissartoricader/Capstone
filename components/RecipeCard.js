@@ -60,11 +60,11 @@ export default function RecipeCard({
       <StyledCardWrapper>
         <StyledHeadlineWrapper>
           <StyledHeadline>{recipe.title}</StyledHeadline>
-          <BookmarkIcon
+          {/* <BookmarkIcon
             onHandleBookmarkedIcon={onHandleBookmarkedIcon}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
             recipe={recipe}
-          />
+          /> */}
         </StyledHeadlineWrapper>
         <StyledListHeader>Symptoms:</StyledListHeader>
         <StyledList>

@@ -1,12 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+// import styled from "styled-components";
 
-const StyledBookmarkIcon = styled.button`
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-`;
+// const StyledBookmarkIcon = styled.button`
+//   border: none;
+//   cursor: pointer;
+//   background-color: transparent;
+// `;
 
 export default function BookmarkIcon({
   onHandleBookmarkedIcon,
@@ -17,5 +16,9 @@ export default function BookmarkIcon({
     onHandleBookmarkedIcon(recipe);
   }
 
-  return <StyledBookmarkIcon></StyledBookmarkIcon>;
+  return (
+    <button onClick={handleClick}>
+      {bookmarkedRecipesIDs.includes(recipe.id) ? "Included" : "Not Included"}
+    </button>
+  );
 }
