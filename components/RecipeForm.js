@@ -36,8 +36,12 @@ export default function RecipeForm({ onAddNewRecipe }) {
   // TODO: Die suggestion sollte danach wieder verschwinden. Man kann aber hier nicht zwei Setter callen. (+ analog bei symptoms) könnte man die suggestion an einer weitern stelle zwischenspeichern und das dann hier nutzen?
 
   function selectUserIngredient(event) {
-    selectedIngredients.includes(event.target.value) ||
+    if (
+      event.key === "Enter" &&
+      !selectedIngredients.includes(event.target.value)
+    ) {
       setSelectedIngredients([...selectedIngredients, event.target.value]);
+    }
   }
 
   function deleteSelectedIngredient(ingredientToBeDeleted) {
@@ -56,8 +60,12 @@ export default function RecipeForm({ onAddNewRecipe }) {
   }
 
   function selectUserSymptom(event) {
-    selectedSymptoms.includes(event.target.value) ||
+    if (
+      event.key === "Enter" &&
+      !selectedSymptoms.includes(event.target.value)
+    ) {
       setSelectedSymptoms([...selectedSymptoms, event.target.value]);
+    }
   }
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
