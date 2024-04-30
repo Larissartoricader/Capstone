@@ -40,11 +40,14 @@ export default function RecipeForm({ onAddNewRecipe }) {
         (ingredient) => ingredient.startsWith(userInputLowerCase)
       );
       const ingredientWithFirstLetterUpperCase = capitalizeFirstLetter(
-        ingredientMatchingUserInput
+        ingredientMatchingUserInput //We need a If here
       );
       setIngredientSuggestion(ingredientWithFirstLetterUpperCase);
-    } else return;
+    } else {
+      setIngredientSuggestion(""); //ginger does not apper anymorec :D
+    }
   }
+  // Functions update to be used also with Symptoms.
 
   return (
     <>
@@ -71,6 +74,8 @@ export default function RecipeForm({ onAddNewRecipe }) {
           defaultValue={ingredientSuggestion}
           onChange={handleIngredientsChange}
         ></input>
+        {ingredientSuggestion && <div>Suggestion: {ingredientSuggestion}</div>}
+        {/* Suggestion Result appers */}
         <label htmlFor="preparation">Preparation</label>
         <input
           type="text"
