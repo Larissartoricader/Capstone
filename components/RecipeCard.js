@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-import { useState } from "react";
+// import { useState } from "react";
 import BookmarkIcon from "./BookmarkIcon";
 
 const StyledList = styled.ul`
@@ -39,15 +39,15 @@ const StyledCardWrapper = styled.div`
 `;
 
 export default function RecipeCard({
-  recipes,
   onHandleBookmarkedIcon,
   bookmarkedRecipesIDs,
+  recipe,
 }) {
-  const [isBookmarked, setIsBookmarked] = useState(recipes.isBookmarked);
+  // const [isBookmarked, setIsBookmarked] = useState(recipes.isBookmarked);
 
-  const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-  };
+  // const toggleBookmark = () => {
+  //   setIsBookmarked(!isBookmarked);
+  // };
 
   return (
     <StyledArticle>
@@ -59,16 +59,16 @@ export default function RecipeCard({
       ></Image>
       <StyledCardWrapper>
         <StyledHeadlineWrapper>
-          <StyledHeadline>{recipes.title}</StyledHeadline>
+          <StyledHeadline>{recipe.title}</StyledHeadline>
           <BookmarkIcon
             onHandleBookmarkedIcon={onHandleBookmarkedIcon}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-            recipes={recipes}
+            recipe={recipe}
           />
         </StyledHeadlineWrapper>
         <StyledListHeader>Symptoms:</StyledListHeader>
         <StyledList>
-          {recipes.symptoms.map((symptom) => (
+          {recipe.symptoms.map((symptom) => (
             <StyledListItems key={symptom}>{symptom}</StyledListItems>
           ))}
         </StyledList>

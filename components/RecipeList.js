@@ -21,7 +21,7 @@ export default function RecipeList({
           <RecipeCard
             onHandleBookmarkedIcon={onHandleBookmarkedIcon}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-            recipes={recipes}
+            recipe={recipe}
           />
         </li>
       ))}
