@@ -1,5 +1,4 @@
 import { ingredients } from "@/lib/ingredients";
-import { render } from "@testing-library/react";
 import { useState } from "react";
 import styled from "styled-components";
 
