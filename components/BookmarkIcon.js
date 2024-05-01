@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FaBookmark, FaRegBookmark } from "react-icons";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 const StyledBookmarkIcon = styled.button`
   border: none;
@@ -8,7 +8,7 @@ const StyledBookmarkIcon = styled.button`
   background-color: transparent;
 `;
 
-export default function BookmarkIcon({
+export function BookmarkIcon({
   onHandleBookmarkedIcon,
   recipe,
   bookmarkedRecipesIDs,

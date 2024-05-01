@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import BookmarkIcon from "./BookmarkIcon";
-import { recipes } from "@/lib/recipes";
+import { BookmarkIcon } from "./BookmarkIcon";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -53,11 +52,11 @@ export default function RecipeCard({
       <StyledCardWrapper>
         <StyledHeadlineWrapper>
           <StyledHeadline>{recipe.title}</StyledHeadline>
-          {/* <BookmarkIcon
+          <BookmarkIcon
             onHandleBookmarkedIcon={onHandleBookmarkedIcon}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
             recipe={recipe}
-          /> */}
+          />
         </StyledHeadlineWrapper>
         <StyledListHeader>Symptoms:</StyledListHeader>
         <StyledList>
