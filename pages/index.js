@@ -1,4 +1,5 @@
 import RecipeList from "@/components/RecipeList";
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function HomePage({
@@ -6,12 +7,12 @@ export default function HomePage({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
-  console.log("recipes", recipes);
   const StyledHeadline = styled.h1`
     text-align: center;
   `;
   return (
     <div>
+      <Link href={"/bookmarks"}>Bookmarks</Link>
       <StyledHeadline>Recipes Overview</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
