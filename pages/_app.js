@@ -1,3 +1,4 @@
+import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "../styles";
 import { useState } from "react";
 import { recipes } from "@/lib/recipes";
@@ -36,6 +37,7 @@ export default function App({ Component, pageProps }) {
         onHandleBookmarkedIcon={handleBookmarkedIcon}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
       />
+      <NavigationBar />
     </>
   );
 }
