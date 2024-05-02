@@ -9,13 +9,9 @@ export default function App({ Component, pageProps }) {
   function handleAddRecipe(newRecipe) {
     newRecipe.id = uid();
     newRecipe.editable = true;
-    const { id, ingredients, preparation, symptoms, title, usage } = newRecipe;
-    // TODO keys so ordnen wie in ursprünglichen recipes
     const updatedRecipes = [...recipes, newRecipe];
     setRecipes(updatedRecipes);
   }
-
-  console.log(recipes[30]);
 
   return (
     <>

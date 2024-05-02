@@ -12,6 +12,15 @@ const StyledForm = styled.form`
   margin-left: 10px;
 `;
 
+const ListItemSelectedValues = styled.li`
+  display: flex;
+  gap: 2vw;
+  border: solid grey 2px;
+  border-radius: 5px;
+  width: auto;
+  padding: 0 2vw;
+`;
+
 export default function RecipeForm({ onAddRecipe }) {
   const router = useRouter();
 
@@ -75,14 +84,16 @@ export default function RecipeForm({ onAddRecipe }) {
   }
 
   function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const userRecipe = Object.fromEntries(formData);
-    userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
-    userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
-    onAddRecipe(userRecipe);
-    event.target.reset();
-    router.push("/");
+    if (event.key !== "Enter") {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const userRecipe = Object.fromEntries(formData);
+      userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
+      userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
+      onAddRecipe(userRecipe);
+      event.target.reset();
+      router.push("/");
+    }
   }
 
   return (
@@ -117,12 +128,12 @@ export default function RecipeForm({ onAddRecipe }) {
             }}
             onClick={selectSuggestedIngredient}
           >
-            Suggestion: {ingredientSuggestion}
+            Click to select suggestion: {ingredientSuggestion}
           </div>
         )}
         <ul>
           {selectedIngredients.map((ingredient) => (
-            <li key={ingredient}>
+            <ListItemSelectedValues key={ingredient}>
               <p>{ingredient}</p>
               <p
                 style={{
@@ -132,7 +143,7 @@ export default function RecipeForm({ onAddRecipe }) {
               >
                 ❌
               </p>
-            </li>
+            </ListItemSelectedValues>
           ))}
         </ul>
         <label htmlFor="preparation">Preparation</label>
@@ -172,7 +183,7 @@ export default function RecipeForm({ onAddRecipe }) {
             }}
             onClick={selectSuggestedSymptom}
           >
-            Suggestion: {symptomSuggestion}
+            Click to select suggestion: {symptomSuggestion}
           </div>
         )}
         <ul>
@@ -190,7 +201,6 @@ export default function RecipeForm({ onAddRecipe }) {
             </li>
           ))}
         </ul>
-
         <button type="submit">Submit</button>
       </StyledForm>
     </>
