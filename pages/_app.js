@@ -1,9 +1,7 @@
 import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "../styles";
-import { initialRecipes } from "@/lib/recipes";
 import { useState } from "react";
 import { uid } from "uid";
-import { useState } from "react";
 import { initialRecipes } from "@/lib/recipes";
 
 export default function App({ Component, pageProps }) {
