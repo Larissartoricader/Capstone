@@ -13,12 +13,11 @@ export default function App({ Component, pageProps }) {
   }
 
   function removeRecipeFromBookmarked(id) {
-    setBookmarkedRecipesIDs(() => {
-      const RecipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
-        (item) => item !== id
-      );
-      return RecipeIsBookmarkedWithoutCertainID;
-    });
+    const recipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
+      (item) => item !== id
+    );
+
+    setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
   }
 
   function handleBookmarkedIcon(recipe) {
