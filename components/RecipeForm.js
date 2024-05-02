@@ -21,10 +21,6 @@ const ListItemSelectedValues = styled.li`
   padding: 0 2vw;
 `;
 
-const InputParent = styled.div`
-  design: flex;
-`;
-
 export default function RecipeForm({ onAddRecipe }) {
   const router = useRouter();
 
@@ -88,16 +84,14 @@ export default function RecipeForm({ onAddRecipe }) {
   }
 
   function handleSubmit(event) {
-    if (event.key !== "Enter") {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-      const userRecipe = Object.fromEntries(formData);
-      userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
-      userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
-      onAddRecipe(userRecipe);
-      event.target.reset();
-      router.push("/");
-    }
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const userRecipe = Object.fromEntries(formData);
+    userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
+    userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
+    onAddRecipe(userRecipe);
+    event.target.reset();
+    router.push("/");
   }
 
   return (
@@ -115,18 +109,16 @@ export default function RecipeForm({ onAddRecipe }) {
           required
         ></input>
         <label htmlFor="ingredients">Ingredients*</label>
-        <InputParent>
-          <input
-            type="text"
-            placeholder="Separate the ingredients by comma"
-            min="4"
-            max="100"
-            id="ingredients"
-            name="ingredients"
-            onChange={handleIngredientsChange}
-          ></input>
-          <button onClick={selectUserIngredient}> Add</button>
-        </InputParent>
+        <input
+          type="text"
+          placeholder="Separate the ingredients by comma"
+          min="4"
+          max="100"
+          id="ingredients"
+          name="ingredients"
+          onChange={handleIngredientsChange}
+          onKeyPress={selectUserIngredient}
+        ></input>
         {ingredientSuggestion && (
           <div
             style={{
@@ -173,17 +165,17 @@ export default function RecipeForm({ onAddRecipe }) {
           name="usage"
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
-        <InputParent>
-          <input
-            type="text"
-            placeholder="min 2 Symptoms"
-            required
-            id="symptoms"
-            name="symptoms"
-            onChange={handleSymptomsChange}
-          ></input>
-          <button onClick={selectUserSymptom}> Add</button>
-        </InputParent>
+
+        <input
+          type="text"
+          placeholder="min 2 Symptoms"
+          required
+          id="symptoms"
+          name="symptoms"
+          onChange={handleSymptomsChange}
+          onKeyPress={selectUserSymptom}
+        ></input>
+
         {symptomSuggestion && (
           <div
             style={{

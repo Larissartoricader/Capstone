@@ -13,6 +13,8 @@ export default function App({ Component, pageProps }) {
     setRecipes(updatedRecipes);
   }
 
+  console.log(recipes[31]);
+
   return (
     <>
       <GlobalStyle />
