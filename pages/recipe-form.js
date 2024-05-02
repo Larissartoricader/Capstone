@@ -1,10 +1,10 @@
 import RecipeForm from "@/components/RecipeForm";
 import Link from "next/link";
 
-export default function RecipeFormPage({ onAddNewRecipe }) {
+export default function RecipeFormPage({ onAddRecipe }) {
   return (
     <>
-      <RecipeForm onAddNewRecipe={onAddNewRecipe} />
+      <RecipeForm onAddRecipe={onAddRecipe} />
       <Link href={"./"}>Back</Link>
     </>
   );

@@ -1,7 +1,8 @@
-import { capitalizeFirstLetter } from "./capitalize-first-letter";
-
 function startsWithSubString(mainString, subString) {
   return mainString.substring(0, subString.length) === subString;
+}
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 export function getSuggestion(

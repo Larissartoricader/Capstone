@@ -3,6 +3,7 @@ import { symptoms } from "@/lib/symptoms";
 import { useState } from "react";
 import styled from "styled-components";
 import { getSuggestion } from "@/utils/get-suggestions";
+import { useRouter } from "next/router";
 
 const StyledForm = styled.form`
   display: flex;
@@ -11,7 +12,9 @@ const StyledForm = styled.form`
   margin-left: 10px;
 `;
 
-export default function RecipeForm({ onAddNewRecipe }) {
+export default function RecipeForm({ onAddRecipe }) {
+  const router = useRouter();
+
   // PT.1: ON CHANGE
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
@@ -79,11 +82,11 @@ export default function RecipeForm({ onAddNewRecipe }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
-    userRecipe.ingredients = selectedIngredients;
-    onAddNewRecipe(userRecipe);
-    // TODO: Update Ingredients Array with the new ones (schwierig, wenn wir nicht dafür auch schon wieder einen state benutzen wollen! wir können nicht von hier aus die andere datei ändern.)
-    // TODO: Empty selected ingredients + symptoms arrays (aber man kann hier nicht zwei setter callen..)
+    userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
+    userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
+    onAddRecipe(userRecipe);
     event.target.reset();
+    router.push("/");
   }
 
   return (
@@ -164,6 +167,7 @@ export default function RecipeForm({ onAddNewRecipe }) {
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
+          onKeyPress={selectUserSymptom}
         ></input>
         {symptomSuggestion && (
           <div
