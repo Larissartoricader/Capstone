@@ -8,10 +8,6 @@ export default function BookmarkPage({
   onHandleBookmarkedIcon,
   recipes,
 }) {
-  const StyledHeadline = styled.h1`
-    text-align: center;
-  `;
-
   const bookmarkedRecipes = recipes.filter((recipe) =>
     bookmarkedRecipesIDs.includes(recipe.id)
   );
