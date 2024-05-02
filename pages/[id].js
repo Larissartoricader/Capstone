@@ -43,10 +43,24 @@ export default function RecipeDetailsPage({ recipes }) {
     return <p>Recipe not found</p>;
   }
 
+<<<<<<< HEAD
   return (
     <>
       <BackgroundContainer>
         <BackLink href={"./"}>Back</BackLink>
+=======
+  function handleBackClick(event) {
+    event.preventDefault();
+    router.back();
+  }
+
+  return (
+    <>
+      <BackgroundContainer>
+        <BackLink href="#" onClick={handleBackClick}>
+          Back
+        </BackLink>
+>>>>>>> main
       </BackgroundContainer>
       <ContentContainer>
         <RecipeDetails currentRecipe={currentRecipe} />

@@ -3,7 +3,11 @@ import Link from "next/link";
 
 import styled from "styled-components";
 
-export default function HomePage({ recipes }) {
+export default function HomePage({
+  recipes,
+  bookmarkedRecipesIDs,
+  onHandleBookmarkedIcon,
+}) {
   const StyledHeadline = styled.h1`
     text-align: center;
   `;
@@ -12,7 +16,11 @@ export default function HomePage({ recipes }) {
     <div>
       <Link href={"/recipe-form"}>Create</Link>
       <StyledHeadline>Recipes Overview</StyledHeadline>
-      <RecipeList recipes={recipes} />
+      <RecipeList
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        recipes={recipes}
+        onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+      />
     </div>
   );
 }
