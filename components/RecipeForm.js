@@ -9,7 +9,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-left: 10px;
+  margin: 0 20px;
 `;
 
 const ListItemSelectedValues = styled.li`
@@ -19,6 +19,10 @@ const ListItemSelectedValues = styled.li`
   border-radius: 5px;
   width: auto;
   padding: 0 2vw;
+`;
+
+const InputParent = styled.div`
+  design: flex;
 `;
 
 export default function RecipeForm({ onAddRecipe }) {
@@ -111,16 +115,18 @@ export default function RecipeForm({ onAddRecipe }) {
           required
         ></input>
         <label htmlFor="ingredients">Ingredients*</label>
-        <input
-          type="text"
-          placeholder="Separate the ingredients by comma"
-          min="4"
-          max="100"
-          id="ingredients"
-          name="ingredients"
-          onChange={handleIngredientsChange}
-          onKeyPress={selectUserIngredient}
-        ></input>
+        <InputParent>
+          <input
+            type="text"
+            placeholder="Separate the ingredients by comma"
+            min="4"
+            max="100"
+            id="ingredients"
+            name="ingredients"
+            onChange={handleIngredientsChange}
+          ></input>
+          <button onClick={selectUserIngredient}> Add</button>
+        </InputParent>
         {ingredientSuggestion && (
           <div
             style={{
@@ -167,15 +173,17 @@ export default function RecipeForm({ onAddRecipe }) {
           name="usage"
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
-        <input
-          type="text"
-          placeholder="min 2 Symptoms"
-          required
-          id="symptoms"
-          name="symptoms"
-          onChange={handleSymptomsChange}
-          onKeyPress={selectUserSymptom}
-        ></input>
+        <InputParent>
+          <input
+            type="text"
+            placeholder="min 2 Symptoms"
+            required
+            id="symptoms"
+            name="symptoms"
+            onChange={handleSymptomsChange}
+          ></input>
+          <button onClick={selectUserSymptom}> Add</button>
+        </InputParent>
         {symptomSuggestion && (
           <div
             style={{
