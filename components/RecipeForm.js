@@ -15,7 +15,6 @@ const StyledForm = styled.form`
 export default function RecipeForm({ onAddRecipe }) {
   const router = useRouter();
 
-  // PT.1: ON CHANGE
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
 
@@ -29,14 +28,12 @@ export default function RecipeForm({ onAddRecipe }) {
     getSuggestion(userInput, symptoms, setSymptomSuggestion);
   }
 
-  // PT.2: Display user's choices below input field (before submitting)
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   function selectSuggestedIngredient() {
     selectedIngredients.includes(ingredientSuggestion) ||
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
   }
-  // TODO: Die suggestion sollte danach wieder verschwinden. Man kann aber hier nicht zwei Setter callen. (+ analog bei symptoms) könnte man die suggestion an einer weiteren stelle zwischenspeichern und das dann hier nutzen?
 
   function selectUserIngredient(event) {
     if (
@@ -77,7 +74,6 @@ export default function RecipeForm({ onAddRecipe }) {
     );
   }
 
-  // PT.3: Submitting the form input
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
