@@ -37,6 +37,20 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
+  const [recipeToEdit, setRecipeToEdit] = useState(null);
+  function passRecipeToForm(recipe) {
+    setRecipeToEdit(recipe);
+  }
+
+  function handleEditRecipe(editedRecipe) {
+    recipeToEdit.title = editedRecipe.title;
+    recipeToEdit.ingredients = editedRecipe.ingredients;
+    recipeToEdit.preparation = editedRecipe.preparation;
+    recipeToEdit.usage = editedRecipe.usage;
+    recipeToEdit.symptoms = editedRecipe.symptoms;
+    setRecipeToEdit(null);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -46,6 +60,9 @@ export default function App({ Component, pageProps }) {
         onAddRecipe={handleAddRecipe}
         onHandleBookmarkedIcon={handleBookmarkedIcon}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        recipeToEdit={recipeToEdit}
+        passRecipeToForm={passRecipeToForm}
+        onEditRecipe={handleEditRecipe}
       />
       <NavigationBar />
     </>

@@ -1,6 +1,6 @@
 import { ingredients } from "@/lib/ingredients";
 import { symptoms } from "@/lib/symptoms";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSuggestion } from "@/utils/get-suggestions";
 import { useRouter } from "next/router";
@@ -21,7 +21,11 @@ const ListItemSelectedValues = styled.li`
   padding: 0 2vw;
 `;
 
-export default function RecipeForm({ onAddRecipe }) {
+export default function RecipeForm({
+  onAddRecipe,
+  onEditRecipe,
+  recipeToEdit,
+}) {
   const router = useRouter();
 
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
@@ -44,9 +48,11 @@ export default function RecipeForm({ onAddRecipe }) {
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
   }
 
+  // der vom user eingegeben wert wird jetzt immerzweifach im object vorhanden.
+  // wenn man den selectedIngredients array auslogged, ist es nur einfach vorhanden. wird auch nur einmal displayed in den selected ingredients.
   function selectUserIngredient(event) {
     if (
-      event.key === "Enter" &&
+      event.key === "," &&
       !selectedIngredients.includes(event.target.value)
     ) {
       setSelectedIngredients([...selectedIngredients, event.target.value]);
@@ -69,10 +75,7 @@ export default function RecipeForm({ onAddRecipe }) {
   }
 
   function selectUserSymptom(event) {
-    if (
-      event.key === "Enter" &&
-      !selectedSymptoms.includes(event.target.value)
-    ) {
+    if (event.key === "," && !selectedSymptoms.includes(event.target.value)) {
       setSelectedSymptoms([...selectedSymptoms, event.target.value]);
     }
   }
@@ -83,13 +86,20 @@ export default function RecipeForm({ onAddRecipe }) {
     );
   }
 
+  useEffect(() => {
+    recipeToEdit && setSelectedIngredients(recipeToEdit.ingredients);
+  }, [recipeToEdit]);
+  useEffect(() => {
+    recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
+  }, [recipeToEdit]);
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
     userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
-    onAddRecipe(userRecipe);
+    recipeToEdit ? onEditRecipe(userRecipe) : onAddRecipe(userRecipe);
     router.push("/");
   }
 
@@ -97,7 +107,7 @@ export default function RecipeForm({ onAddRecipe }) {
     <>
       <h2>Add your Recipe</h2>
       <StyledForm onSubmit={handleSubmit}>
-        <label htmlFor="title">Title*</label>
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           placeholder="What's the recipe's name?"
@@ -106,8 +116,9 @@ export default function RecipeForm({ onAddRecipe }) {
           id="title"
           name="title"
           required
+          defaultValue={recipeToEdit?.title}
         ></input>
-        <label htmlFor="ingredients">Ingredients*</label>
+        <label htmlFor="ingredients">Ingredients</label>
         <input
           type="text"
           placeholder="Separate the ingredients by comma"
@@ -152,6 +163,7 @@ export default function RecipeForm({ onAddRecipe }) {
           required
           id="preparation"
           name="preparation"
+          defaultValue={recipeToEdit?.preparation}
         ></input>
         <label htmlFor="usage">Usage</label>
         <input
@@ -162,13 +174,13 @@ export default function RecipeForm({ onAddRecipe }) {
           required
           id="usage"
           name="usage"
+          defaultValue={recipeToEdit?.usage}
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
-
         <input
           type="text"
           placeholder="min 2 Symptoms"
-          required
+          // required
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
