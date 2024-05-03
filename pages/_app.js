@@ -8,13 +8,6 @@ export default function App({ Component, pageProps }) {
   const [recipes, setRecipes] = useState(initialRecipes);
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useState([]);
 
-  function handleAddRecipe(newRecipe) {
-    newRecipe.id = uid();
-    newRecipe.editable = true;
-    const updatedRecipes = [newRecipe, ...recipes];
-    setRecipes(updatedRecipes);
-  }
-
   function checkIfRecipeIsBookmarked(id) {
     return bookmarkedRecipesIDs.includes(id);
   }
@@ -37,11 +30,23 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
+  function handleAddRecipe(newRecipe) {
+    newRecipe.id = uid();
+    newRecipe.editable = true;
+    const updatedRecipes = [newRecipe, ...recipes];
+    setRecipes(updatedRecipes);
+  }
+
   const [recipeToEdit, setRecipeToEdit] = useState(null);
+
   function passRecipeToForm(recipe) {
     setRecipeToEdit(recipe);
   }
 
+  // ich möchte das recipe, wo der edit-befehl herkam, ändern.
+  // das ist ja im state zwischengespeichert.
+  // ich manipuliere hier aber den state (also das recipe wo es herkam) direkt ?? was man eigentlich nicht soll (funktioniert aber)
+  // und wenn ich das über den setter versuche, funktioniert es auch nicht
   function handleEditRecipe(editedRecipe) {
     recipeToEdit.title = editedRecipe.title;
     recipeToEdit.ingredients = editedRecipe.ingredients;

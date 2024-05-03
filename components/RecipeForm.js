@@ -43,13 +43,15 @@ export default function RecipeForm({
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
-  function selectSuggestedIngredient() {
+  async function selectSuggestedIngredient() {
     selectedIngredients.includes(ingredientSuggestion) ||
-      setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
+      (await setSelectedIngredients([
+        ...selectedIngredients,
+        ingredientSuggestion,
+      ]));
+    setIngredientSuggestion(null);
   }
 
-  // der vom user eingegeben wert wird jetzt immerzweifach im object vorhanden.
-  // wenn man den selectedIngredients array auslogged, ist es nur einfach vorhanden. wird auch nur einmal displayed in den selected ingredients.
   function selectUserIngredient(event) {
     if (
       event.key === "," &&
