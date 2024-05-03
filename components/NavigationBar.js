@@ -41,6 +41,12 @@ export default function NavigationBar() {
         Home
       </StyledLink>
       <StyledLink
+        onClick={() => router.push("/recipe-form")}
+        active={isActive("/recipe-form")}
+      >
+        Create
+      </StyledLink>
+      <StyledLink
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}
       >
