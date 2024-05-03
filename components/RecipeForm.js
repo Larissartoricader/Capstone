@@ -27,20 +27,25 @@ export default function RecipeForm({
   recipeToEdit,
 }) {
   const router = useRouter();
-
+  // Suggestion
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-    getSuggestion(userInput, ingredients, setIngredientSuggestion);
+    getSuggestion(
+      userInput,
+      ingredients,
+      setIngredientSuggestion,
+      selectedIngredients
+    );
   }
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
-    getSuggestion(userInput, symptoms, setSymptomSuggestion);
+    getSuggestion(userInput, symptoms, setSymptomSuggestion, selectedSymptoms);
   }
-
+  // Select
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   async function selectSuggestedIngredient() {
@@ -95,6 +100,7 @@ export default function RecipeForm({
     recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
   }, [recipeToEdit]);
 
+  // Submit
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
