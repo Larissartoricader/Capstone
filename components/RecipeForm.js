@@ -21,12 +21,18 @@ const ListItemSelectedValues = styled.li`
   padding: 0 2vw;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margin: 5px 0;
+`;
+
 export default function RecipeForm({ onAddRecipe }) {
   const router = useRouter();
 
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
   const [ingredientsInput, _setIngredientsInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function setIngredientsInput(inputvalue) {
     if (inputvalue.includes(",")) {
@@ -39,6 +45,7 @@ export default function RecipeForm({ onAddRecipe }) {
     const userInput = event.target.value;
     getSuggestion(userInput, ingredients, setIngredientSuggestion);
     setIngredientsInput(userInput || "");
+    setErrorMessage("");
   }
 
   function handleSymptomsChange(event) {
@@ -96,6 +103,10 @@ export default function RecipeForm({ onAddRecipe }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (selectedIngredients.length === 0) {
+      setErrorMessage("Please add at least one ingredient.");
+      return;
+    }
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
@@ -130,6 +141,7 @@ export default function RecipeForm({ onAddRecipe }) {
           onChange={handleIngredientsChange}
           onKeyPress={selectUserIngredient}
         ></input>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         {ingredientSuggestion && (
           <div
             style={{
