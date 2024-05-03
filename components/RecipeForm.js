@@ -90,7 +90,6 @@ export default function RecipeForm({ onAddRecipe }) {
     userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
     userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
     onAddRecipe(userRecipe);
-    event.target.reset();
     router.push("/");
   }
 
