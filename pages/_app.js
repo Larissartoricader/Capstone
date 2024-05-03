@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
   function handleAddRecipe(newRecipe) {
     newRecipe.id = uid();
     newRecipe.editable = true;
-    const updatedRecipes = [...recipes, newRecipe];
+    const updatedRecipes = [newRecipe, ...recipes];
     setRecipes(updatedRecipes);
   }
 
