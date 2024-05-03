@@ -16,7 +16,7 @@ export default function HomePage({
   return (
     <div>
       <Link href={"/recipe-form"}>Create</Link>
-      <FilterForm />
+      <FilterForm recipes={recipes} />
       <StyledHeadline>Recipes Overview</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}

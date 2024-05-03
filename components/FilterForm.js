@@ -1,5 +1,3 @@
-import { symptoms } from "@/lib/symptoms";
-import { getSuggestion } from "@/utils/get-suggestions";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -13,48 +11,63 @@ const StyledFilterForm = styled.form`
   gap: 10px;
 `;
 
-export default function FilterForm() {
-  const [symptomSearch, setSymptomSearch] = useState("");
-  const [symptomSearchMatching, setSymptomSearchMatching] = useState([]);
+export default function FilterForm({ recipes }) {
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-  function handleSymptomsSearchChange(event) {
-    const userInput = event.target.value;
-    setSymptomSearch(userInput);
-    getSuggestion(userInput, symptoms, setSymptomSearchMatching);
+  function filterRecipes(symptom, ingredient) {
+    let filteredRecipes = recipes;
+
+    if (symptom) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.symptoms.includes(symptom)
+      );
+    }
+
+    if (ingredient) {
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.ingredients.includes(ingredient)
+      );
+    }
+
+    return filteredRecipes;
   }
 
-  function handleSymptomSelection(symptom) {
-    setSymptomSearch(symptom);
-    setSymptomSearchMatching([]);
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const symptom = formData.get("symptom");
+    const ingredient = formData.get("ingredient");
+    const filtered = filterRecipes(symptom, ingredient);
+    setFilteredRecipes(filtered);
   }
 
   return (
     <SearchBox>
       <h2>Search Recipes</h2>
-      <StyledFilterForm>
+      <StyledFilterForm onSubmit={handleSearchSubmit}>
         <label htmlFor="symptom">Select a Symptom </label>
         <input
           placeholder="Type your symptom and select from the list"
           type="text"
           id="symptom"
-          value={symptomSearch}
-          onChange={handleSymptomsSearchChange}
+          name="symptom"
         />
-        {symptomSearchMatching.length > 0 && (
-          <select
-            onChange={(event) => handleSymptomSelection(event.target.value)}
-          >
-            {symptomSearchMatching.map((symptom, index) => (
-              <option key={index} value={symptom}>
-                {symptom}
-              </option>
-            ))}
-          </select>
-        )}
         <label htmlFor="ingredient">Select an ingredient </label>
-        <input type="text" id="ingredient" />
+        <input type="text" id="ingredient" name="ingredient" />
         <button>Search</button>
       </StyledFilterForm>
+      {filteredRecipes.length > 0 ? (
+        <div>
+          <h3>The Perfect Recipes for you</h3>
+          <ul>
+            {filteredRecipes.map((recipe) => (
+              <li key={recipe.index}>{recipe.title}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>No recipes found. Try different search criteria.</p>
+      )}
     </SearchBox>
   );
 }
