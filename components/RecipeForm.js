@@ -64,6 +64,7 @@ export default function RecipeForm({ onAddRecipe }) {
   function selectUserIngredient(event) {
     if (
       event.key === "," &&
+      ingredientsInput &&
       !selectedIngredients.includes(event.target.value.slice(0).trim())
     ) {
       setSelectedIngredients([
