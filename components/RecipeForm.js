@@ -26,10 +26,19 @@ export default function RecipeForm({ onAddRecipe }) {
 
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
+  const [ingredientsInput, _setIngredientsInput] = useState("");
+
+  function setIngredientsInput(inputvalue) {
+    if (inputvalue.includes(",")) {
+    } else {
+      _setIngredientsInput(inputvalue);
+    }
+  }
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
     getSuggestion(userInput, ingredients, setIngredientSuggestion);
+    setIngredientsInput(userInput || "");
   }
 
   function handleSymptomsChange(event) {
@@ -42,14 +51,19 @@ export default function RecipeForm({ onAddRecipe }) {
   function selectSuggestedIngredient() {
     selectedIngredients.includes(ingredientSuggestion) ||
       setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
+    setIngredientsInput("");
   }
 
   function selectUserIngredient(event) {
     if (
-      event.key === "Enter" &&
-      !selectedIngredients.includes(event.target.value)
+      event.key === "," &&
+      !selectedIngredients.includes(event.target.value.slice(0).trim())
     ) {
-      setSelectedIngredients([...selectedIngredients, event.target.value]);
+      setSelectedIngredients([
+        ...selectedIngredients,
+        event.target.value.slice(0).trim(),
+      ]);
+      setIngredientsInput("");
     }
   }
 
@@ -69,10 +83,7 @@ export default function RecipeForm({ onAddRecipe }) {
   }
 
   function selectUserSymptom(event) {
-    if (
-      event.key === "Enter" &&
-      !selectedSymptoms.includes(event.target.value)
-    ) {
+    if (event.key === "," && !selectedSymptoms.includes(event.target.value)) {
       setSelectedSymptoms([...selectedSymptoms, event.target.value]);
     }
   }
@@ -97,22 +108,23 @@ export default function RecipeForm({ onAddRecipe }) {
     <>
       <h2>Add your Recipe</h2>
       <StyledForm onSubmit={handleSubmit}>
-        <label htmlFor="title">Title*</label>
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           placeholder="What's the recipe's name?"
-          min="4"
-          max="50"
+          min="1"
+          max="150"
           id="title"
           name="title"
           required
         ></input>
-        <label htmlFor="ingredients">Ingredients*</label>
+        <label htmlFor="ingredients">Ingredients</label>
         <input
+          value={ingredientsInput}
           type="text"
           placeholder="Separate the ingredients by comma"
-          min="4"
-          max="100"
+          min="1"
+          max="150"
           id="ingredients"
           name="ingredients"
           onChange={handleIngredientsChange}
@@ -147,8 +159,8 @@ export default function RecipeForm({ onAddRecipe }) {
         <input
           type="text"
           placeholder="e.g Add thyme to the water"
-          min="4"
-          max="300"
+          min="1"
+          max="150"
           required
           id="preparation"
           name="preparation"
