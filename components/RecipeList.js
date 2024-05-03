@@ -9,22 +9,29 @@ const StyledList = styled.ul`
   padding: 0 5vw;
 `;
 
+const WhiteSpace = styled.div`
+  height: 11vh;
+`;
+
 export default function RecipeList({
   recipes,
   onHandleBookmarkedIcon,
   bookmarkedRecipesIDs,
 }) {
   return (
-    <StyledList>
-      {recipes.map((recipe) => (
-        <li key={recipe.id}>
-          <RecipeCard
-            onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-            recipe={recipe}
-          />
-        </li>
-      ))}
-    </StyledList>
+    <>
+      <StyledList>
+        {recipes.map((recipe) => (
+          <li key={recipe.id}>
+            <RecipeCard
+              onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+              bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+              recipe={recipe}
+            />
+          </li>
+        ))}
+      </StyledList>
+      <WhiteSpace></WhiteSpace>
+    </>
   );
 }
