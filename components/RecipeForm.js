@@ -21,6 +21,10 @@ const ListItemSelectedValues = styled.li`
   padding: 0 2vw;
 `;
 
+const WhiteSpace = styled.div`
+  height: 11vh;
+`;
+
 export default function RecipeForm({ onAddRecipe }) {
   const router = useRouter();
 
@@ -202,6 +206,7 @@ export default function RecipeForm({ onAddRecipe }) {
         </ul>
         <button type="submit">Submit</button>
       </StyledForm>
+      <WhiteSpace />
     </>
   );
 }

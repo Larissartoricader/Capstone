@@ -1,3 +1,4 @@
+import FilterForm from "@/components/FilterForm";
 import RecipeList from "@/components/RecipeList";
 import Link from "next/link";
 
@@ -15,6 +16,7 @@ export default function HomePage({
   return (
     <div>
       <Link href={"/recipe-form"}>Create</Link>
+      <FilterForm />
       <StyledHeadline>Recipes Overview</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
