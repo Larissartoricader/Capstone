@@ -32,12 +32,20 @@ export default function RecipeForm({ onAddRecipe }) {
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
   const [ingredientsInput, _setIngredientsInput] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [symptomsInput, _setSymptomsInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
 
-  function setIngredientsInput(inputvalue) {
-    if (inputvalue.includes(",")) {
+  function setIngredientsInput(inputValue) {
+    if (inputValue.includes(",")) {
     } else {
-      _setIngredientsInput(inputvalue);
+      _setIngredientsInput(inputValue);
+    }
+  }
+
+  function setSymptomsInput(inputValue) {
+    if (inputValue.includes(",")) {
+    } else {
+      _setSymptomsInput(inputValue);
     }
   }
 
@@ -51,6 +59,8 @@ export default function RecipeForm({ onAddRecipe }) {
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     getSuggestion(userInput, symptoms, setSymptomSuggestion);
+    setSymptomsInput(userInput || "");
+    setErrorMessage("");
   }
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -88,11 +98,20 @@ export default function RecipeForm({ onAddRecipe }) {
   function selectSuggestedSymptom() {
     selectedSymptoms.includes(symptomSuggestion) ||
       setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
+    setSymptomsInput("");
   }
 
   function selectUserSymptom(event) {
-    if (event.key === "," && !selectedSymptoms.includes(event.target.value)) {
-      setSelectedSymptoms([...selectedSymptoms, event.target.value]);
+    if (
+      event.key === "," &&
+      symptomsInput &&
+      !selectedSymptoms.includes(event.target.value.slice(0).trim())
+    ) {
+      setSelectedSymptoms([
+        ...selectedSymptoms,
+        event.target.value.slice(0).trim(),
+      ]);
+      setSymptomsInput("");
     }
   }
 
@@ -105,9 +124,19 @@ export default function RecipeForm({ onAddRecipe }) {
   function handleSubmit(event) {
     event.preventDefault();
     if (selectedIngredients.length === 0) {
-      setErrorMessage("Please add at least one ingredient.");
+      setErrorMessage({
+        field: "ingredients",
+        message: "Please add at least one ingredient.",
+      });
+      return;
+    } else if (selectedSymptoms.length === 0) {
+      setErrorMessage({
+        field: "symptoms",
+        message: "Please add at least one symptom.",
+      });
       return;
     }
+    setErrorMessage({ field: "", message: "" });
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
@@ -142,7 +171,9 @@ export default function RecipeForm({ onAddRecipe }) {
           onChange={handleIngredientsChange}
           onKeyPress={selectUserIngredient}
         ></input>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {errorMessage.field === "ingredients" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
         {ingredientSuggestion && (
           <div
             style={{
@@ -189,17 +220,18 @@ export default function RecipeForm({ onAddRecipe }) {
           name="usage"
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
-
         <input
+          value={symptomsInput}
           type="text"
           placeholder="min 2 Symptoms"
-          required
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
           onKeyPress={selectUserSymptom}
         ></input>
-
+        {errorMessage.field === "symptoms" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
         {symptomSuggestion && (
           <div
             style={{
