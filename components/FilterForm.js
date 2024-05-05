@@ -1,3 +1,4 @@
+import { getSuggestion } from "@/utils/get-suggestions";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -35,9 +36,11 @@ export default function FilterForm({ recipes }) {
   function handleSearchSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const symptom = formData.get("symptom");
-    const ingredient = formData.get("ingredient");
-    const filtered = filterRecipes(symptom, ingredient);
+    const userSymptom = formData.get("symptom");
+    console.log(userSymptom);
+    const userIngredient = formData.get("ingredient");
+    console.log(userIngredient);
+    const filtered = filterRecipes(userSymptom, userIngredient);
     setFilteredRecipes(filtered);
   }
 

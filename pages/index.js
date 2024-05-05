@@ -16,7 +16,11 @@ export default function HomePage({
   return (
     <div>
       <Link href={"/recipe-form"}>Create</Link>
-      <FilterForm recipes={recipes} />
+      <FilterForm
+        recipes={recipes}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+      />
       <StyledHeadline>Recipes Overview</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
