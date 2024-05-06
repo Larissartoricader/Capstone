@@ -40,6 +40,7 @@ export default function RecipeForm({
   const [ingredientsInput, _setIngredientsInput] = useState("");
   const [symptomsInput, _setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
+
   const router = useRouter();
 
   function setIngredientsInput(inputValue) {
@@ -164,7 +165,9 @@ export default function RecipeForm({
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-    recipeToEdit ? onEditRecipe(userRecipe) : onAddRecipe(userRecipe);
+    recipeToEdit
+      ? onEditRecipe(userRecipe, recipeToEdit)
+      : onAddRecipe(userRecipe);
     event.target.reset();
     router.push("/");
   }

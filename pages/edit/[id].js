@@ -1,7 +1,7 @@
 import RecipeForm from "@/components/RecipeForm";
 import { useRouter } from "next/router";
 
-export default function EditPage({ recipes }) {
+export default function EditRecipePage({ recipes, onEditRecipe }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -10,6 +10,8 @@ export default function EditPage({ recipes }) {
   }
 
   const currentRecipe = recipes.find((recipe) => recipe.id === id);
-  console.log(currentRecipe);
-  return <RecipeForm recipeToEdit={currentRecipe} />;
+
+  return (
+    <RecipeForm recipeToEdit={currentRecipe} onEditRecipe={onEditRecipe} />
+  );
 }

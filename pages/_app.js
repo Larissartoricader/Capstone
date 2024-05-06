@@ -37,19 +37,12 @@ export default function App({ Component, pageProps }) {
     setRecipes(updatedRecipes);
   }
 
-  // const [recipeToEdit, setRecipeToEdit] = useState(null);
-
-  // function passRecipeToForm(recipe) {
-  //   setRecipeToEdit(recipe);
-  // }
-
-  function handleEditRecipe(editedRecipe) {
+  function handleEditRecipe(editedRecipe, recipeToEdit) {
     recipeToEdit.title = editedRecipe.title;
     recipeToEdit.ingredients = editedRecipe.ingredients;
     recipeToEdit.preparation = editedRecipe.preparation;
     recipeToEdit.usage = editedRecipe.usage;
     recipeToEdit.symptoms = editedRecipe.symptoms;
-    setRecipeToEdit(null);
   }
 
   return (
@@ -61,8 +54,6 @@ export default function App({ Component, pageProps }) {
         onAddRecipe={handleAddRecipe}
         onHandleBookmarkedIcon={handleBookmarkedIcon}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        // recipeToEdit={recipeToEdit}
-        // passRecipeToForm={passRecipeToForm}
         onEditRecipe={handleEditRecipe}
       />
       <NavigationBar />
