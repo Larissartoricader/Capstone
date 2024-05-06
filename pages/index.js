@@ -10,6 +10,7 @@ export default function HomePage({
 }) {
   const StyledHeadline = styled.h1`
     text-align: center;
+    font: Lora;
   `;
 
   return (
