@@ -55,8 +55,9 @@ export default function RecipeDetails({ currentRecipe, passRecipeToForm }) {
   };
 
   function handleClick() {
-    passRecipeToForm(currentRecipe);
-    router.push("/recipe-form");
+    // passRecipeToForm(currentRecipe);
+    const id = currentRecipe.id;
+    router.push(`/edit/${id}`);
   }
 
   return (

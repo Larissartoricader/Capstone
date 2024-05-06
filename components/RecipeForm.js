@@ -165,11 +165,13 @@ export default function RecipeForm({
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
     recipeToEdit ? onEditRecipe(userRecipe) : onAddRecipe(userRecipe);
+    event.target.reset();
     router.push("/");
   }
 
   return (
     <>
+      <button onClick={() => router.back()}>Cancel</button>
       <h2>Add your Recipe</h2>
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
