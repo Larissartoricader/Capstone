@@ -31,7 +31,11 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
+export default function RecipeDetailsPage({
+  recipes,
+  passRecipeToForm,
+  onDeleteRecipe,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -61,6 +65,7 @@ export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
         <RecipeDetails
           currentRecipe={currentRecipe}
           passRecipeToForm={passRecipeToForm}
+          onDeleteRecipe={onDeleteRecipe}
         />
       </ContentContainer>
       <WhiteSpace />
