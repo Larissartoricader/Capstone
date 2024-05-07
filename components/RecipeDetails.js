@@ -1,45 +1,47 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function RecipeDetails({ currentRecipe }) {
+const ListItem = styled.ul`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 5px;
+  padding: 25px;
+`;
+
+const CollapsibleButton = styled.button`
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  margin: 5px;
+  width: 80%;
+  border-radius: 5px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+`;
+
+const CollapsibleContent = styled.div`
+  padding: 0 18px;
+  margin: 5px;
+  width: 80%;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  max-height: ${(props) => (props.isOpen ? "500px" : "0")};
+  transition: max-height 0.3s ease-out;
+`;
+
+export default function RecipeDetails({ currentRecipe, passRecipeToForm }) {
+  const router = useRouter();
   const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
-
-  const ListItem = styled.ul`
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 14px;
-    border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: 5px;
-    padding: 25px;
-  `;
-
-  const CollapsibleButton = styled.button`
-    background-color: #777;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    margin: 5px;
-    width: 80%;
-    border-radius: 5px;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-  `;
-
-  const CollapsibleContent = styled.div`
-    padding: 0 18px;
-    margin: 5px;
-    width: 80%;
-    overflow: hidden;
-    background-color: #f1f1f1;
-    max-height: ${(props) => (props.isOpen ? "500px" : "0")};
-    transition: max-height 0.3s ease-out;
-  `;
 
   const [isPreparationOpen, setIsPreparationOpen] = useState(false);
   const [isUsageOpen, setIsUsageOpen] = useState(false);
@@ -51,6 +53,10 @@ export default function RecipeDetails({ currentRecipe }) {
   const toggleUsageCollapse = () => {
     setIsUsageOpen(!isUsageOpen);
   };
+
+  function handleClick() {
+    router.push(`/edit/${currentRecipe.id}`);
+  }
 
   return (
     <article aria-label="Recipe Details">
@@ -79,6 +85,7 @@ export default function RecipeDetails({ currentRecipe }) {
           <li key={index}>{symptoms}</li>
         ))}
       </ListItem>
+      {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
     </article>
   );
 }

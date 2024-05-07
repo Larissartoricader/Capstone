@@ -29,7 +29,7 @@ const ContentContainer = styled.div`
   margin-top: 100px;
 `;
 
-export default function RecipeDetailsPage({ recipes }) {
+export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -56,7 +56,10 @@ export default function RecipeDetailsPage({ recipes }) {
         </BackLink>
       </BackgroundContainer>
       <ContentContainer>
-        <RecipeDetails currentRecipe={currentRecipe} />
+        <RecipeDetails
+          currentRecipe={currentRecipe}
+          passRecipeToForm={passRecipeToForm}
+        />
       </ContentContainer>
     </>
   );
