@@ -29,12 +29,25 @@ const ContentContainer = styled.div`
 `;
 
 export default function RecipeDetailsPage({}) {
+  const fetcher = (url) => {
+    return fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        throw error; // rethrow the error to propagate it further
+      });
+  };
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading, error } = useSWR(`/api/recipes/${id}`);
+  const { data, isLoading, error } = useSWR(`/api/recipes/${id}`, fetcher);
 
   if (!data) {
-    return;
+    return <div>Oh!Oh! No data available</div>;
   }
   if (isLoading) {
     return <h1>Loading...</h1>;
