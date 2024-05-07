@@ -1,5 +1,5 @@
 import NavigationBar from "@/components/NavigationBar";
-import GlobalStyle from "../styles";
+import GlobalStyle from "@/components/GlobalStyles";
 import { useState } from "react";
 import { uid } from "uid";
 import { initialRecipes } from "@/lib/recipes";

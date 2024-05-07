@@ -18,15 +18,17 @@ const BackgroundContainer = styled.div`
 
 const BackLink = styled.a`
   position: relative;
-  z-index: 1;
   border: solid 2px black;
   margin-top: 20%;
 `;
 
 const ContentContainer = styled.div`
   position: relative;
-  z-index: 1;
   margin-top: 100px;
+`;
+
+const WhiteSpace = styled.div`
+  height: 20vh;
 `;
 
 export default function RecipeDetailsPage({
@@ -66,6 +68,7 @@ export default function RecipeDetailsPage({
           onDeleteRecipe={onDeleteRecipe}
         />
       </ContentContainer>
+      <WhiteSpace />
     </>
   );
 }
