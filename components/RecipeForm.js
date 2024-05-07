@@ -21,19 +21,10 @@ const ListItemSelectedValues = styled.li`
   padding: 0 2vw;
 `;
 
-<<<<<<< HEAD
-const WhiteSpace = styled.div`
-  height: 11vh;
-`;
-
-export default function RecipeForm({ onAddRecipe }) {
-  const router = useRouter();
-=======
 const ErrorMessage = styled.div`
   color: red;
   margin: 5px 0;
 `;
->>>>>>> main
 
 const WhiteSpace = styled.div`
   height: 11vh;
@@ -299,11 +290,7 @@ export default function RecipeForm({
         </ul>
         <button type="submit">Save</button>
       </StyledForm>
-<<<<<<< HEAD
       <WhiteSpace />
-=======
-      <WhiteSpace></WhiteSpace>
->>>>>>> main
     </>
   );
 }

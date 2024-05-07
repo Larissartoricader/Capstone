@@ -37,9 +37,8 @@ export default function FilterForm({ recipes }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const userSymptom = formData.get("symptom");
-    console.log(userSymptom);
+
     const userIngredient = formData.get("ingredient");
-    console.log(userIngredient);
     const filtered = filterRecipes(userSymptom, userIngredient);
     setFilteredRecipes(filtered);
   }
