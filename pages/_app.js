@@ -2,11 +2,24 @@ import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "../styles";
 import { useState } from "react";
 import { uid } from "uid";
-import { initialRecipes } from "@/lib/recipes";
+import { SWRConfig } from "swr";
+// import { initialRecipes } from "@/lib/recipes";
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
-  const [recipes, setRecipes] = useState(initialRecipes);
+  // const [recipes, setRecipes] = useState(initialRecipes);
+
+  const fetcher = async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) {
+      const error = new Error("An error occurred while trying to fetch");
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
+  };
+
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
     "bookmarkedRecipesIDs",
     { defaultValue: [] }
@@ -52,6 +65,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
+      <SWRConfig value={{ fetcher }}></SWRConfig>
       <Component
         {...pageProps}
         recipes={recipes}
