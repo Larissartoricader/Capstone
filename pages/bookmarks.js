@@ -17,7 +17,6 @@ export default function BookmarkPage({
   `;
   return (
     <>
-      <Link href={"./"}>Back</Link>
       <StyledHeadline>Bookmark Page</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}

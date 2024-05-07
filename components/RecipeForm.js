@@ -6,10 +6,15 @@ import { getSuggestion } from "@/utils/get-suggestions";
 import { useRouter } from "next/router";
 
 const StyledForm = styled.form`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid black;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin: 0 20px;
+  margin: 5px;
+  padding: 25px;
 `;
 
 const ListItemSelectedValues = styled.li`
@@ -24,6 +29,10 @@ const ListItemSelectedValues = styled.li`
 const ErrorMessage = styled.div`
   color: red;
   margin: 5px 0;
+`;
+
+const StyledHeadline = styled.h2`
+  text-align: center;
 `;
 
 export default function RecipeForm({ onAddRecipe }) {
@@ -147,14 +156,14 @@ export default function RecipeForm({ onAddRecipe }) {
 
   return (
     <>
-      <h2>Add your Recipe</h2>
+      <StyledHeadline>Add your Recipe</StyledHeadline>
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input
           type="text"
           placeholder="What's the recipe's name?"
-          min="1"
-          max="150"
+          minLength="1"
+          maxLength="50"
           id="title"
           name="title"
           required
@@ -164,8 +173,8 @@ export default function RecipeForm({ onAddRecipe }) {
           value={ingredientsInput}
           type="text"
           placeholder="Separate the ingredients by comma"
-          min="1"
-          max="150"
+          minLength="1"
+          maxLength="50"
           id="ingredients"
           name="ingredients"
           onChange={handleIngredientsChange}
@@ -203,8 +212,8 @@ export default function RecipeForm({ onAddRecipe }) {
         <input
           type="text"
           placeholder="e.g Add thyme to the water"
-          min="1"
-          max="150"
+          minLength="1"
+          maxLength="150"
           required
           id="preparation"
           name="preparation"
@@ -213,8 +222,8 @@ export default function RecipeForm({ onAddRecipe }) {
         <input
           type="text"
           placeholder="How to use it?"
-          min="4"
-          max="300"
+          minLength="4"
+          maxLength="300"
           required
           id="usage"
           name="usage"

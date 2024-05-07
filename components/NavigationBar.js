@@ -31,7 +31,7 @@ const StyledLink = styled.a`
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
-  font-size: 20px;
+  font-size: 50px;
 `;
 
 export default function NavigationBar() {
