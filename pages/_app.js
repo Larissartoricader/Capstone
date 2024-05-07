@@ -45,6 +45,13 @@ export default function App({ Component, pageProps }) {
     recipeToEdit.symptoms = editedRecipe.symptoms;
   }
 
+  function handleDeleteRecipe(deletedRecipe) {
+    const updatedRecipes = recipes.filter(
+      (recipe) => recipe.id !== deletedRecipe
+    );
+    setRecipes(updatedRecipes);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -55,6 +62,7 @@ export default function App({ Component, pageProps }) {
         onHandleBookmarkedIcon={handleBookmarkedIcon}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onEditRecipe={handleEditRecipe}
+        onDeleteRecipe={handleDeleteRecipe}
       />
       <NavigationBar />
     </>

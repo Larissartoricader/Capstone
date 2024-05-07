@@ -29,7 +29,11 @@ const ContentContainer = styled.div`
   margin-top: 100px;
 `;
 
-export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
+export default function RecipeDetailsPage({
+  recipes,
+  passRecipeToForm,
+  onDeleteRecipe,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -59,6 +63,7 @@ export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
         <RecipeDetails
           currentRecipe={currentRecipe}
           passRecipeToForm={passRecipeToForm}
+          onDeleteRecipe={onDeleteRecipe}
         />
       </ContentContainer>
     </>
