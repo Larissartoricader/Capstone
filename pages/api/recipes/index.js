@@ -5,8 +5,8 @@ export default async function handler(request, response) {
   try {
     await dbConnect();
     if (request.method === "GET") {
-      const recipe = await Recipe.find();
-      return response.status(200).json(recipe);
+      const recipes = await Recipe.find();
+      return response.status(200).json(recipes);
     }
   } catch (error) {
     console.error("Error while Fetching", error);

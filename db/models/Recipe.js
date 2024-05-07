@@ -13,6 +13,5 @@ const RecipeSchema = new Schema({
 const Recipe =
   mongoose.models.initial_recipes ||
   mongoose.model("initial_recipes", RecipeSchema, "initial_recipes");
-console.log(Recipe);
 
 export default Recipe;
