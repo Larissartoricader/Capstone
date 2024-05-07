@@ -1,11 +1,11 @@
 import RecipeForm from "@/components/RecipeForm";
+import styled from "styled-components";
 import Link from "next/link";
 
-export default function RecipeFormPage({ onAddRecipe }) {
+export default function CreateRecipePage({ onAddRecipe }) {
   return (
     <>
       <RecipeForm onAddRecipe={onAddRecipe} />
-      <Link href={"./"}>Back</Link>
     </>
   );
 }

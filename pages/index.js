@@ -1,7 +1,5 @@
 import FilterForm from "@/components/FilterForm";
 import RecipeList from "@/components/RecipeList";
-import Link from "next/link";
-
 import styled from "styled-components";
 
 export default function HomePage({
@@ -15,12 +13,15 @@ export default function HomePage({
 
   return (
     <div>
+<<<<<<< HEAD
       <Link href={"/recipe-form"}>Create</Link>
       <FilterForm
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
+=======
+>>>>>>> main
       <StyledHeadline>Recipes Overview</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}

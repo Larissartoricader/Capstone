@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -28,6 +30,10 @@ const StyledLink = styled.a`
     `}
 `;
 
+const StyledIcon = styled(FontAwesomeIcon)`
+  font-size: 20px;
+`;
+
 export default function NavigationBar() {
   const router = useRouter();
 
@@ -39,6 +45,12 @@ export default function NavigationBar() {
     <StyledNav>
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
         Home
+      </StyledLink>
+      <StyledLink
+        onClick={() => router.push("/create")}
+        active={isActive("/create")}
+      >
+        <StyledIcon icon={faPlus} />
       </StyledLink>
       <StyledLink
         onClick={() => router.push("/bookmarks")}
