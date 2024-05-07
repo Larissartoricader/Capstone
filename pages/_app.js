@@ -3,12 +3,11 @@ import GlobalStyle from "../styles";
 import { useState } from "react";
 import { uid } from "uid";
 import { SWRConfig } from "swr";
-// import { initialRecipes } from "@/lib/recipes";
+import useSWR from "swr";
+
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
-  // const [recipes, setRecipes] = useState(initialRecipes);
-
   const fetcher = async (url) => {
     const res = await fetch(url);
     if (!res.ok) {
@@ -60,6 +59,15 @@ export default function App({ Component, pageProps }) {
     recipeToEdit.preparation = editedRecipe.preparation;
     recipeToEdit.usage = editedRecipe.usage;
     recipeToEdit.symptoms = editedRecipe.symptoms;
+  }
+
+  const { data: recipes, isLoading, error } = useSWR("/api/recipes", fetcher);
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
   }
 
   return (
