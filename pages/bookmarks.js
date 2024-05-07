@@ -4,6 +4,10 @@ import Link from "next/link";
 
 import RecipeList from "@/components/RecipeList";
 
+const WhiteSpace = styled.div`
+  height: 20vh;
+`;
+
 export default function BookmarkPage({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
@@ -23,6 +27,7 @@ export default function BookmarkPage({
         recipes={bookmarkedRecipes}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
+      <WhiteSpace />
     </>
   );
 }

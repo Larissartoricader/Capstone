@@ -19,7 +19,7 @@ const StyledList = styled.ul`
 `;
 
 const WhiteSpace = styled.div`
-  height: 11vh;
+  height: 20vh;
 `;
 
 export default function RecipeList({
