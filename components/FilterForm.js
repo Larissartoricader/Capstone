@@ -1,4 +1,4 @@
-import { getSuggestion } from "@/utils/get-suggestions";
+import { capitalizeFirstLetter } from "@/utils/filter-suggestions";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -14,6 +14,18 @@ const StyledFilterForm = styled.form`
 
 export default function FilterForm({ recipes }) {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [symptomsInput, setSymptomsInput] = useState("");
+  const [ingredientInput, setIngredientInput] = useState("");
+
+  function handleSymptomsChange(event) {
+    const userInput = event.target.value;
+    setSymptomsInput(userInput || "");
+  }
+
+  function handleIngredientChange(event) {
+    const userInput = event.target.value;
+    setIngredientInput(userInput || "");
+  }
 
   function filterRecipes(symptom, ingredient) {
     let filteredRecipes = recipes;
@@ -39,6 +51,9 @@ export default function FilterForm({ recipes }) {
     const userSymptom = formData.get("symptom");
 
     const userIngredient = formData.get("ingredient");
+    console.log(userSymptom);
+
+    console.log(userIngredient);
     const filtered = filterRecipes(userSymptom, userIngredient);
     setFilteredRecipes(filtered);
   }
@@ -53,9 +68,19 @@ export default function FilterForm({ recipes }) {
           type="text"
           id="symptom"
           name="symptom"
+          onChange={handleSymptomsChange}
         />
+        <div>{symptomsInput && <p>Symptom: {symptomsInput}</p>}</div>
+
         <label htmlFor="ingredient">Select an ingredient </label>
-        <input type="text" id="ingredient" name="ingredient" />
+        <input
+          type="text"
+          id="ingredient"
+          name="ingredient"
+          onChange={handleIngredientChange}
+        />
+        <div>{ingredientInput && <p>Ingredient: {ingredientInput}</p>}</div>
+
         <button>Search</button>
       </StyledFilterForm>
       {filteredRecipes.length > 0 ? (
