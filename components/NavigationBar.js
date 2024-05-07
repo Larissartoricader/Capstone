@@ -47,8 +47,8 @@ export default function NavigationBar() {
         Home
       </StyledLink>
       <StyledLink
-        onClick={() => router.push("/recipe-form")}
-        active={isActive("/recipe-form")}
+        onClick={() => router.push("/create")}
+        active={isActive("/create")}
       >
         <StyledIcon icon={faPlus} />
       </StyledLink>
