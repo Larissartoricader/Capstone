@@ -31,9 +31,8 @@ const ContentContainer = styled.div`
 export default function RecipeDetailsPage({}) {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
   const { data, isLoading, error } = useSWR(`/api/recipes/${id}`);
-  console.log(data);
+
   if (!data) {
     return;
   }
