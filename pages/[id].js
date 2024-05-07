@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-
 import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
-import { recipes } from "@/lib/recipes";
+import useSWR from "swr";
 
 const BackgroundContainer = styled.div`
   position: absolute;
@@ -29,18 +28,21 @@ const ContentContainer = styled.div`
   margin-top: 100px;
 `;
 
-export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
+export default function RecipeDetailsPage({}) {
   const router = useRouter();
   const { id } = router.query;
-
-  if (!id) {
-    return <p>No recipe ID specified</p>;
+  console.log(id);
+  const { data, isLoading, error } = useSWR(`/api/recipes/${id}`);
+  console.log(data);
+  if (!data) {
+    return;
+  }
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
-  const currentRecipe = recipes.find((recipe) => recipe.id === id);
-
-  if (!currentRecipe) {
-    return <p>Recipe not found</p>;
+  if (error) {
+    return <div>Oops! Something went wrong.</div>;
   }
 
   function handleBackClick(event) {
@@ -51,15 +53,12 @@ export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
   return (
     <>
       <BackgroundContainer>
-        <BackLink href="#" onClick={handleBackClick}>
+        <BackLink href="/" onClick={handleBackClick}>
           Back
         </BackLink>
       </BackgroundContainer>
       <ContentContainer>
-        <RecipeDetails
-          currentRecipe={currentRecipe}
-          passRecipeToForm={passRecipeToForm}
-        />
+        <RecipeDetails currentRecipe={data} />
       </ContentContainer>
     </>
   );

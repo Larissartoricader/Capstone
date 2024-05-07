@@ -39,7 +39,7 @@ const CollapsibleContent = styled.div`
   transition: max-height 0.3s ease-out;
 `;
 
-export default function RecipeDetails({ currentRecipe, passRecipeToForm }) {
+export default function RecipeDetails({ currentRecipe }) {
   const router = useRouter();
   const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
 
