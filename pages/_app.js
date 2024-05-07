@@ -3,10 +3,14 @@ import GlobalStyle from "../styles";
 import { useState } from "react";
 import { uid } from "uid";
 import { initialRecipes } from "@/lib/recipes";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const [recipes, setRecipes] = useState(initialRecipes);
-  const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useState([]);
+  const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
+    "bookmarkedRecipesIDs",
+    { defaultValue: [] }
+  );
 
   function checkIfRecipeIsBookmarked(id) {
     return bookmarkedRecipesIDs.includes(id);
