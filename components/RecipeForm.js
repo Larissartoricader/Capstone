@@ -175,7 +175,7 @@ export default function RecipeForm({
   return (
     <>
       <button onClick={() => router.back()}>Cancel</button>
-      <h2>Add your Recipe</h2>
+      {recipeToEdit ? <h2>Edit your Recipe</h2> : <h2>Add your Recipe</h2>}
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input
@@ -288,7 +288,7 @@ export default function RecipeForm({
             </li>
           ))}
         </ul>
-        <button type="submit">Add Recipe</button>
+        <button type="submit">Save</button>
       </StyledForm>
       <WhiteSpace></WhiteSpace>
     </>
