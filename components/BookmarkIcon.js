@@ -6,6 +6,9 @@ const StyledBookmarkIcon = styled.button`
   border: none;
   cursor: pointer;
   background-color: transparent;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5em;
 `;
 
 export function BookmarkIcon({
