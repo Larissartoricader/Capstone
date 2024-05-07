@@ -1,6 +1,6 @@
 import { ingredients } from "@/lib/ingredients";
 import { symptoms } from "@/lib/symptoms";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSuggestion } from "@/utils/get-suggestions";
 import { useRouter } from "next/router";
@@ -35,14 +35,22 @@ const StyledHeadline = styled.h2`
   text-align: center;
 `;
 
-export default function RecipeForm({ onAddRecipe }) {
-  const router = useRouter();
+const WhiteSpace = styled.div`
+  height: 11vh;
+`;
 
+export default function RecipeForm({
+  onAddRecipe,
+  onEditRecipe,
+  recipeToEdit,
+}) {
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
   const [ingredientsInput, _setIngredientsInput] = useState("");
   const [symptomsInput, _setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
+
+  const router = useRouter();
 
   function setIngredientsInput(inputValue) {
     if (inputValue.includes(",")) {
@@ -60,23 +68,32 @@ export default function RecipeForm({ onAddRecipe }) {
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-    getSuggestion(userInput, ingredients, setIngredientSuggestion);
+    getSuggestion(
+      userInput,
+      ingredients,
+      setIngredientSuggestion,
+      selectedIngredients
+    );
     setIngredientsInput(userInput || "");
     setErrorMessage("");
   }
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
-    getSuggestion(userInput, symptoms, setSymptomSuggestion);
+    getSuggestion(userInput, symptoms, setSymptomSuggestion, selectedSymptoms);
     setSymptomsInput(userInput || "");
     setErrorMessage("");
   }
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
-  function selectSuggestedIngredient() {
+  async function selectSuggestedIngredient() {
     selectedIngredients.includes(ingredientSuggestion) ||
-      setSelectedIngredients([...selectedIngredients, ingredientSuggestion]);
+      (await setSelectedIngredients([
+        ...selectedIngredients,
+        ingredientSuggestion,
+      ]));
+    setIngredientSuggestion(null);
     setIngredientsInput("");
   }
 
@@ -130,6 +147,13 @@ export default function RecipeForm({ onAddRecipe }) {
     );
   }
 
+  useEffect(() => {
+    recipeToEdit && setSelectedIngredients(recipeToEdit.ingredients);
+  }, [recipeToEdit]);
+  useEffect(() => {
+    recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
+  }, [recipeToEdit]);
+
   function handleSubmit(event) {
     event.preventDefault();
     if (selectedIngredients.length === 0) {
@@ -148,15 +172,23 @@ export default function RecipeForm({ onAddRecipe }) {
     setErrorMessage({ field: "", message: "" });
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
-    userRecipe.ingredients = [...selectedIngredients, userRecipe.ingredients];
-    userRecipe.symptoms = [...selectedSymptoms, userRecipe.symptoms];
-    onAddRecipe(userRecipe);
+    userRecipe.ingredients = [...selectedIngredients];
+    userRecipe.symptoms = [...selectedSymptoms];
+    recipeToEdit
+      ? onEditRecipe(userRecipe, recipeToEdit)
+      : onAddRecipe(userRecipe);
+    event.target.reset();
     router.push("/");
   }
 
   return (
     <>
-      <StyledHeadline>Add your Recipe</StyledHeadline>
+      <button onClick={() => router.back()}>Cancel</button>
+      {recipeToEdit ? (
+        <h2>Edit your Recipe</h2>
+      ) : (
+        <StyledHeadline>Add your Recipe</StyledHeadline>
+      )}
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input
@@ -167,6 +199,7 @@ export default function RecipeForm({ onAddRecipe }) {
           id="title"
           name="title"
           required
+          defaultValue={recipeToEdit?.title}
         ></input>
         <label htmlFor="ingredients">Ingredients</label>
         <input
@@ -217,6 +250,7 @@ export default function RecipeForm({ onAddRecipe }) {
           required
           id="preparation"
           name="preparation"
+          defaultValue={recipeToEdit?.preparation}
         ></input>
         <label htmlFor="usage">Usage</label>
         <input
@@ -227,6 +261,7 @@ export default function RecipeForm({ onAddRecipe }) {
           required
           id="usage"
           name="usage"
+          defaultValue={recipeToEdit?.usage}
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
         <input
@@ -266,8 +301,9 @@ export default function RecipeForm({ onAddRecipe }) {
             </li>
           ))}
         </ul>
-        <button type="submit">Add Recipe</button>
+        <button type="submit">Save</button>
       </StyledForm>
+      <WhiteSpace></WhiteSpace>
     </>
   );
 }

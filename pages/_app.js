@@ -8,13 +8,6 @@ export default function App({ Component, pageProps }) {
   const [recipes, setRecipes] = useState(initialRecipes);
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useState([]);
 
-  function handleAddRecipe(newRecipe) {
-    newRecipe.id = uid();
-    newRecipe.editable = true;
-    const updatedRecipes = [newRecipe, ...recipes];
-    setRecipes(updatedRecipes);
-  }
-
   function checkIfRecipeIsBookmarked(id) {
     return bookmarkedRecipesIDs.includes(id);
   }
@@ -37,6 +30,21 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
+  function handleAddRecipe(newRecipe) {
+    newRecipe.id = uid();
+    newRecipe.editable = true;
+    const updatedRecipes = [newRecipe, ...recipes];
+    setRecipes(updatedRecipes);
+  }
+
+  function handleEditRecipe(editedRecipe, recipeToEdit) {
+    recipeToEdit.title = editedRecipe.title;
+    recipeToEdit.ingredients = editedRecipe.ingredients;
+    recipeToEdit.preparation = editedRecipe.preparation;
+    recipeToEdit.usage = editedRecipe.usage;
+    recipeToEdit.symptoms = editedRecipe.symptoms;
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -46,6 +54,7 @@ export default function App({ Component, pageProps }) {
         onAddRecipe={handleAddRecipe}
         onHandleBookmarkedIcon={handleBookmarkedIcon}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        onEditRecipe={handleEditRecipe}
       />
       <NavigationBar />
     </>
