@@ -25,6 +25,7 @@
     "react-render": "^4.0.0",
     "styled-components": "^6.1.8",
     "uid": "^2.0.2",
+    "use-local-storage-state": "^19.2.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
