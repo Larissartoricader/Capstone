@@ -1,16 +1,25 @@
 import RecipeList from "@/components/RecipeList";
 import styled from "styled-components";
+import useSWR from "swr";
+
+const StyledHeadline = styled.h1`
+  text-align: center;
+  font: Lora;
+`;
 
 export default function HomePage({
-  recipes,
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
-  const StyledHeadline = styled.h1`
-    text-align: center;
-    font: Lora;
-  `;
+  const { data: recipes, isLoading, error } = useSWR("/api/recipes");
 
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
+  }
   return (
     <div>
       <StyledHeadline>Recipes Overview</StyledHeadline>

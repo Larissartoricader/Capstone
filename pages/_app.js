@@ -2,11 +2,23 @@ import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
 import { useState } from "react";
 import { uid } from "uid";
-import { initialRecipes } from "@/lib/recipes";
+import { SWRConfig } from "swr";
+import useSWR from "swr";
+
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
-  const [recipes, setRecipes] = useState(initialRecipes);
+  const fetcher = async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) {
+      const error = new Error("An error occurred while trying to fetch");
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
+  };
+
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
     "bookmarkedRecipesIDs",
     { defaultValue: [] }
@@ -28,7 +40,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleBookmarkedIcon(recipe) {
-    const id = recipe.id;
+    const id = recipe._id;
     checkIfRecipeIsBookmarked(id)
       ? removeRecipeFromBookmarked(id)
       : addRecipeToBookmarked(id);
@@ -59,15 +71,17 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component
-        {...pageProps}
-        recipes={recipes}
-        onAddRecipe={handleAddRecipe}
-        onHandleBookmarkedIcon={handleBookmarkedIcon}
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        onEditRecipe={handleEditRecipe}
-        onDeleteRecipe={handleDeleteRecipe}
-      />
+      <SWRConfig value={{ fetcher }}>
+        <Component
+          {...pageProps}
+          onAddRecipe={handleAddRecipe}
+          onHandleBookmarkedIcon={handleBookmarkedIcon}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          onEditRecipe={handleEditRecipe}
+          onDeleteRecipe={handleDeleteRecipe}
+        />
+      </SWRConfig>
+
       <NavigationBar />
     </>
   );
