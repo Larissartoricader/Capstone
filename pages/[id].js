@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-
 import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
-import { recipes } from "@/lib/recipes";
+import useSWR from "swr";
 
 const BackgroundContainer = styled.div`
   position: absolute;
@@ -18,29 +17,34 @@ const BackgroundContainer = styled.div`
 
 const BackLink = styled.a`
   position: relative;
-  z-index: 1;
   border: solid 2px black;
   margin-top: 20%;
 `;
 
 const ContentContainer = styled.div`
   position: relative;
-  z-index: 1;
   margin-top: 100px;
 `;
 
-export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
+const WhiteSpace = styled.div`
+  height: 20vh;
+`;
+
+export default function RecipeDetailsPage({ onDeleteRecipe }) {
   const router = useRouter();
   const { id } = router.query;
+  const {
+    data: currentRecipe,
+    isLoading,
+    error,
+  } = useSWR(`/api/recipes/${id}`);
 
-  if (!id) {
-    return <p>No recipe ID specified</p>;
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
-  const currentRecipe = recipes.find((recipe) => recipe.id === id);
-
-  if (!currentRecipe) {
-    return <p>Recipe not found</p>;
+  if (error) {
+    return <div>Oops! Something went wrong.</div>;
   }
 
   function handleBackClick(event) {
@@ -51,16 +55,17 @@ export default function RecipeDetailsPage({ recipes, passRecipeToForm }) {
   return (
     <>
       <BackgroundContainer>
-        <BackLink href="#" onClick={handleBackClick}>
+        <BackLink href="/" onClick={handleBackClick}>
           Back
         </BackLink>
       </BackgroundContainer>
       <ContentContainer>
         <RecipeDetails
           currentRecipe={currentRecipe}
-          passRecipeToForm={passRecipeToForm}
+          onDeleteRecipe={onDeleteRecipe}
         />
       </ContentContainer>
+      <WhiteSpace />
     </>
   );
 }
