@@ -4,6 +4,7 @@ import useSWR from "swr";
 
 const StyledHeadline = styled.h1`
   text-align: center;
+  font: Lora;
 `;
 
 export default function HomePage({

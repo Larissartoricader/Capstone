@@ -39,7 +39,7 @@ const CollapsibleContent = styled.div`
   transition: max-height 0.3s ease-out;
 `;
 
-export default function RecipeDetails({ currentRecipe }) {
+export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
   const router = useRouter();
   const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
 
@@ -56,6 +56,13 @@ export default function RecipeDetails({ currentRecipe }) {
 
   function handleClick() {
     router.push(`/edit/${currentRecipe.id}`);
+  }
+
+  function handleDelete() {
+    if (confirm("Are you sure you want to delete this recipe?")) {
+      onDeleteRecipe(currentRecipe.id);
+      router.push("/");
+    }
   }
 
   return (
@@ -86,6 +93,7 @@ export default function RecipeDetails({ currentRecipe }) {
         ))}
       </ListItem>
       {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
+      {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
     </article>
   );
 }

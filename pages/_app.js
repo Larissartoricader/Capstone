@@ -1,5 +1,5 @@
 import NavigationBar from "@/components/NavigationBar";
-import GlobalStyle from "../styles";
+import GlobalStyle from "@/components/GlobalStyles";
 import { useState } from "react";
 import { uid } from "uid";
 import { SWRConfig } from "swr";
@@ -61,6 +61,13 @@ export default function App({ Component, pageProps }) {
     recipeToEdit.symptoms = editedRecipe.symptoms;
   }
 
+  function handleDeleteRecipe(deletedRecipe) {
+    const updatedRecipes = recipes.filter(
+      (recipe) => recipe.id !== deletedRecipe
+    );
+    setRecipes(updatedRecipes);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -71,8 +78,10 @@ export default function App({ Component, pageProps }) {
           onHandleBookmarkedIcon={handleBookmarkedIcon}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
           onEditRecipe={handleEditRecipe}
+          onDeleteRecipe={handleDeleteRecipe}
         />
       </SWRConfig>
+
       <NavigationBar />
     </>
   );

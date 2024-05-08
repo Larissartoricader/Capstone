@@ -17,21 +17,27 @@ const BackgroundContainer = styled.div`
 
 const BackLink = styled.a`
   position: relative;
-  z-index: 1;
   border: solid 2px black;
   margin-top: 20%;
 `;
 
 const ContentContainer = styled.div`
   position: relative;
-  z-index: 1;
   margin-top: 100px;
 `;
 
-export default function RecipeDetailsPage({}) {
+const WhiteSpace = styled.div`
+  height: 20vh;
+`;
+
+export default function RecipeDetailsPage({ recipes, onDeleteRecipe }) {
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading, error } = useSWR(`/api/recipes/${id}`);
+  const {
+    data: currentRecipe,
+    isLoading,
+    error,
+  } = useSWR(`/api/recipes/${id}`);
 
   if (!data) {
     return <div>Oh!Oh! No data available</div>;
@@ -57,8 +63,12 @@ export default function RecipeDetailsPage({}) {
         </BackLink>
       </BackgroundContainer>
       <ContentContainer>
-        <RecipeDetails currentRecipe={data} />
+        <RecipeDetails
+          currentRecipe={currentRecipe}
+          onDeleteRecipe={onDeleteRecipe}
+        />
       </ContentContainer>
+      <WhiteSpace />
     </>
   );
 }
