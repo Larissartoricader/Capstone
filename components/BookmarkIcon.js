@@ -20,7 +20,7 @@ export function BookmarkIcon({
     onHandleBookmarkedIcon(recipe);
   }
 
-  const isBookmarked = bookmarkedRecipesIDs.includes(recipe.id);
+  const isBookmarked = bookmarkedRecipesIDs.includes(recipe._id);
 
   return (
     <StyledBookmarkIcon onClick={handleClick}>

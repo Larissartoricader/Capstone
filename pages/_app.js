@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleBookmarkedIcon(recipe) {
-    const id = recipe.id;
+    const id = recipe._id;
     checkIfRecipeIsBookmarked(id)
       ? removeRecipeFromBookmarked(id)
       : addRecipeToBookmarked(id);

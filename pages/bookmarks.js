@@ -1,24 +1,34 @@
 import React from "react";
 import styled from "styled-components";
-import Link from "next/link";
-
 import RecipeList from "@/components/RecipeList";
+import useSWR from "swr";
 
 const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
+const StyledHeadline = styled.h1`
+  text-align: center;
+`;
+
 export default function BookmarkPage({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
-  recipes,
 }) {
+  const { data: recipes, isLoading, error } = useSWR("/api/recipes");
+
   const bookmarkedRecipes = recipes.filter((recipe) =>
-    bookmarkedRecipesIDs.includes(recipe.id)
+    bookmarkedRecipesIDs.includes(recipe._id)
   );
-  const StyledHeadline = styled.h1`
-    text-align: center;
-  `;
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
+  }
+
   return (
     <>
       <StyledHeadline>Bookmark Page</StyledHeadline>

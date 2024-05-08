@@ -30,7 +30,7 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeDetailsPage({ recipes, onDeleteRecipe }) {
+export default function RecipeDetailsPage({ onDeleteRecipe }) {
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -39,9 +39,6 @@ export default function RecipeDetailsPage({ recipes, onDeleteRecipe }) {
     error,
   } = useSWR(`/api/recipes/${id}`);
 
-  if (!data) {
-    return <div>Oh!Oh! No data available</div>;
-  }
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
