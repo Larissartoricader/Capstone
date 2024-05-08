@@ -1,7 +1,6 @@
 import FilterForm from "@/components/FilterForm";
-import RecipeList from "@/components/RecipeList";
+
 import Link from "next/link";
-import styled from "styled-components";
 
 export default function HomePage({
   recipes,
@@ -16,11 +15,6 @@ export default function HomePage({
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
-      {/* <RecipeList
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        recipes={recipes}
-        onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-      /> */}
     </div>
   );
 }
