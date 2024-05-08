@@ -54,6 +54,10 @@ export default function RecipeForm({
   const [ingredientsInput, _setIngredientsInput] = useState("");
   const [symptomsInput, _setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
+  // Messages (only for user input): falls behalten wird, dann noch stylen
+  const [alreadySelectedIngredient, setAlreadySelectedIngredient] =
+    useState(false);
+  const [alreadySelectedSymptom, setAlreadySelectedSymptom] = useState(false);
 
   const router = useRouter();
 
@@ -81,6 +85,7 @@ export default function RecipeForm({
     );
     setIngredientsInput(userInput || "");
     setErrorMessage("");
+    setAlreadySelectedIngredient(false);
   }
 
   function handleSymptomsChange(event) {
@@ -94,14 +99,20 @@ export default function RecipeForm({
 
   function selectIngredient(event) {
     if (
-      ingredientsInput &&
-      !selectedIngredients.includes(event.target.value.slice(0).trim())
+      // ingredientsInput
+      // &&
+      // !selectedIngredients.includes(event.target.value.slice(0).trim())
+      selectedIngredients.includes(event.target.value)
     ) {
+      setAlreadySelectedIngredient(true);
+    } else {
       setSelectedIngredients([
         ...selectedIngredients,
         event.target.value.slice(0).trim(),
       ]);
       setIngredientsInput("");
+      setIngredientSuggestion("");
+      setAlreadySelectedIngredient(false);
     }
   }
 
@@ -194,10 +205,11 @@ export default function RecipeForm({
           defaultValue={recipeToEdit?.title}
         ></input>
         <label htmlFor="ingredients">Ingredients</label>
+        {alreadySelectedIngredient && <p>Ingredient already selected.</p>}
         <input
           value={ingredientsInput}
           type="text"
-          placeholder="Separate the ingredients by comma"
+          placeholder="What ingredients are needed?"
           minLength="1"
           maxLength="50"
           id="ingredients"
@@ -207,28 +219,20 @@ export default function RecipeForm({
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-
-        <div>
-          {ingredientSuggestion ? (
-            <select size="2">
+        {ingredientsInput && (
+          <select size={ingredientSuggestion ? "2" : "1"}>
+            {ingredientSuggestion && (
               <DropDownOption onClick={selectIngredient}>
                 {ingredientSuggestion}
               </DropDownOption>
+            )}
+            {ingredientsInput && (
               <DropDownOption onClick={selectIngredient}>
                 {ingredientsInput}
               </DropDownOption>
-            </select>
-          ) : (
-            ingredientsInput && (
-              <select size="1">
-                <DropDownOption onClick={selectIngredient}>
-                  {ingredientsInput}
-                </DropDownOption>
-              </select>
-            )
-          )}
-        </div>
-
+            )}
+          </select>
+        )}
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
