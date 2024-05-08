@@ -1,4 +1,3 @@
-import { capitalizeFirstLetter } from "@/utils/filter-suggestions";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -19,6 +18,7 @@ export default function FilterForm({ recipes }) {
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
+
     setSymptomsInput(userInput || "");
   }
 
@@ -28,17 +28,25 @@ export default function FilterForm({ recipes }) {
   }
 
   function filterRecipes(symptom, ingredient) {
-    let filteredRecipes = recipes;
+    const recipesLowerCase = recipes.map((recipe) => ({
+      ...recipe,
+      symptoms: recipe.symptoms.map((symptom) => symptom.toLowerCase()),
+      ingredients: recipe.ingredients.map((ingredient) =>
+        ingredient.toLowerCase()
+      ),
+    }));
+
+    let filteredRecipes = [...recipesLowerCase];
 
     if (symptom) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.symptoms.includes(symptom)
+        recipe.symptoms.includes(symptom.toLowerCase())
       );
     }
 
     if (ingredient) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        recipe.ingredients.includes(ingredient)
+        recipe.ingredients.includes(ingredient.toLowerCase())
       );
     }
 
@@ -48,12 +56,12 @@ export default function FilterForm({ recipes }) {
   function handleSearchSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const userSymptom = formData.get("symptom");
-
-    const userIngredient = formData.get("ingredient");
+    const userSymptom = formData.get("symptom").toLowerCase();
     console.log(userSymptom);
 
+    const userIngredient = formData.get("ingredient").toLowerCase();
     console.log(userIngredient);
+
     const filtered = filterRecipes(userSymptom, userIngredient);
     setFilteredRecipes(filtered);
   }
