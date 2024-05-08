@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import RecipeList from "./RecipeList";
 
@@ -25,13 +25,10 @@ export default function FilterForm({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState(recipes);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
-  useEffect(() => {
-    setFilteredRecipes(recipes);
-  }, [recipes]);
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
@@ -88,6 +85,7 @@ export default function FilterForm({
     setSelectedSymptoms([]);
     setSearchSubmitted(false);
   }
+
   return (
     <>
       <SearchBox>
