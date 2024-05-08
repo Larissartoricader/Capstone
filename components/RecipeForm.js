@@ -99,7 +99,7 @@ export default function RecipeForm({
 
   function selectUserIngredient(event) {
     if (
-      event.key === "," &&
+      // event.key === "," &&
       ingredientsInput &&
       !selectedIngredients.includes(event.target.value.slice(0).trim())
     ) {
@@ -124,12 +124,12 @@ export default function RecipeForm({
   function selectSuggestedSymptom() {
     selectedSymptoms.includes(symptomSuggestion) ||
       setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
-    setSymptomsInput("");
+    // setSymptomsInput("");
   }
 
   function selectUserSymptom(event) {
     if (
-      event.key === "," &&
+      // event.key === "," &&
       symptomsInput &&
       !selectedSymptoms.includes(event.target.value.slice(0).trim())
     ) {
@@ -211,10 +211,31 @@ export default function RecipeForm({
           id="ingredients"
           name="ingredients"
           onChange={handleIngredientsChange}
-          onKeyPress={selectUserIngredient}
+          // onKeyPress={selectUserIngredient}
         ></input>
+
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
+
+        {ingredientsInput && (
+          <div>
+            <select size="2">
+              <option>{ingredientSuggestion}</option>
+              <option>{ingredientsInput}</option>
+            </select>
+          </div>
+        )}
+
+        {/* {ingredientsInput && (
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={selectUserIngredient}
+          >
+            {ingredientsInput}
+          </div>
         )}
         {ingredientSuggestion && (
           <div
@@ -223,9 +244,9 @@ export default function RecipeForm({
             }}
             onClick={selectSuggestedIngredient}
           >
-            Click to select suggestion: {ingredientSuggestion}
+            {ingredientSuggestion}
           </div>
-        )}
+        )} */}
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
