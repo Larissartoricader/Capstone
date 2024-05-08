@@ -1,5 +1,4 @@
 import RecipeList from "@/components/RecipeList";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import useSWR from "swr";
 
@@ -8,10 +7,18 @@ const StyledHeadline = styled.h1`
 `;
 
 export default function HomePage({
-  recipes,
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
+  const { data: recipes, isLoading, error } = useSWR("/api/recipes");
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
+  }
   return (
     <div>
       <StyledHeadline>Recipes Overview</StyledHeadline>

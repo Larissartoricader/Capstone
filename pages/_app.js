@@ -61,22 +61,12 @@ export default function App({ Component, pageProps }) {
     recipeToEdit.symptoms = editedRecipe.symptoms;
   }
 
-  const { data: recipes, isLoading, error } = useSWR("/api/recipes", fetcher);
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (error) {
-    return <h1>Oops! Something went wrong..</h1>;
-  }
-
   return (
     <>
       <GlobalStyle />
       <SWRConfig value={{ fetcher }}></SWRConfig>
       <Component
         {...pageProps}
-        recipes={recipes}
         onAddRecipe={handleAddRecipe}
         onHandleBookmarkedIcon={handleBookmarkedIcon}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
