@@ -17,6 +17,11 @@ const StyledForm = styled.form`
   padding: 25px;
 `;
 
+// TODO adjust width to width of input field
+const DropDownOption = styled.option`
+  width: 80vw;
+`;
+
 const ListItemSelectedValues = styled.li`
   display: flex;
   gap: 2vw;
@@ -87,19 +92,8 @@ export default function RecipeForm({
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
-  async function selectSuggestedIngredient() {
-    selectedIngredients.includes(ingredientSuggestion) ||
-      (await setSelectedIngredients([
-        ...selectedIngredients,
-        ingredientSuggestion,
-      ]));
-    setIngredientSuggestion(null);
-    setIngredientsInput("");
-  }
-
-  function selectUserIngredient(event) {
+  function selectIngredient(event) {
     if (
-      // event.key === "," &&
       ingredientsInput &&
       !selectedIngredients.includes(event.target.value.slice(0).trim())
     ) {
@@ -124,12 +118,10 @@ export default function RecipeForm({
   function selectSuggestedSymptom() {
     selectedSymptoms.includes(symptomSuggestion) ||
       setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
-    // setSymptomsInput("");
   }
 
   function selectUserSymptom(event) {
     if (
-      // event.key === "," &&
       symptomsInput &&
       !selectedSymptoms.includes(event.target.value.slice(0).trim())
     ) {
@@ -211,42 +203,22 @@ export default function RecipeForm({
           id="ingredients"
           name="ingredients"
           onChange={handleIngredientsChange}
-          // onKeyPress={selectUserIngredient}
         ></input>
-
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-
         {ingredientsInput && (
           <div>
             <select size="2">
-              <option>{ingredientSuggestion}</option>
-              <option>{ingredientsInput}</option>
+              <DropDownOption onClick={selectIngredient}>
+                {ingredientSuggestion}
+              </DropDownOption>
+              <DropDownOption onClick={selectIngredient}>
+                {ingredientsInput}
+              </DropDownOption>
             </select>
           </div>
         )}
-
-        {/* {ingredientsInput && (
-          <div
-            style={{
-              cursor: "pointer",
-            }}
-            onClick={selectUserIngredient}
-          >
-            {ingredientsInput}
-          </div>
-        )}
-        {ingredientSuggestion && (
-          <div
-            style={{
-              cursor: "pointer",
-            }}
-            onClick={selectSuggestedIngredient}
-          >
-            {ingredientSuggestion}
-          </div>
-        )} */}
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
