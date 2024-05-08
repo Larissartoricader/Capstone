@@ -1,5 +1,4 @@
 import FilterForm from "@/components/FilterForm";
-import Link from "next/link";
 import useSWR from "swr";
 
 export default function HomePage({
@@ -17,7 +16,6 @@ export default function HomePage({
   }
   return (
     <div>
-      <Link href={"/recipe-form"}>Create</Link>
       <FilterForm
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
