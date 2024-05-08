@@ -64,14 +64,15 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <SWRConfig value={{ fetcher }}></SWRConfig>
-      <Component
-        {...pageProps}
-        onAddRecipe={handleAddRecipe}
-        onHandleBookmarkedIcon={handleBookmarkedIcon}
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        onEditRecipe={handleEditRecipe}
-      />
+      <SWRConfig value={{ fetcher }}>
+        <Component
+          {...pageProps}
+          onAddRecipe={handleAddRecipe}
+          onHandleBookmarkedIcon={handleBookmarkedIcon}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          onEditRecipe={handleEditRecipe}
+        />
+      </SWRConfig>
       <NavigationBar />
     </>
   );
