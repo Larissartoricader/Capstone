@@ -29,11 +29,9 @@ export default function FilterForm({
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
-  // Solang wir noch mit interner DB arbeite, brauche ich noch userEffect, danach gitb es SWR ?
   useEffect(() => {
     setFilteredRecipes(recipes);
   }, [recipes]);
-  // UserEffect ermöglicht dass die Liste sich nach der Submit-Form verändert
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
