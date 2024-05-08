@@ -207,8 +207,9 @@ export default function RecipeForm({
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {ingredientsInput && (
-          <div>
+
+        <div>
+          {ingredientSuggestion ? (
             <select size="2">
               <DropDownOption onClick={selectIngredient}>
                 {ingredientSuggestion}
@@ -217,8 +218,17 @@ export default function RecipeForm({
                 {ingredientsInput}
               </DropDownOption>
             </select>
-          </div>
-        )}
+          ) : (
+            ingredientsInput && (
+              <select size="1">
+                <DropDownOption onClick={selectIngredient}>
+                  {ingredientsInput}
+                </DropDownOption>
+              </select>
+            )
+          )}
+        </div>
+
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
