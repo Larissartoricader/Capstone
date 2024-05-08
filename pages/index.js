@@ -8,20 +8,19 @@ export default function HomePage({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
-  const StyledHeadline = styled.h1`
-    text-align: center;
-  `;
-
   return (
     <div>
       <Link href={"/recipe-form"}>Create</Link>
-      <FilterForm recipes={recipes} />
-      <StyledHeadline>Recipes Overview</StyledHeadline>
-      <RecipeList
+      <FilterForm
+        recipes={recipes}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+      />
+      {/* <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         recipes={recipes}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-      />
+      /> */}
     </div>
   );
 }
