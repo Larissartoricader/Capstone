@@ -17,10 +17,6 @@ export default function BookmarkPage({
 }) {
   const { data: recipes, isLoading, error } = useSWR("/api/recipes");
 
-  const bookmarkedRecipes = recipes.filter((recipe) =>
-    bookmarkedRecipesIDs.includes(recipe._id)
-  );
-
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -28,6 +24,10 @@ export default function BookmarkPage({
   if (error) {
     return <h1>Oops! Something went wrong..</h1>;
   }
+
+  const bookmarkedRecipes = recipes.filter((recipe) =>
+    bookmarkedRecipesIDs.includes(recipe._id)
+  );
 
   return (
     <>
