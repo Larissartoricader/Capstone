@@ -12,4 +12,17 @@ export default async function handler(request, response) {
     console.error("Error while Fetching", error);
     return response.status(500).json({ error: "Internal Server Error!" });
   }
+
+  if (request.method === "POST") {
+    await dbConnect();
+    try {
+      const recipeData = request.body;
+      await Recipe.create(recipeData);
+
+      response.status(201).json({ status: "Recipe created." });
+    } catch (error) {
+      console.log(error);
+      response.status(400).json({ error: error.message });
+    }
+  }
 }
