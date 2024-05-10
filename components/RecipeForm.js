@@ -51,11 +51,7 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeForm({
-  onAddRecipe,
-  onEditRecipe,
-  recipeToEdit,
-}) {
+export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
@@ -66,16 +62,10 @@ export default function RecipeForm({
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-    // getSuggestion(
-    //   userInput,
-    //   ingredients,
-    //   setIngredientSuggestion,
-    //   selectedIngredients
-    // );
     const suggestion = getSuggestion(
       userInput,
       ingredients,
-      setIngredientSuggestion
+      selectedIngredients
     );
     setIngredientSuggestion(suggestion);
     setIngredientsInput(userInput || "");
@@ -109,10 +99,10 @@ export default function RecipeForm({
 
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
 
-  function selectSuggestedSymptom() {
-    selectedSymptoms.includes(symptomSuggestion) ||
-      setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
-  }
+  // function selectSuggestedSymptom() {
+  //   selectedSymptoms.includes(symptomSuggestion) ||
+  //     setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
+  // }
 
   function selectSymptom(symptomToBeSelected) {
     if (!selectedSymptoms.includes(symptomToBeSelected)) {

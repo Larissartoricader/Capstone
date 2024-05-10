@@ -31,7 +31,7 @@ export function getSuggestion(
     const itemFirstLetterUpperCase = capitalizeFirstLetter(
       itemMatchingUserInput
     );
-    // if the suggested item is not already being displayed, creturn suggestion
+    // if the suggested item is not already being displayed, return suggestion
     if (selectionArray.includes(itemFirstLetterUpperCase)) {
       return;
     }

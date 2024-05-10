@@ -46,13 +46,6 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
-  function handleAddRecipe(newRecipe) {
-    newRecipe.id = uid();
-    newRecipe.editable = true;
-    const updatedRecipes = [newRecipe, ...recipes];
-    setRecipes(updatedRecipes);
-  }
-
   function handleEditRecipe(editedRecipe, recipeToEdit) {
     recipeToEdit.title = editedRecipe.title;
     recipeToEdit.ingredients = editedRecipe.ingredients;
@@ -74,7 +67,6 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher }}>
         <Component
           {...pageProps}
-          onAddRecipe={handleAddRecipe}
           onHandleBookmarkedIcon={handleBookmarkedIcon}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
           onEditRecipe={handleEditRecipe}
