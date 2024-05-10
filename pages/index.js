@@ -62,11 +62,6 @@ export default function HomePage({
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
-
-      <RecipeList
-        recipes={recipes}
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-      />
     </div>
   );
 }
