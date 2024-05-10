@@ -74,7 +74,8 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
-    getSuggestion(userInput, symptoms, setSymptomSuggestion, selectedSymptoms);
+    const suggestion = getSuggestion(userInput, symptoms, selectedSymptoms);
+    setSymptomSuggestion(suggestion);
     setSymptomsInput(userInput || "");
     setErrorMessage("");
   }
@@ -98,11 +99,6 @@ export default function RecipeForm({ recipeToEdit }) {
   }
 
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-
-  // function selectSuggestedSymptom() {
-  //   selectedSymptoms.includes(symptomSuggestion) ||
-  //     setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
-  // }
 
   function selectSymptom(symptomToBeSelected) {
     if (!selectedSymptoms.includes(symptomToBeSelected)) {
