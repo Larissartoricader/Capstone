@@ -25,4 +25,20 @@ export default async function handler(request, response) {
       response.status(400).json({ error: error.message });
     }
   }
+
+  // if (request.method === "DELETE") {
+  //   await dbConnect();
+  //   try {
+  //     const response = await fetch(`/api/products/${id}`, { method: "DELETE" });
+  //     if (response.ok) {
+  //       push("/");
+  //     } else {
+  //       console.log(response.status);
+  //     }
+  //     return;
+  //   } catch (error) {
+  //     console.log(error);
+  //     response.status(400).json({ error: error.message });
+  //   }
+  // }
 }

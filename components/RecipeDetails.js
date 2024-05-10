@@ -58,9 +58,19 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
     router.push(`/edit/${currentRecipe.id}`);
   }
 
-  function handleDelete() {
-    if (confirm("Are you sure you want to delete this recipe?")) {
-      onDeleteRecipe(currentRecipe.id);
+  // function handleDelete() {
+  //   if (confirm("Are you sure you want to delete this recipe?")) {
+  //     onDeleteRecipe(currentRecipe.id);
+  //     router.push("/");
+  //   }
+  // }
+
+  async function handleDelete() {
+    const response = await fetch(`/api/recipes/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
       router.push("/");
     }
   }
