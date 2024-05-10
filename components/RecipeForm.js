@@ -175,6 +175,7 @@ export default function RecipeForm({ recipeToEdit }) {
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     if (recipeToEdit) {
+      // edit
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
         headers: {
@@ -186,8 +187,10 @@ export default function RecipeForm({ recipeToEdit }) {
         mutate();
       }
     } else {
+      // create
       userRecipe.ingredients = [...selectedIngredients];
       userRecipe.symptoms = [...selectedSymptoms];
+      userRecipe.testtext = "can i not put another prop here?";
       userRecipe.editable = true;
       const response = await fetch("/api/recipes", {
         method: "POST",
@@ -200,7 +203,6 @@ export default function RecipeForm({ recipeToEdit }) {
         mutate();
       }
     }
-
     event.target.reset();
     router.push("/");
   }

@@ -1,17 +1,28 @@
 import RecipeForm from "@/components/RecipeForm";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
-export default function EditRecipePage({ recipes, onEditRecipe }) {
+export default function EditRecipePage({}) {
   const router = useRouter();
   const { id } = router.query;
+
+  const {
+    data: currentRecipe,
+    isLoading,
+    error,
+  } = useSWR(`/api/recipes/${id}`);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
+  }
 
   if (!id) {
     return <p>No recipe ID specified</p>;
   }
 
-  const currentRecipe = recipes.find((recipe) => recipe.id === id);
-
-  return (
-    <RecipeForm recipeToEdit={currentRecipe} onEditRecipe={onEditRecipe} />
-  );
+  return <RecipeForm recipeToEdit={currentRecipe} />;
 }

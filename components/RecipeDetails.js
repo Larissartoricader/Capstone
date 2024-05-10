@@ -55,17 +55,18 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
   };
 
   function handleClick() {
-    router.push(`/edit/${currentRecipe.id}`);
+    router.push(`/edit/${currentRecipe._id}`);
   }
 
   function handleDelete() {
     if (confirm("Are you sure you want to delete this recipe?")) {
-      onDeleteRecipe(currentRecipe.id);
+      onDeleteRecipe(currentRecipe._id);
       router.push("/");
     }
   }
 
   console.log(currentRecipe);
+
   return (
     <article aria-label="Recipe Details">
       <h2>{title}</h2>
@@ -93,7 +94,7 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
           <li key={index}>{symptoms}</li>
         ))}
       </ListItem>
-      {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
+      <button onClick={handleClick}>Edit</button>
       {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
     </article>
   );
