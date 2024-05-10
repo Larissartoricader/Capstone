@@ -20,9 +20,5 @@ export default function EditRecipePage({}) {
     return <h1>Oops! Something went wrong..</h1>;
   }
 
-  if (!id) {
-    return <p>No recipe ID specified</p>;
-  }
-
   return <RecipeForm recipeToEdit={currentRecipe} />;
 }

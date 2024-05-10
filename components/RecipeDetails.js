@@ -94,7 +94,7 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
           <li key={index}>{symptoms}</li>
         ))}
       </ListItem>
-      <button onClick={handleClick}>Edit</button>
+      {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
       {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
     </article>
   );

@@ -174,6 +174,8 @@ export default function RecipeForm({ recipeToEdit }) {
     // get data from form
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
+    userRecipe.ingredients = [...selectedIngredients];
+    userRecipe.symptoms = [...selectedSymptoms];
     if (recipeToEdit) {
       // edit
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
@@ -188,9 +190,6 @@ export default function RecipeForm({ recipeToEdit }) {
       }
     } else {
       // create
-      userRecipe.ingredients = [...selectedIngredients];
-      userRecipe.symptoms = [...selectedSymptoms];
-      userRecipe.testtext = "can i not put another prop here?";
       userRecipe.editable = true;
       const response = await fetch("/api/recipes", {
         method: "POST",
