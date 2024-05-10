@@ -39,8 +39,6 @@ export default function HomePage({
     const newIndex = getRandomIndex();
     setCurrentTipIndex(newIndex);
   };
-
-  const currentTip = recipes[currentTipIndex];
   const { data: recipes, isLoading, error } = useSWR("/api/recipes");
 
   if (isLoading) {
@@ -50,6 +48,7 @@ export default function HomePage({
   if (error) {
     return <h1>Oops! Something went wrong..</h1>;
   }
+  const currentTip = recipes[currentTipIndex];
   return (
     <div>
       <StyledHeadline>Recipes Overview</StyledHeadline>
@@ -57,12 +56,17 @@ export default function HomePage({
         <Button onClick={handleNextTip}>Get Another Tip</Button>
         <TipOfTheDay recipe={currentTip}></TipOfTheDay>
       </TipOfTheDayWrapper>
+
       <FilterForm
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
-      <RecipeList bookmarkedRecipesIDs={bookmarkedRecipesIDs} />
+
+      <RecipeList
+        recipes={recipes}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+      />
     </div>
   );
 }
