@@ -17,8 +17,6 @@ const StyledForm = styled.form`
   padding: 25px;
 `;
 
-// TODO adjust width to width of input field (define width in global styling?)
-
 const FakeDropDown = styled.div`
   width: 85vw;
   border: solid black 1px;
@@ -67,12 +65,18 @@ export default function RecipeForm({
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-    getSuggestion(
+    // getSuggestion(
+    //   userInput,
+    //   ingredients,
+    //   setIngredientSuggestion,
+    //   selectedIngredients
+    // );
+    const suggestion = getSuggestion(
       userInput,
       ingredients,
-      setIngredientSuggestion,
-      selectedIngredients
+      setIngredientSuggestion
     );
+    setIngredientSuggestion(suggestion);
     setIngredientsInput(userInput || "");
     setErrorMessage("");
   }
