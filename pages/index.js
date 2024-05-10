@@ -3,9 +3,10 @@ import RecipeList from "@/components/RecipeList";
 import TipOfTheDay from "@/components/TipOfTheDay";
 import styled from "styled-components";
 import { useState } from "react";
+import FilterForm from "@/components/FilterForm";
+import useSWR from "swr";
 
 export default function HomePage({
-  recipes,
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
@@ -40,7 +41,15 @@ export default function HomePage({
   };
 
   const currentTip = recipes[currentTipIndex];
+  const { data: recipes, isLoading, error } = useSWR("/api/recipes");
 
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
+  }
   return (
     <div>
       <StyledHeadline>Recipes Overview</StyledHeadline>
@@ -48,11 +57,12 @@ export default function HomePage({
         <Button onClick={handleNextTip}>Get Another Tip</Button>
         <TipOfTheDay recipe={currentTip}></TipOfTheDay>
       </TipOfTheDayWrapper>
-      <RecipeList
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+      <FilterForm
         recipes={recipes}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
+      <RecipeList bookmarkedRecipesIDs={bookmarkedRecipesIDs} />
     </div>
   );
 }

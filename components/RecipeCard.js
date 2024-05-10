@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
+import { useRouter } from "next/router";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -91,7 +92,7 @@ export default function RecipeCard({
               color: "black",
               textUnderlineOffset: "4px",
             }}
-            href={`/${recipe.id}`}
+            href={`/${recipe._id}`}
           >
             Read More →
           </Link>
