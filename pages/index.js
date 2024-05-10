@@ -1,11 +1,5 @@
-import RecipeList from "@/components/RecipeList";
-import styled from "styled-components";
+import FilterForm from "@/components/FilterForm";
 import useSWR from "swr";
-
-const StyledHeadline = styled.h1`
-  text-align: center;
-  font: Lora;
-`;
 
 export default function HomePage({
   bookmarkedRecipesIDs,
@@ -22,10 +16,9 @@ export default function HomePage({
   }
   return (
     <div>
-      <StyledHeadline>Recipes Overview</StyledHeadline>
-      <RecipeList
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+      <FilterForm
         recipes={recipes}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
       />
     </div>

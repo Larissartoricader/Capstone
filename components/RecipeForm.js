@@ -314,7 +314,7 @@ export default function RecipeForm({
         </ul>
         <button type="submit">Save</button>
       </StyledForm>
-      <WhiteSpace></WhiteSpace>
+      <WhiteSpace />
     </>
   );
 }
