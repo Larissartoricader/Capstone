@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Image from "next/image";
+
 import Link from "next/link";
 
 const StyledCard = styled.div`
@@ -32,7 +32,6 @@ const TitleSmall = styled.h3`
 const TipOfTheDay = ({ recipe }) => {
   return (
     <StyledCard className="tip-of-the-day">
-      {/* <Title>Tip of the Day</Title> */}
       <TitleSmall>{recipe.title}</TitleSmall>
 
       <Link
