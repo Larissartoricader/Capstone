@@ -152,8 +152,7 @@ export default function RecipeForm({ recipeToEdit }) {
   }, [recipeToEdit]);
 
   //SUBMIT
-  const { id } = router.query;
-  const { data, isLoading, mutate } = useSWR("/api/recipes");
+  const { data, error, isLoading, mutate } = useSWR("/api/recipes");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -176,16 +175,20 @@ export default function RecipeForm({ recipeToEdit }) {
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     if (recipeToEdit) {
-      const response = await fetch(`/api/recipes/${id}`, {
+      const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userRecipe),
       });
+      if (response.ok) {
+        mutate();
+      }
     } else {
       userRecipe.ingredients = [...selectedIngredients];
       userRecipe.symptoms = [...selectedSymptoms];
+      userRecipe.editable = true;
       const response = await fetch("/api/recipes", {
         method: "POST",
         headers: {
@@ -193,11 +196,11 @@ export default function RecipeForm({ recipeToEdit }) {
         },
         body: JSON.stringify(userRecipe),
       });
+      if (response.ok) {
+        mutate();
+      }
     }
-    // swr mutate
-    if (response.ok) {
-      mutate();
-    }
+
     event.target.reset();
     router.push("/");
   }

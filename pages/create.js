@@ -1,9 +1,9 @@
 import RecipeForm from "@/components/RecipeForm";
 
-export default function CreateRecipePage({ onAddRecipe }) {
+export default function CreateRecipePage({}) {
   return (
     <>
-      <RecipeForm onAddRecipe={onAddRecipe} />
+      <RecipeForm />
     </>
   );
 }
