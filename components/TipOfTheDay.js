@@ -39,7 +39,7 @@ const TipOfTheDay = ({ recipe }) => {
           color: "black",
           textUnderlineOffset: "4px",
         }}
-        href={`/${recipe.id}`}
+        href={`/${recipe._id}`}
       >
         Read More →
       </Link>

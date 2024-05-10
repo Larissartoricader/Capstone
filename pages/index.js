@@ -56,7 +56,6 @@ export default function HomePage({
         <Button onClick={handleNextTip}>Get Another Tip</Button>
         <TipOfTheDay recipe={currentTip}></TipOfTheDay>
       </TipOfTheDayWrapper>
-
       <FilterForm
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
