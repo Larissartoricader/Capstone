@@ -17,9 +17,17 @@ const StyledForm = styled.form`
   padding: 25px;
 `;
 
-// TODO adjust width to width of input field
+// TODO adjust width to width of input field (define width in global styling?)
+
+const FakeDropDown = styled.div`
+  width: 85vw;
+  border: solid black 1px;
+`;
 const DropDownOption = styled.button`
-  width: 80vw;
+  width: 85vw;
+  background-color: white;
+  text-align: left;
+  border: none;
 `;
 
 const ListItemSelectedValues = styled.li`
@@ -51,29 +59,11 @@ export default function RecipeForm({
 }) {
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
-  const [ingredientsInput, _setIngredientsInput] = useState("");
-  const [symptomsInput, _setSymptomsInput] = useState("");
+  const [ingredientsInput, setIngredientsInput] = useState("");
+  const [symptomsInput, setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
-  // Messages (only for user input): falls behalten wird, dann noch stylen
-  // const [alreadySelectedIngredient, setAlreadySelectedIngredient] =
-  //   useState(false);
-  // const [alreadySelectedSymptom, setAlreadySelectedSymptom] = useState(false);
 
   const router = useRouter();
-
-  function setIngredientsInput(inputValue) {
-    if (inputValue.includes(",")) {
-    } else {
-      _setIngredientsInput(inputValue);
-    }
-  }
-
-  function setSymptomsInput(inputValue) {
-    if (inputValue.includes(",")) {
-    } else {
-      _setSymptomsInput(inputValue);
-    }
-  }
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
@@ -85,7 +75,6 @@ export default function RecipeForm({
     );
     setIngredientsInput(userInput || "");
     setErrorMessage("");
-    setAlreadySelectedIngredient(false);
   }
 
   function handleSymptomsChange(event) {
@@ -98,15 +87,10 @@ export default function RecipeForm({
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   function selectIngredient(ingredientToBeSelected) {
-    if (selectedIngredients.includes(ingredientToBeSelected)) {
-      // {
-      //   setAlreadySelectedIngredient(true);
-      // }
-    } else {
+    if (!selectedIngredients.includes(ingredientToBeSelected)) {
       setSelectedIngredients([...selectedIngredients, ingredientToBeSelected]);
       setIngredientsInput("");
       setIngredientSuggestion("");
-      setAlreadySelectedIngredient(false);
     }
   }
 
@@ -125,15 +109,9 @@ export default function RecipeForm({
       setSelectedSymptoms([...selectedSymptoms, symptomSuggestion]);
   }
 
-  function selectUserSymptom(event) {
-    if (
-      symptomsInput &&
-      !selectedSymptoms.includes(event.target.value.slice(0).trim())
-    ) {
-      setSelectedSymptoms([
-        ...selectedSymptoms,
-        event.target.value.slice(0).trim(),
-      ]);
+  function selectSymptom(symptomToBeSelected) {
+    if (!selectedSymptoms.includes(symptomToBeSelected)) {
+      setSelectedSymptoms([...selectedSymptoms, symptomToBeSelected]);
       setSymptomsInput("");
     }
   }
@@ -199,7 +177,6 @@ export default function RecipeForm({
           defaultValue={recipeToEdit?.title}
         ></input>
         <label htmlFor="ingredients">Ingredients</label>
-        {/* {alreadySelectedIngredient && <p>Ingredient already selected.</p>} */}
         <input
           value={ingredientsInput}
           type="text"
@@ -214,24 +191,22 @@ export default function RecipeForm({
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
         {ingredientsInput && (
-          <div>
+          <FakeDropDown>
             {ingredientSuggestion && (
-              <button
+              <DropDownOption
                 type="button"
                 onClick={() => selectIngredient(ingredientSuggestion)}
               >
                 {ingredientSuggestion}
-              </button>
+              </DropDownOption>
             )}
-            {ingredientsInput && (
-              <button
-                type="button"
-                onClick={() => selectIngredient(ingredientsInput)}
-              >
-                {ingredientsInput}
-              </button>
-            )}
-          </div>
+            <DropDownOption
+              type="button"
+              onClick={() => selectIngredient(ingredientsInput)}
+            >
+              {ingredientsInput}
+            </DropDownOption>
+          </FakeDropDown>
         )}
         <ul>
           {selectedIngredients.map((ingredient) => (
@@ -269,7 +244,6 @@ export default function RecipeForm({
           defaultValue={recipeToEdit?.usage}
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
-        {/* {alreadySelectedSymptom && <p>Symptom already selected.</p>} */}
         <input
           value={symptomsInput}
           type="text"
@@ -277,19 +251,31 @@ export default function RecipeForm({
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
-          onKeyPress={selectUserSymptom}
         ></input>
         {errorMessage.field === "symptoms" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {symptomSuggestion && (
-          <button type="button" onClick={selectSuggestedSymptom}>
-            Click to select suggestion: {symptomSuggestion}
-          </button>
+        {symptomsInput && (
+          <FakeDropDown>
+            {symptomSuggestion && (
+              <DropDownOption
+                type="button"
+                onClick={() => selectSymptom(symptomSuggestion)}
+              >
+                {symptomSuggestion}
+              </DropDownOption>
+            )}
+            <DropDownOption
+              type="button"
+              onClick={() => selectSymptom(symptomsInput)}
+            >
+              {symptomsInput}
+            </DropDownOption>
+          </FakeDropDown>
         )}
         <ul>
           {selectedSymptoms.map((symptom) => (
-            <li key={symptom}>
+            <ListItemSelectedValues key={symptom}>
               <p>{symptom}</p>
               <button
                 type="button"
@@ -297,7 +283,7 @@ export default function RecipeForm({
               >
                 ❌
               </button>
-            </li>
+            </ListItemSelectedValues>
           ))}
         </ul>
         <button type="submit">Save</button>
