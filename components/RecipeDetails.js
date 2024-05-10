@@ -75,6 +75,8 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
     }
   }
 
+  console.log(currentRecipe);
+
   return (
     <article aria-label="Recipe Details">
       <h2>{title}</h2>

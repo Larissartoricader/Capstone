@@ -40,11 +40,7 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeForm({
-  onAddRecipe,
-  onEditRecipe,
-  recipeToEdit,
-}) {
+export default function RecipeForm({ onEditRecipe, recipeToEdit }) {
   const [ingredientSuggestion, setIngredientSuggestion] = useState();
   const [symptomSuggestion, setSymptomSuggestion] = useState();
   const [ingredientsInput, _setIngredientsInput] = useState("");
@@ -177,6 +173,7 @@ export default function RecipeForm({
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
+    userRecipe.editable = true;
     const response = await fetch("/api/recipes", {
       method: "POST",
       headers: {
@@ -184,7 +181,6 @@ export default function RecipeForm({
       },
       body: JSON.stringify(userRecipe),
     });
-
     if (response.ok) {
       mutate();
     }
