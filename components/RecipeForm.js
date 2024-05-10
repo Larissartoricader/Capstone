@@ -18,7 +18,7 @@ const StyledForm = styled.form`
 `;
 
 // TODO adjust width to width of input field
-const DropDownOption = styled.option`
+const DropDownOption = styled.button`
   width: 80vw;
 `;
 
@@ -55,9 +55,9 @@ export default function RecipeForm({
   const [symptomsInput, _setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
   // Messages (only for user input): falls behalten wird, dann noch stylen
-  const [alreadySelectedIngredient, setAlreadySelectedIngredient] =
-    useState(false);
-  const [alreadySelectedSymptom, setAlreadySelectedSymptom] = useState(false);
+  // const [alreadySelectedIngredient, setAlreadySelectedIngredient] =
+  //   useState(false);
+  // const [alreadySelectedSymptom, setAlreadySelectedSymptom] = useState(false);
 
   const router = useRouter();
 
@@ -97,19 +97,13 @@ export default function RecipeForm({
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
-  function selectIngredient(event) {
-    if (
-      // ingredientsInput
-      // &&
-      // !selectedIngredients.includes(event.target.value.slice(0).trim())
-      selectedIngredients.includes(event.target.value)
-    ) {
-      setAlreadySelectedIngredient(true);
+  function selectIngredient(ingredientToBeSelected) {
+    if (selectedIngredients.includes(ingredientToBeSelected)) {
+      // {
+      //   setAlreadySelectedIngredient(true);
+      // }
     } else {
-      setSelectedIngredients([
-        ...selectedIngredients,
-        event.target.value.slice(0).trim(),
-      ]);
+      setSelectedIngredients([...selectedIngredients, ingredientToBeSelected]);
       setIngredientsInput("");
       setIngredientSuggestion("");
       setAlreadySelectedIngredient(false);
@@ -205,7 +199,7 @@ export default function RecipeForm({
           defaultValue={recipeToEdit?.title}
         ></input>
         <label htmlFor="ingredients">Ingredients</label>
-        {alreadySelectedIngredient && <p>Ingredient already selected.</p>}
+        {/* {alreadySelectedIngredient && <p>Ingredient already selected.</p>} */}
         <input
           value={ingredientsInput}
           type="text"
@@ -220,31 +214,35 @@ export default function RecipeForm({
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
         {ingredientsInput && (
-          <select size={ingredientSuggestion ? "2" : "1"}>
+          <div>
             {ingredientSuggestion && (
-              <DropDownOption onClick={selectIngredient}>
+              <button
+                type="button"
+                onClick={() => selectIngredient(ingredientSuggestion)}
+              >
                 {ingredientSuggestion}
-              </DropDownOption>
+              </button>
             )}
             {ingredientsInput && (
-              <DropDownOption onClick={selectIngredient}>
+              <button
+                type="button"
+                onClick={() => selectIngredient(ingredientsInput)}
+              >
                 {ingredientsInput}
-              </DropDownOption>
+              </button>
             )}
-          </select>
+          </div>
         )}
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
               <p>{ingredient}</p>
-              <p
-                style={{
-                  cursor: "pointer",
-                }}
+              <button
+                type="button"
                 onClick={() => deleteSelectedIngredient(ingredient)}
               >
                 ❌
-              </p>
+              </button>
             </ListItemSelectedValues>
           ))}
         </ul>
@@ -271,6 +269,7 @@ export default function RecipeForm({
           defaultValue={recipeToEdit?.usage}
         ></input>
         <label htmlFor="symptoms">Symptoms</label>
+        {/* {alreadySelectedSymptom && <p>Symptom already selected.</p>} */}
         <input
           value={symptomsInput}
           type="text"
@@ -284,27 +283,20 @@ export default function RecipeForm({
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
         {symptomSuggestion && (
-          <div
-            style={{
-              cursor: "pointer",
-            }}
-            onClick={selectSuggestedSymptom}
-          >
+          <button type="button" onClick={selectSuggestedSymptom}>
             Click to select suggestion: {symptomSuggestion}
-          </div>
+          </button>
         )}
         <ul>
           {selectedSymptoms.map((symptom) => (
             <li key={symptom}>
               <p>{symptom}</p>
-              <p
-                style={{
-                  cursor: "pointer",
-                }}
+              <button
+                type="button"
                 onClick={() => deleteSelectedSymptom(symptom)}
               >
                 ❌
-              </p>
+              </button>
             </li>
           ))}
         </ul>
