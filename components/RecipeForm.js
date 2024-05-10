@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getSuggestion } from "@/utils/get-suggestions";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const StyledForm = styled.form`
   border: 1px solid #ccc;
@@ -133,7 +134,9 @@ export default function RecipeForm({
     recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
   }, [recipeToEdit]);
 
-  function handleSubmit(event) {
+  const { mutate } = useSWR("/api/recipes");
+
+  async function handleSubmit(event) {
     event.preventDefault();
     if (selectedIngredients.length === 0) {
       setErrorMessage({
@@ -153,9 +156,17 @@ export default function RecipeForm({
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-    recipeToEdit
-      ? onEditRecipe(userRecipe, recipeToEdit)
-      : onAddRecipe(userRecipe);
+    const response = await fetch("/api/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userRecipe),
+    });
+
+    if (response.ok) {
+      mutate();
+    }
     event.target.reset();
     router.push("/");
   }
@@ -292,7 +303,7 @@ export default function RecipeForm({
         </ul>
         <button type="submit">Save</button>
       </StyledForm>
-      <WhiteSpace></WhiteSpace>
+      <WhiteSpace />
     </>
   );
 }
