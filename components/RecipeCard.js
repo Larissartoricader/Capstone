@@ -68,7 +68,7 @@ export default function RecipeCard({
           height={200}
           width={200}
           objectFit="contain"
-          alt="bottle of rum e.g. remedy"
+          alt={recipe.title}
         ></Image>
       </StyledImageWrapper>
       <StyledBookmarkIcon>
