@@ -30,7 +30,7 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeDetailsPage({ onDeleteRecipe }) {
+export default function RecipeDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -39,6 +39,7 @@ export default function RecipeDetailsPage({ onDeleteRecipe }) {
     error,
   } = useSWR(`/api/recipes/${id}`);
 
+  console.log(id);
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -60,10 +61,7 @@ export default function RecipeDetailsPage({ onDeleteRecipe }) {
         </BackLink>
       </BackgroundContainer>
       <ContentContainer>
-        <RecipeDetails
-          currentRecipe={currentRecipe}
-          onDeleteRecipe={onDeleteRecipe}
-        />
+        <RecipeDetails currentRecipe={currentRecipe} />
       </ContentContainer>
       <WhiteSpace />
     </>
