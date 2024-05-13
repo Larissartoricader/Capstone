@@ -1,6 +1,5 @@
 import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
-import { uid } from "uid";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
 
@@ -42,7 +41,6 @@ export default function App({ Component, pageProps }) {
       ? removeRecipeFromBookmarked(id)
       : addRecipeToBookmarked(id);
   }
-
 
 
   function handleDeleteRecipe(deletedRecipe) {

@@ -23,10 +23,14 @@ export default async function handler(request, response) {
     return;
   }
 
-  if (request.method === "PUT") {
-    const updatedRecipe = request.body;
-    await Recipe.findByIdAndUpdate(id, updatedRecipe);
-    response.status(200).json({ status: "Recipe updated!" });
-    return;
+  if (request.method === "DELETE") {
+    await Recipe.findByIdAndDelete(id);
+    response.status(200).json({ status: "Recipe deleted!" });
+    if (request.method === "PUT") {
+      const updatedRecipe = request.body;
+      await Recipe.findByIdAndUpdate(id, updatedRecipe);
+      response.status(200).json({ status: "Recipe updated!" });
+      return;
+    }
   }
 }
