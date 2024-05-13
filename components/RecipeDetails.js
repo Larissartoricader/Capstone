@@ -39,7 +39,7 @@ const CollapsibleContent = styled.div`
   transition: max-height 0.3s ease-out;
 `;
 
-export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
+export default function RecipeDetails({ currentRecipe }) {
   const router = useRouter();
   const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
 
@@ -55,12 +55,15 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
   };
 
   function handleClick() {
-    router.push(`/edit/${currentRecipe.id}`);
+    router.push(`/edit/${currentRecipe._id}`);
   }
 
-  function handleDelete() {
-    if (confirm("Are you sure you want to delete this recipe?")) {
-      onDeleteRecipe(currentRecipe.id);
+  async function handleDelete() {
+    const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
+      method: "DELETE",
+    });
+    // TODO kann man den push verzögern damit erst wenn object auch auf home page sichtbar/nicht mehr sichtbar ist
+    if (response.ok) {
       router.push("/");
     }
   }
