@@ -120,10 +120,12 @@ export default function RecipeForm({ recipeToEdit }) {
     recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
   }, [recipeToEdit]);
 
-  const { mutate } = useSWR("/api/recipes");
+  //SUBMIT
+  const { data, error, isLoading, mutate } = useSWR("/api/recipes");
 
   async function handleSubmit(event) {
     event.preventDefault();
+    // handle empty input
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
@@ -138,23 +140,47 @@ export default function RecipeForm({ recipeToEdit }) {
       return;
     }
     setErrorMessage({ field: "", message: "" });
+    // get data from form
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-    const response = await fetch("/api/recipes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userRecipe),
-    });
-
-    if (response.ok) {
-      mutate();
+    if (recipeToEdit) {
+      // edit
+      const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userRecipe),
+      });
+      if (response.ok) {
+        mutate();
+      }
+    } else {
+      // create
+      userRecipe.editable = true;
+      const response = await fetch("/api/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userRecipe),
+      });
+      if (response.ok) {
+        mutate();
+      }
     }
     event.target.reset();
     router.push("/");
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Oops! Something went wrong..</h1>;
   }
 
   return (
