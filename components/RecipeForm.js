@@ -56,15 +56,10 @@ export default function RecipeForm({ recipeToEdit }) {
   const [symptomSuggestion, setSymptomSuggestion] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [symptomsInput, setSymptomsInput] = useState("");
+  // "error" message if input field is empty
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
-  const [prediction, setPrediction] = useState(null);
-  const [error, setError] = useState(null);
 
   const router = useRouter();
-
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
@@ -127,11 +122,16 @@ export default function RecipeForm({ recipeToEdit }) {
   }, [recipeToEdit]);
 
   //SUBMIT
+  const [prediction, setPrediction] = useState(null);
+  const [error, setError] = useState(null);
   const { data, error: fetchError, isLoading, mutate } = useSWR("/api/recipes");
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // handle empty input
+    // 1. handle empty input
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
@@ -146,12 +146,13 @@ export default function RecipeForm({ recipeToEdit }) {
       return;
     }
     setErrorMessage({ field: "", message: "" });
-    // get data from form
+    // 2. get data from form
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-
+    // 3. image
+    // 3a. send post request with title (prompt) to API. stored in request object.
     const predictionRequest = await fetch("/api/predictions", {
       method: "POST",
       headers: {
@@ -164,6 +165,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
     console.log(predictionRequest);
 
+    // 3b. take response object from above (predictionRequest) and make it .json() and pass it to prediction state variable
     let prediction = await predictionRequest.json();
     if (predictionRequest.status !== 201) {
       setError(prediction.detail);
@@ -172,204 +174,198 @@ export default function RecipeForm({ recipeToEdit }) {
     setPrediction(prediction);
 
     console.log(prediction);
-    // Überprüfe den Status der Vorhersage in einer Schleife.
+
+    // 3c. Loop: Continuously check the status of the prediction until it succeeds or fails
     while (
       prediction.status !== "succeeded" &&
       prediction.status !== "failed"
     ) {
-      await sleep(1000); // Warte eine Sekunde bevor du erneut prüfst.
+      await sleep(1000);
+      // send get request to api
       const statusResponse = await fetch("/api/predictions/" + prediction.id);
       prediction = await statusResponse.json();
+      // in case of error
       if (statusResponse.status !== 200) {
         setError(prediction.detail);
         return;
       }
+
       console.log({ prediction });
       setPrediction(prediction);
     }
+    // end of Loop
 
-    const response = await fetch("/api/recipes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userRecipe),
-    });
-
-    if (response.ok) {
-      mutate();
-      if (recipeToEdit) {
-        // edit
-        const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userRecipe),
-        });
-        if (response.ok) {
-          mutate();
-        }
-      } else {
-        // create
-        userRecipe.editable = true;
-        const response = await fetch("/api/recipes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userRecipe),
-        });
-        if (response.ok) {
-          mutate();
-        }
+    if (recipeToEdit) {
+      // 4. edit
+      const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userRecipe),
+      });
+      if (response.ok) {
+        mutate();
       }
-      event.target.reset();
-      router.push("/");
+    } else {
+      // 4. create
+      userRecipe.editable = true;
+      const response = await fetch("/api/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userRecipe),
+      });
+      if (response.ok) {
+        mutate();
+      }
     }
-
-    if (isLoading) {
-      return <h1>Loading...</h1>;
-    }
-
-    if (fetchError) {
-      return <h1>Oops! Something went wrong..</h1>;
-    }
-
-    return (
-      <>
-        <button onClick={() => router.back()}>Cancel</button>
-        {recipeToEdit ? (
-          <h2>Edit your Recipe</h2>
-        ) : (
-          <StyledHeadline>Add your Recipe</StyledHeadline>
-        )}
-        <StyledForm onSubmit={handleSubmit}>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            placeholder="What's the recipe's name?"
-            minLength="1"
-            maxLength="50"
-            id="title"
-            name="title"
-            required
-            defaultValue={recipeToEdit?.title}
-          ></input>
-          <label htmlFor="ingredients">Ingredients</label>
-          <input
-            value={ingredientsInput}
-            type="text"
-            placeholder="What ingredients are needed?"
-            minLength="1"
-            maxLength="50"
-            id="ingredients"
-            name="ingredients"
-            onChange={handleIngredientsChange}
-          ></input>
-          {errorMessage.field === "ingredients" && (
-            <ErrorMessage>{errorMessage.message}</ErrorMessage>
-          )}
-          {ingredientsInput && (
-            <FakeDropDown>
-              {ingredientSuggestion && (
-                <DropDownOption
-                  type="button"
-                  onClick={() => selectIngredient(ingredientSuggestion)}
-                >
-                  {ingredientSuggestion}
-                </DropDownOption>
-              )}
-              <DropDownOption
-                type="button"
-                onClick={() => selectIngredient(ingredientsInput)}
-              >
-                {ingredientsInput}
-              </DropDownOption>
-            </FakeDropDown>
-          )}
-          <ul>
-            {selectedIngredients.map((ingredient) => (
-              <ListItemSelectedValues key={ingredient}>
-                <p>{ingredient}</p>
-                <button
-                  type="button"
-                  onClick={() => deleteSelectedIngredient(ingredient)}
-                >
-                  ❌
-                </button>
-              </ListItemSelectedValues>
-            ))}
-          </ul>
-          <label htmlFor="preparation">Preparation</label>
-          <input
-            type="text"
-            placeholder="e.g Add thyme to the water"
-            minLength="1"
-            maxLength="150"
-            required
-            id="preparation"
-            name="preparation"
-            defaultValue={recipeToEdit?.preparation}
-          ></input>
-          <label htmlFor="usage">Usage</label>
-          <input
-            type="text"
-            placeholder="How to use it?"
-            minLength="4"
-            maxLength="300"
-            required
-            id="usage"
-            name="usage"
-            defaultValue={recipeToEdit?.usage}
-          ></input>
-          <label htmlFor="symptoms">Symptoms</label>
-          <input
-            value={symptomsInput}
-            type="text"
-            placeholder="min 2 Symptoms"
-            id="symptoms"
-            name="symptoms"
-            onChange={handleSymptomsChange}
-          ></input>
-          {errorMessage.field === "symptoms" && (
-            <ErrorMessage>{errorMessage.message}</ErrorMessage>
-          )}
-          {symptomsInput && (
-            <FakeDropDown>
-              {symptomSuggestion && (
-                <DropDownOption
-                  type="button"
-                  onClick={() => selectSymptom(symptomSuggestion)}
-                >
-                  {symptomSuggestion}
-                </DropDownOption>
-              )}
-              <DropDownOption
-                type="button"
-                onClick={() => selectSymptom(symptomsInput)}
-              >
-                {symptomsInput}
-              </DropDownOption>
-            </FakeDropDown>
-          )}
-          <ul>
-            {selectedSymptoms.map((symptom) => (
-              <ListItemSelectedValues key={symptom}>
-                <p>{symptom}</p>
-                <button
-                  type="button"
-                  onClick={() => deleteSelectedSymptom(symptom)}
-                >
-                  ❌
-                </button>
-              </ListItemSelectedValues>
-            ))}
-          </ul>
-          <button type="submit">Save</button>
-        </StyledForm>
-        <WhiteSpace />
-      </>
-    );
+    event.target.reset();
+    router.push("/");
   }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (fetchError) {
+    return <h1>Oops! Something went wrong..</h1>;
+  }
+
+  return (
+    <>
+      <button onClick={() => router.back()}>Cancel</button>
+      {recipeToEdit ? (
+        <h2>Edit your Recipe</h2>
+      ) : (
+        <StyledHeadline>Add your Recipe</StyledHeadline>
+      )}
+      <StyledForm onSubmit={handleSubmit}>
+        <label htmlFor="title">Title</label>
+        <input
+          type="text"
+          placeholder="What's the recipe's name?"
+          minLength="1"
+          maxLength="50"
+          id="title"
+          name="title"
+          required
+          defaultValue={recipeToEdit?.title}
+        ></input>
+        <label htmlFor="ingredients">Ingredients</label>
+        <input
+          value={ingredientsInput}
+          type="text"
+          placeholder="What ingredients are needed?"
+          minLength="1"
+          maxLength="50"
+          id="ingredients"
+          name="ingredients"
+          onChange={handleIngredientsChange}
+        ></input>
+        {errorMessage.field === "ingredients" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
+        {ingredientsInput && (
+          <FakeDropDown>
+            {ingredientSuggestion && (
+              <DropDownOption
+                type="button"
+                onClick={() => selectIngredient(ingredientSuggestion)}
+              >
+                {ingredientSuggestion}
+              </DropDownOption>
+            )}
+            <DropDownOption
+              type="button"
+              onClick={() => selectIngredient(ingredientsInput)}
+            >
+              {ingredientsInput}
+            </DropDownOption>
+          </FakeDropDown>
+        )}
+        <ul>
+          {selectedIngredients.map((ingredient) => (
+            <ListItemSelectedValues key={ingredient}>
+              <p>{ingredient}</p>
+              <button
+                type="button"
+                onClick={() => deleteSelectedIngredient(ingredient)}
+              >
+                ❌
+              </button>
+            </ListItemSelectedValues>
+          ))}
+        </ul>
+        <label htmlFor="preparation">Preparation</label>
+        <input
+          type="text"
+          placeholder="e.g Add thyme to the water"
+          minLength="1"
+          maxLength="150"
+          required
+          id="preparation"
+          name="preparation"
+          defaultValue={recipeToEdit?.preparation}
+        ></input>
+        <label htmlFor="usage">Usage</label>
+        <input
+          type="text"
+          placeholder="How to use it?"
+          minLength="4"
+          maxLength="300"
+          required
+          id="usage"
+          name="usage"
+          defaultValue={recipeToEdit?.usage}
+        ></input>
+        <label htmlFor="symptoms">Symptoms</label>
+        <input
+          value={symptomsInput}
+          type="text"
+          placeholder="min 2 Symptoms"
+          id="symptoms"
+          name="symptoms"
+          onChange={handleSymptomsChange}
+        ></input>
+        {errorMessage.field === "symptoms" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
+        {symptomsInput && (
+          <FakeDropDown>
+            {symptomSuggestion && (
+              <DropDownOption
+                type="button"
+                onClick={() => selectSymptom(symptomSuggestion)}
+              >
+                {symptomSuggestion}
+              </DropDownOption>
+            )}
+            <DropDownOption
+              type="button"
+              onClick={() => selectSymptom(symptomsInput)}
+            >
+              {symptomsInput}
+            </DropDownOption>
+          </FakeDropDown>
+        )}
+        <ul>
+          {selectedSymptoms.map((symptom) => (
+            <ListItemSelectedValues key={symptom}>
+              <p>{symptom}</p>
+              <button
+                type="button"
+                onClick={() => deleteSelectedSymptom(symptom)}
+              >
+                ❌
+              </button>
+            </ListItemSelectedValues>
+          ))}
+        </ul>
+        <button type="submit">Save</button>
+      </StyledForm>
+      <WhiteSpace />
+    </>
+  );
 }
