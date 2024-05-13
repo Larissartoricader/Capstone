@@ -1,42 +1,92 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
-const ListItem = styled.ul`
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 5px;
-  padding: 25px;
+const RecipeArticle = styled.article`
+  background-color: #fcfbf4;
+  margin-inline: 15px;
+  border-radius: 20px;
 `;
 
-const CollapsibleButton = styled.button`
-  background-color: #777;
-  color: white;
+const StyledRecipeDetailPicture = styled.div`
+  background-color: lightgray;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  height: 150px;
+`;
+
+const SytledRecipeTitle = styled.h2`
+  margin-left: 20px;
+  font-size: xx-large;
+`;
+
+const StyledItemsBox = styled.div`
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 10px;
+`;
+
+const StyledItemListTitle = styled.h3`
+  margin-left: 20px;
+  font-size: medium;
+  margin-left: 20px;
+`;
+
+const StyleItemsList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+`;
+
+const StyledItems = styled.li`
+  background-color: #f1efe2;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px;
+`;
+
+const CollapsibleContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const CollapsibleButton = styled.div`
+  background-color: #dedbdb;
+  color: black;
   cursor: pointer;
-  padding: 18px;
+  padding: 2px;
   margin: 5px;
-  width: 80%;
-  border-radius: 5px;
-  border: none;
-  text-align: left;
+  border-radius: 7px;
+  border: solid black 1px;
   outline: none;
-  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledIcon = styled(RiArrowDropDownLine)`
+  font-size: 40px;
+`;
+
+const StyledTextButton = styled.p`
+  font-size: medium;
+  text-align: center;
 `;
 
 const CollapsibleContent = styled.div`
   padding: 0 18px;
   margin: 5px;
-  width: 80%;
   overflow: hidden;
   background-color: #f1f1f1;
   max-height: ${(props) => (props.isOpen ? "500px" : "0")};
   transition: max-height 0.3s ease-out;
+`;
+
+const CollapsibleText = styled.p`
+  font-size: medium;
 `;
 
 export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
@@ -68,34 +118,45 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
   console.log(currentRecipe);
 
   return (
-    <article aria-label="Recipe Details">
-      <h2>{title}</h2>
-      <h3>Ingredients</h3>
-      <ListItem>
-        {ingredients.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ListItem>
-      <CollapsibleButton onClick={togglePreparationCollapse}>
-        Open the Preperation
-      </CollapsibleButton>
-      <CollapsibleContent isOpen={isPreparationOpen}>
-        <p>{preparation}</p>
-      </CollapsibleContent>
-      <CollapsibleButton onClick={toggleUsageCollapse}>
-        Open the Usage
-      </CollapsibleButton>
-      <CollapsibleContent isOpen={isUsageOpen}>
-        <p>{usage}</p>
-      </CollapsibleContent>
-      <h3> Symptoms</h3>
-      <ListItem>
-        {symptoms.map((symptoms, index) => (
-          <li key={index}>{symptoms}</li>
-        ))}
-      </ListItem>
+    <RecipeArticle aria-label="Recipe Details">
+      <StyledRecipeDetailPicture />
+      <SytledRecipeTitle>{title}</SytledRecipeTitle>
+      <StyledItemsBox>
+        <StyledItemListTitle>Ingredients:</StyledItemListTitle>
+        <StyleItemsList>
+          {ingredients.map((ingredient, index) => (
+            <StyledItems key={index}>{ingredient}</StyledItems>
+          ))}
+        </StyleItemsList>
+      </StyledItemsBox>
+      <CollapsibleContainer>
+        <CollapsibleButton onClick={togglePreparationCollapse}>
+          <StyledTextButton>Preparation</StyledTextButton>
+          <StyledIcon />
+        </CollapsibleButton>
+        <CollapsibleContent isOpen={isPreparationOpen}>
+          <CollapsibleText>{preparation}</CollapsibleText>
+        </CollapsibleContent>
+
+        <CollapsibleButton onClick={toggleUsageCollapse}>
+          Usage
+          <StyledIcon />
+        </CollapsibleButton>
+
+        <CollapsibleContent isOpen={isUsageOpen}>
+          <CollapsibleText>{usage}</CollapsibleText>
+        </CollapsibleContent>
+      </CollapsibleContainer>
+      <StyledItemsBox>
+        <StyledItemListTitle> Symptoms</StyledItemListTitle>
+        <StyleItemsList>
+          {symptoms.map((symptoms, index) => (
+            <StyledItems key={index}>{symptoms}</StyledItems>
+          ))}
+        </StyleItemsList>
+      </StyledItemsBox>
       {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
       {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
-    </article>
+    </RecipeArticle>
   );
 }
