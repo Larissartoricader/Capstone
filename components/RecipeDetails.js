@@ -62,13 +62,11 @@ export default function RecipeDetails({ currentRecipe }) {
     const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
       method: "DELETE",
     });
-
+    // TODO kann man den push verzögern damit erst wenn object auch auf home page sichtbar/nicht mehr sichtbar ist
     if (response.ok) {
       router.push("/");
     }
   }
-
-  console.log(currentRecipe);
 
   return (
     <article aria-label="Recipe Details">
