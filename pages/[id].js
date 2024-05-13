@@ -3,16 +3,22 @@ import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
 import useSWR from "swr";
 
-const StyledRecipeDetailPage = styled.div`
-  background-color: #c8ecb8;
-`;
+const StyledRecipeDetailPage = styled.div``;
 
-const BackLink = styled.a`
+const BackLink = styled.p`
   background-color: #fcfbf4;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-radius: 15px;
+  width: 15%;
+  color: black;
+  text-align: center;
+  font-weight: bold;
 `;
 
 const ContentContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 10px;
 `;
 
 const WhiteSpace = styled.div`
@@ -44,7 +50,7 @@ export default function RecipeDetailsPage({ onDeleteRecipe }) {
   return (
     <StyledRecipeDetailPage>
       <BackLink href="/" onClick={handleBackClick}>
-        Back
+        back
       </BackLink>
       <ContentContainer>
         <RecipeDetails

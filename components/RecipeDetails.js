@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import Image from "next/image";
 
 const RecipeArticle = styled.article`
   background-color: #fcfbf4;
@@ -10,10 +11,14 @@ const RecipeArticle = styled.article`
 `;
 
 const StyledRecipeDetailPicture = styled.div`
-  background-color: lightgray;
   border-radius: 20px 20px 0 0;
   width: 100%;
-  height: 150px;
+  height: 180px;
+  position: relative;
+`;
+
+const StyledImage = styled(Image)`
+  border-radius: 20px 20px 0 0;
 `;
 
 const SytledRecipeTitle = styled.h2`
@@ -119,7 +124,14 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
 
   return (
     <RecipeArticle aria-label="Recipe Details">
-      <StyledRecipeDetailPicture />
+      <StyledRecipeDetailPicture>
+        <StyledImage
+          src="https://images.unsplash.com/photo-1564278453360-c65eda0a200e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          layout="fill"
+          objectFit="cover"
+          alt="bottle of rum e.g. remedy"
+        />
+      </StyledRecipeDetailPicture>
       <SytledRecipeTitle>{title}</SytledRecipeTitle>
       <StyledItemsBox>
         <StyledItemListTitle>Ingredients:</StyledItemListTitle>
