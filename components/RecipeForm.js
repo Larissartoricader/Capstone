@@ -50,8 +50,14 @@ export default function RecipeForm({
   const [ingredientsInput, _setIngredientsInput] = useState("");
   const [symptomsInput, _setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
+  const [prediction, setPrediction] = useState(null);
+  const [error, setError] = useState(null);
 
   const router = useRouter();
+
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   function setIngredientsInput(inputValue) {
     if (inputValue.includes(",")) {
@@ -177,6 +183,43 @@ export default function RecipeForm({
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
+
+    const predictionRequest = await fetch("/api/predictions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: event.target.title.value, // Hier der gewünschter Prompt
+      }),
+    });
+
+    console.log(predictionRequest);
+
+    let prediction = await predictionRequest.json();
+    if (predictionRequest.status !== 201) {
+      setError(prediction.detail);
+      return;
+    }
+    setPrediction(prediction);
+
+    console.log(prediction);
+    // Überprüfe den Status der Vorhersage in einer Schleife.
+    while (
+      prediction.status !== "succeeded" &&
+      prediction.status !== "failed"
+    ) {
+      await sleep(1000); // Warte eine Sekunde bevor du erneut prüfst.
+      const statusResponse = await fetch("/api/predictions/" + prediction.id);
+      prediction = await statusResponse.json();
+      if (statusResponse.status !== 200) {
+        setError(prediction.detail);
+        return;
+      }
+      console.log({ prediction });
+      setPrediction(prediction);
+    }
+
     const response = await fetch("/api/recipes", {
       method: "POST",
       headers: {

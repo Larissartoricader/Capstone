@@ -8,6 +8,8 @@ export default async function handler(req, res) {
       },
     }
   );
+  console.log("handler 1");
+
   if (response.status !== 200) {
     let error = await response.json();
     res.statusCode = 500;
@@ -17,4 +19,8 @@ export default async function handler(req, res) {
 
   const prediction = await response.json();
   res.end(JSON.stringify(prediction));
+  console.log(prediction);
+  console.log("handler 2");
+  console.log(prediction);
+  console.log(prediction.output[prediction.output.length - 1]);
 }
