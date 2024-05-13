@@ -55,9 +55,10 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
   };
 
   function handleClick() {
-    router.push(`/edit/${currentRecipe.id}`);
+    router.push(`/edit/${currentRecipe._id}`);
   }
 
+<<<<<<< HEAD
   // function handleDelete() {
   //   if (confirm("Are you sure you want to delete this recipe?")) {
   //     onDeleteRecipe(currentRecipe.id);
@@ -71,6 +72,11 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
     });
 
     if (response.ok) {
+=======
+  function handleDelete() {
+    if (confirm("Are you sure you want to delete this recipe?")) {
+      onDeleteRecipe(currentRecipe._id);
+>>>>>>> main
       router.push("/");
     }
   }
