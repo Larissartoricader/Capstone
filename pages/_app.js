@@ -2,6 +2,7 @@ import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function App({ Component, pageProps }) {
   const fetcher = async (url) => {
@@ -41,7 +42,6 @@ export default function App({ Component, pageProps }) {
       ? removeRecipeFromBookmarked(id)
       : addRecipeToBookmarked(id);
   }
-
 
   function handleDeleteRecipe(deletedRecipe) {
     const updatedRecipes = recipes.filter(
