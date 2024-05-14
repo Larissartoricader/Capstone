@@ -40,7 +40,7 @@ export default function HomePage({
     setCurrentTipIndex(newIndex);
   };
   const { data: recipes, isLoading, error } = useSWR("/api/recipes");
-  console.log("on main page", isLoading);
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
