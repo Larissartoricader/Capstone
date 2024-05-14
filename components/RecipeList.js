@@ -23,24 +23,24 @@ const WhiteSpace = styled.div`
 `;
 
 export default function RecipeList({
-	recipes,
-	onHandleBookmarkedIcon,
-	bookmarkedRecipesIDs,
+  recipes,
+  onHandleBookmarkedIcon,
+  bookmarkedRecipesIDs,
 }) {
-	return (
-		<>
-			<StyledList>
-				{recipes.map((recipe) => (
-					<li key={recipe._id}>
-						<RecipeCard
-							onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-							bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-							recipe={recipe}
-						/>
-					</li>
-				))}
-			</StyledList>
-			<WhiteSpace />
-		</>
-	);
+  return (
+    <>
+      <StyledList>
+        {recipes.map((recipe) => (
+          <li key={recipe._id}>
+            <RecipeCard
+              onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+              bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+              recipe={recipe}
+            />
+          </li>
+        ))}
+      </StyledList>
+      <WhiteSpace />
+    </>
+  );
 }

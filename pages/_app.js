@@ -17,7 +17,7 @@ const fetcher = async (url) => {
 export default function App({ Component, pageProps }) {
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
     "bookmarkedRecipesIDs",
-    { defaultValue: [] }
+    { defaultValue: [] },
   );
 
   function checkIfRecipeIsBookmarked(id) {
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
 
   function removeRecipeFromBookmarked(id) {
     const recipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
-      (item) => item !== id
+      (item) => item !== id,
     );
     setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
   }
@@ -42,22 +42,14 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
-  function handleDeleteRecipe(deletedRecipe) {
-    const updatedRecipes = recipes.filter(
-      (recipe) => recipe.id !== deletedRecipe
-    );
-    setRecipes(updatedRecipes);
-  }
-
   return (
     <>
       <GlobalStyle />
-      <SWRConfig value={{ fetcher, options: { revalidateIfStale: true } }}>
+      <SWRConfig value={{ fetcher }}>
         <Component
           {...pageProps}
           onHandleBookmarkedIcon={handleBookmarkedIcon}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          onDeleteRecipe={handleDeleteRecipe}
         />
       </SWRConfig>
       <NavigationBar />

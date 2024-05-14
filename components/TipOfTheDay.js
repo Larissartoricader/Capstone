@@ -33,7 +33,6 @@ const TipOfTheDay = ({ recipe }) => {
   return (
     <StyledCard className="tip-of-the-day">
       <TitleSmall>{recipe.title}</TitleSmall>
-
       <Link
         style={{
           color: "black",
