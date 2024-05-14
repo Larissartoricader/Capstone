@@ -6,9 +6,10 @@ import useSWR from "swr";
 const StyledRecipeDetailPage = styled.div``;
 
 const StyledRecipeHeader = styled.div`
-  display: flex;
-  justify-items: center;
-  justify-content: space-between;
+display: flex;
+padding-right: 10px;
+justify-content: space-between;
+
 `;
 
 const BackLink = styled.p`
@@ -33,11 +34,12 @@ const StyledHerbie = styled.p`
 
 const StyledHerbieBox = styled.div`
   display: flex;
-  flex: columns;
+  gap: 10px; 
+  align-items: center;
 `;
 
 const ContentContainer = styled.div`
-  margin-top: 10px;
+  margin-top: 3px;
 `;
 
 const WhiteSpace = styled.div`
@@ -45,51 +47,51 @@ const WhiteSpace = styled.div`
 `;
 
 export default function RecipeDetailsPage({
-  onDeleteRecipe,
-  bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
+	onDeleteRecipe,
+	bookmarkedRecipesIDs,
+	onHandleBookmarkedIcon,
 }) {
-  const router = useRouter();
-  const { id } = router.query;
-  const {
-    data: currentRecipe,
-    isLoading,
-    error,
-  } = useSWR(`/api/recipes/${id}`);
+	const router = useRouter();
+	const { id } = router.query;
+	const {
+		data: currentRecipe,
+		isLoading,
+		error,
+	} = useSWR(`/api/recipes/${id}`);
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
+	if (isLoading) {
+		return <h1>Loading...</h1>;
+	}
 
-  if (error) {
-    return <div>Oops! Something went wrong.</div>;
-  }
+	if (error) {
+		return <div>Oops! Something went wrong.</div>;
+	}
 
-  function handleBackClick(event) {
-    event.preventDefault();
-    router.back();
-  }
+	function handleBackClick(event) {
+		event.preventDefault();
+		router.back();
+	}
 
-  return (
-    <StyledRecipeDetailPage>
-      <StyledRecipeHeader>
-        <BackLink href="/" onClick={handleBackClick}>
-          back
-        </BackLink>
-        <StyledHerbieBox>
-          <StyledRecipeBy>Recipe by</StyledRecipeBy>
-          <StyledHerbie>herbie</StyledHerbie>
-        </StyledHerbieBox>
-      </StyledRecipeHeader>
-      <ContentContainer>
-        <RecipeDetails
-          currentRecipe={currentRecipe}
-          onDeleteRecipe={onDeleteRecipe}
-          onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        />
-      </ContentContainer>
-      <WhiteSpace />
-    </StyledRecipeDetailPage>
-  );
+	return (
+		<StyledRecipeDetailPage>
+			<StyledRecipeHeader>
+				<BackLink href="/" onClick={handleBackClick}>
+					back
+				</BackLink>
+				<StyledHerbieBox>
+					<StyledRecipeBy>Recipe by</StyledRecipeBy>
+					<StyledHerbie>herbie</StyledHerbie>
+				</StyledHerbieBox>
+			</StyledRecipeHeader>
+			<ContentContainer>
+				<RecipeDetails
+					currentRecipe={currentRecipe}
+					onDeleteRecipe={onDeleteRecipe}
+					onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+				/>
+			</ContentContainer>
+			<WhiteSpace />
+		</StyledRecipeDetailPage>
+	);
 }

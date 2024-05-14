@@ -133,99 +133,96 @@ const ButtonsBox = styled.div`
 `;
 
 export default function RecipeDetails({
-  currentRecipe,
-  onDeleteRecipe,
-  bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
+	currentRecipe,
+	onDeleteRecipe,
+	bookmarkedRecipesIDs,
+	onHandleBookmarkedIcon,
 }) {
-  const router = useRouter();
-  const { title, ingredients, preparation, usage, symptoms, image } =
-    currentRecipe;
+	const router = useRouter();
+	const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
 
-  const [isPreparationOpen, setIsPreparationOpen] = useState(false);
-  const [isUsageOpen, setIsUsageOpen] = useState(false);
+	const [isPreparationOpen, setIsPreparationOpen] = useState(false);
+	const [isUsageOpen, setIsUsageOpen] = useState(false);
 
-  const togglePreparationCollapse = () => {
-    setIsPreparationOpen(!isPreparationOpen);
-  };
+	const togglePreparationCollapse = () => {
+		setIsPreparationOpen(!isPreparationOpen);
+	};
 
-  const toggleUsageCollapse = () => {
-    setIsUsageOpen(!isUsageOpen);
-  };
+	const toggleUsageCollapse = () => {
+		setIsUsageOpen(!isUsageOpen);
+	};
 
-  function handleClick() {
-    router.push(`/edit/${currentRecipe._id}`);
-  }
+	function handleClick() {
+		router.push(`/edit/${currentRecipe._id}`);
+	}
 
-  function handleDelete() {
-    if (confirm("Are you sure you want to delete this recipe?")) {
-      onDeleteRecipe(currentRecipe._id);
-      router.push("/");
-    }
-  }
+	function handleDelete() {
+		if (confirm("Are you sure you want to delete this recipe?")) {
+			onDeleteRecipe(currentRecipe._id);
+			router.push("/");
+		}
+	}
 
-  console.log(currentRecipe);
+	return (
+		<RecipeArticle aria-label="Recipe Details">
+			<StyledBookmarkIcon>
+				<BookmarkIcon
+					onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+					recipe={currentRecipe}
+				/>
+			</StyledBookmarkIcon>
+			<StyledRecipeDetailPicture>
+				<StyledImage
+					src="https://images.unsplash.com/photo-1564278453360-c65eda0a200e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+					layout="fill"
+					objectFit="cover"
+					alt="bottle of rum e.g. remedy"
+				/>
+			</StyledRecipeDetailPicture>
+			<SytledRecipeTitle>{title}</SytledRecipeTitle>
+			<StyledItemsBox>
+				<StyledItemListTitle>Ingredients:</StyledItemListTitle>
+				<StyleItemsList>
+					{ingredients.map((ingredient, _id) => (
+						<StyledItems key={_id}>{ingredient}</StyledItems>
+					))}
+				</StyleItemsList>
+			</StyledItemsBox>
+			<CollapsibleContainer>
+				<CollapsibleButton onClick={togglePreparationCollapse}>
+					<StyledTextButton>Preparation</StyledTextButton>
+					<StyledIcon />
+				</CollapsibleButton>
+				<CollapsibleContent isOpen={isPreparationOpen}>
+					<CollapsibleText>{preparation}</CollapsibleText>
+				</CollapsibleContent>
 
-  return (
-    <RecipeArticle aria-label="Recipe Details">
-      <StyledBookmarkIcon>
-        <BookmarkIcon
-          onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          recipe={currentRecipe}
-        />
-      </StyledBookmarkIcon>
-      <StyledRecipeDetailPicture>
-        <StyledImage
-          src={image}
-          layout="fill"
-          objectFit="cover"
-          alt="bottle of rum e.g. remedy"
-        />
-      </StyledRecipeDetailPicture>
-      <SytledRecipeTitle>{title}</SytledRecipeTitle>
-      <StyledItemsBox>
-        <StyledItemListTitle>Ingredients:</StyledItemListTitle>
-        <StyleItemsList>
-          {ingredients.map((ingredient, index) => (
-            <StyledItems key={index}>{ingredient}</StyledItems>
-          ))}
-        </StyleItemsList>
-      </StyledItemsBox>
-      <CollapsibleContainer>
-        <CollapsibleButton onClick={togglePreparationCollapse}>
-          <StyledTextButton>Preparation</StyledTextButton>
-          <StyledIcon />
-        </CollapsibleButton>
-        <CollapsibleContent isOpen={isPreparationOpen}>
-          <CollapsibleText>{preparation}</CollapsibleText>
-        </CollapsibleContent>
+				<CollapsibleButton onClick={toggleUsageCollapse}>
+					Usage
+					<StyledIcon />
+				</CollapsibleButton>
 
-        <CollapsibleButton onClick={toggleUsageCollapse}>
-          Usage
-          <StyledIcon />
-        </CollapsibleButton>
-
-        <CollapsibleContent isOpen={isUsageOpen}>
-          <CollapsibleText>{usage}</CollapsibleText>
-        </CollapsibleContent>
-      </CollapsibleContainer>
-      <StyledItemsBox>
-        <StyledItemListTitle> Symptoms</StyledItemListTitle>
-        <StyleItemsList>
-          {symptoms.map((symptoms, index) => (
-            <StyledItems key={index}>{symptoms}</StyledItems>
-          ))}
-        </StyleItemsList>
-      </StyledItemsBox>
-      <ButtonsBox>
-        {currentRecipe.editable && (
-          <EditButton onClick={handleClick}>Edit</EditButton>
-        )}
-        {currentRecipe.editable && (
-          <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
-        )}
-      </ButtonsBox>
-    </RecipeArticle>
-  );
+				<CollapsibleContent isOpen={isUsageOpen}>
+					<CollapsibleText>{usage}</CollapsibleText>
+				</CollapsibleContent>
+			</CollapsibleContainer>
+			<StyledItemsBox>
+				<StyledItemListTitle> Symptoms</StyledItemListTitle>
+				<StyleItemsList>
+					{symptoms.map((symptoms, _id) => (
+						<StyledItems key={_id}>{symptoms}</StyledItems>
+					))}
+				</StyleItemsList>
+			</StyledItemsBox>
+			<ButtonsBox>
+				{currentRecipe.editable && (
+					<EditButton onClick={handleClick}>Edit</EditButton>
+				)}
+				{currentRecipe.editable && (
+					<DeleteButton onClick={handleDelete}>Delete</DeleteButton>
+				)}
+			</ButtonsBox>
+		</RecipeArticle>
+	);
 }
