@@ -29,7 +29,6 @@ export default function HomePage({
     flex-direction: column;
     align-items: center;
   `;
-
   const getRandomIndex = () => {
     return Math.floor(Math.random() * recipes.length);
   };
