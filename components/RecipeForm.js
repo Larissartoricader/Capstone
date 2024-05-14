@@ -66,7 +66,7 @@ export default function RecipeForm({ recipeToEdit }) {
     const suggestion = getSuggestion(
       userInput,
       ingredients,
-      selectedIngredients
+      selectedIngredients,
     );
     setIngredientSuggestion(suggestion);
     setIngredientsInput(userInput || "");
@@ -94,8 +94,8 @@ export default function RecipeForm({ recipeToEdit }) {
   function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
-        (ingredient) => ingredient !== ingredientToBeDeleted
-      )
+        (ingredient) => ingredient !== ingredientToBeDeleted,
+      ),
     );
   }
 
@@ -110,7 +110,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
-      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted),
     );
   }
 
@@ -153,46 +153,7 @@ export default function RecipeForm({ recipeToEdit }) {
     userRecipe.symptoms = [...selectedSymptoms];
     // 3. image
     // 3a. send post request with title (prompt) to API. stored in request object.
-    const predictionRequest = await fetch("/api/predictions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: event.target.title.value, // Hier der gewünschter Prompt
-      }),
-    });
 
-    console.log(predictionRequest);
-
-    // 3b. take response object from above (predictionRequest) and make it .json() and pass it to prediction state variable
-    let prediction = await predictionRequest.json();
-    if (predictionRequest.status !== 201) {
-      setError(prediction.detail);
-      return;
-    }
-    setPrediction(prediction);
-
-    console.log(prediction);
-
-    // 3c. Loop: Continuously check the status of the prediction until it succeeds or fails
-    while (
-      prediction.status !== "succeeded" &&
-      prediction.status !== "failed"
-    ) {
-      await sleep(1000);
-      // send get request to api
-      const statusResponse = await fetch("/api/predictions/" + prediction.id);
-      prediction = await statusResponse.json();
-      // in case of error
-      if (statusResponse.status !== 200) {
-        setError(prediction.detail);
-        return;
-      }
-
-      console.log({ prediction });
-      setPrediction(prediction);
-    }
     // end of Loop
 
     if (recipeToEdit) {

@@ -55,49 +55,49 @@ const StyledLinkWrapper = styled.div`
 `;
 
 export default function RecipeCard({
-	bookmarkedRecipesIDs,
-	onHandleBookmarkedIcon,
-	recipe,
+  bookmarkedRecipesIDs,
+  onHandleBookmarkedIcon,
+  recipe,
 }) {
-	return (
-		<StyledArticle>
-			<StyledImageWrapper>
-				<Image
-					src={recipe.image}
-					style={{ width: "100%" }}
-					height={200}
-					width={200}
-					objectFit="contain"
-					alt={recipe.title}
-				/>
-			</StyledImageWrapper>
-			<StyledBookmarkIcon>
-				<BookmarkIcon
-					onHandleBookmarkedIcon={onHandleBookmarkedIcon}
-					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-					recipe={recipe}
-				/>
-			</StyledBookmarkIcon>
-			<StyledCardWrapper>
-				<h2>{recipe.title}</h2>
-				<StyledListHeader>Symptoms:</StyledListHeader>
-				<StyledList>
-					{recipe.symptoms.map((symptom) => (
-						<StyledListItems key={symptom}>{symptom}</StyledListItems>
-					))}
-				</StyledList>
-				<StyledLinkWrapper>
-					<Link
-						style={{
-							color: "black",
-							textUnderlineOffset: "4px",
-						}}
-						href={`/${recipe._id}`}
-					>
-						Read More →
-					</Link>
-				</StyledLinkWrapper>
-			</StyledCardWrapper>
-		</StyledArticle>
-	);
+  return (
+    <StyledArticle>
+      <StyledImageWrapper>
+        <Image
+          src={recipe.image}
+          style={{ width: "100%" }}
+          height={200}
+          width={200}
+          objectFit="contain"
+          alt={recipe.title}
+        />
+      </StyledImageWrapper>
+      <StyledBookmarkIcon>
+        <BookmarkIcon
+          onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          recipe={recipe}
+        />
+      </StyledBookmarkIcon>
+      <StyledCardWrapper>
+        <h2>{recipe.title}</h2>
+        <StyledListHeader>Symptoms:</StyledListHeader>
+        <StyledList>
+          {recipe.symptoms.map((symptom) => (
+            <StyledListItems key={symptom}>{symptom}</StyledListItems>
+          ))}
+        </StyledList>
+        <StyledLinkWrapper>
+          <Link
+            style={{
+              color: "black",
+              textUnderlineOffset: "4px",
+            }}
+            href={`/${recipe._id}`}
+          >
+            Read More →
+          </Link>
+        </StyledLinkWrapper>
+      </StyledCardWrapper>
+    </StyledArticle>
+  );
 }
