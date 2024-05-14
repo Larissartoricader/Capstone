@@ -21,12 +21,9 @@ export default function App({ Component, pageProps }) {
     { defaultValue: [] }
   );
 
-  function checkIfRecipeIsBookmarked(id) {
-    return bookmarkedRecipesIDs.includes(id);
-  }
-
   function addRecipeToBookmarked(id) {
     setBookmarkedRecipesIDs([id, ...bookmarkedRecipesIDs]);
+    showToastMessage("Rezept wurde den Lesezeichen hinzugefügt.");
   }
 
   function removeRecipeFromBookmarked(id) {
@@ -34,6 +31,13 @@ export default function App({ Component, pageProps }) {
       (item) => item !== id
     );
     setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
+    showToastMessage("Rezept wurde aus den Lesezeichen entfernt.");
+  }
+
+  function showToastMessage(message) {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   }
 
   function handleBookmarkedIcon(recipe) {
@@ -48,6 +52,7 @@ export default function App({ Component, pageProps }) {
       (recipe) => recipe.id !== deletedRecipe
     );
     setRecipes(updatedRecipes);
+    showToastMessage("Rezept wurde gelöscht.");
   }
 
   return (
@@ -62,6 +67,7 @@ export default function App({ Component, pageProps }) {
         />
       </SWRConfig>
       <NavigationBar />
+      <ToastContainer />
     </>
   );
 }
