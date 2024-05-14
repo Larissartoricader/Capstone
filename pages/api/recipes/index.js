@@ -19,6 +19,7 @@ export default async function handler(request, response) {
       const recipeData = request.body;
       if (!recipeData.hasOwnProperty("editable")) {
         recipeData.editable = true;
+        recipeData.image = prediction.output[prediction.output.length - 1];
       }
       await Recipe.create(recipeData);
 
