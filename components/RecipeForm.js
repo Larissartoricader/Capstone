@@ -151,13 +151,9 @@ export default function RecipeForm({ recipeToEdit }) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-    // 3. image
-    // 3a. send post request with title (prompt) to API. stored in request object.
-
-    // end of Loop
 
     if (recipeToEdit) {
-      // 4. edit
+      // 3. edit
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
         headers: {

@@ -11,7 +11,6 @@ export default async function handler(request, response) {
       return response.status(200).json(recipes);
     }
   } catch (error) {
-    console.error("Error while Fetching", error);
     return response.status(500).json({ error: "Internal Server Error!" });
   }
 
@@ -28,7 +27,6 @@ export default async function handler(request, response) {
 
       response.status(201).json({ status: "Recipe created." });
     } catch (error) {
-      console.log(error);
       response.status(400).json({ error: error.message });
     }
   }
@@ -51,7 +49,6 @@ async function generateImage(prompt) {
       input: { prompt },
     }),
   });
-  console.log("starting fetching");
 
   const replicateStatus = await apiResponse.json();
 
@@ -69,10 +66,6 @@ async function generateImage(prompt) {
     });
 
     replicateFinishedImage = await imageResponse.json();
-    console.log(replicateFinishedImage);
   }
-
-  console.log(replicateFinishedImage.output.at(-1));
-
   return replicateFinishedImage.output.at(-1);
 }
