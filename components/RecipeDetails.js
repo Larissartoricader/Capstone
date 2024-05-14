@@ -3,11 +3,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Image from "next/image";
+import { BookmarkIcon } from "./BookmarkIcon";
 
 const RecipeArticle = styled.article`
   background-color: #fcfbf4;
   margin-inline: 15px;
   border-radius: 20px;
+  position: relative;
 `;
 
 const StyledRecipeDetailPicture = styled.div`
@@ -15,6 +17,14 @@ const StyledRecipeDetailPicture = styled.div`
   width: 100%;
   height: 180px;
   position: relative;
+`;
+
+const StyledBookmarkIcon = styled.div`
+  width: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
 `;
 
 const StyledImage = styled(Image)`
@@ -94,9 +104,43 @@ const CollapsibleText = styled.p`
   font-size: medium;
 `;
 
-export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
+const EditButton = styled.button`
+  background-color: #ffc107;
+  height: 32px;
+  width: 64px;
+  color: white;
+  font-size: medium;
+  border-radius: 7px;
+  border: none;
+`;
+
+const DeleteButton = styled.button`
+  background-color: #ff0000;
+  height: 32px;
+  width: 64px;
+  color: white;
+  font-size: medium;
+  border-radius: 7px;
+  border: none;
+`;
+
+const ButtonsBox = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+`;
+
+export default function RecipeDetails({
+  currentRecipe,
+  onDeleteRecipe,
+  bookmarkedRecipesIDs,
+  onHandleBookmarkedIcon,
+}) {
   const router = useRouter();
-  const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
+  const { title, ingredients, preparation, usage, symptoms, image } =
+    currentRecipe;
 
   const [isPreparationOpen, setIsPreparationOpen] = useState(false);
   const [isUsageOpen, setIsUsageOpen] = useState(false);
@@ -124,9 +168,16 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
 
   return (
     <RecipeArticle aria-label="Recipe Details">
+      <StyledBookmarkIcon>
+        <BookmarkIcon
+          onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          recipe={currentRecipe}
+        />
+      </StyledBookmarkIcon>
       <StyledRecipeDetailPicture>
         <StyledImage
-          src="https://images.unsplash.com/photo-1564278453360-c65eda0a200e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={image}
           layout="fill"
           objectFit="cover"
           alt="bottle of rum e.g. remedy"
@@ -167,8 +218,14 @@ export default function RecipeDetails({ currentRecipe, onDeleteRecipe }) {
           ))}
         </StyleItemsList>
       </StyledItemsBox>
-      {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
-      {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
+      <ButtonsBox>
+        {currentRecipe.editable && (
+          <EditButton onClick={handleClick}>Edit</EditButton>
+        )}
+        {currentRecipe.editable && (
+          <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
+        )}
+      </ButtonsBox>
     </RecipeArticle>
   );
 }

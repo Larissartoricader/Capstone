@@ -5,6 +5,12 @@ import useSWR from "swr";
 
 const StyledRecipeDetailPage = styled.div``;
 
+const StyledRecipeHeader = styled.div`
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+`;
+
 const BackLink = styled.p`
   background-color: #fcfbf4;
   padding: 10px;
@@ -17,6 +23,19 @@ const BackLink = styled.p`
   font-weight: bold;
 `;
 
+const StyledRecipeBy = styled.p`
+  font-size: small;
+`;
+
+const StyledHerbie = styled.p`
+  font-size: x-large;
+`;
+
+const StyledHerbieBox = styled.div`
+  display: flex;
+  flex: columns;
+`;
+
 const ContentContainer = styled.div`
   margin-top: 10px;
 `;
@@ -25,7 +44,11 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeDetailsPage({ onDeleteRecipe }) {
+export default function RecipeDetailsPage({
+  onDeleteRecipe,
+  bookmarkedRecipesIDs,
+  onHandleBookmarkedIcon,
+}) {
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -49,13 +72,21 @@ export default function RecipeDetailsPage({ onDeleteRecipe }) {
 
   return (
     <StyledRecipeDetailPage>
-      <BackLink href="/" onClick={handleBackClick}>
-        back
-      </BackLink>
+      <StyledRecipeHeader>
+        <BackLink href="/" onClick={handleBackClick}>
+          back
+        </BackLink>
+        <StyledHerbieBox>
+          <StyledRecipeBy>Recipe by</StyledRecipeBy>
+          <StyledHerbie>herbie</StyledHerbie>
+        </StyledHerbieBox>
+      </StyledRecipeHeader>
       <ContentContainer>
         <RecipeDetails
           currentRecipe={currentRecipe}
           onDeleteRecipe={onDeleteRecipe}
+          onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         />
       </ContentContainer>
       <WhiteSpace />
