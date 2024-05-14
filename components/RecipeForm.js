@@ -132,7 +132,8 @@ export default function RecipeForm({ recipeToEdit }) {
 				message: "Please add at least one ingredient.",
 			});
 			return;
-		} else if (selectedSymptoms.length === 0) {
+		}
+		if (selectedSymptoms.length === 0) {
 			setErrorMessage({
 				field: "symptoms",
 				message: "Please add at least one symptom.",
