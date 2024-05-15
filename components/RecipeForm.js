@@ -219,13 +219,15 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {ingredientsInput && (
           <FakeDropDown>
-            {ingredientSuggestion && (
-              <DropDownOption
-                type="button"
-                onClick={() => selectIngredient(ingredientSuggestion)}
-              >
-                {ingredientSuggestion}
-              </DropDownOption>
+            {ingredientSuggestion && 
+            ingredientSuggestion.map((suggestion) => (<DropDownOption
+            key={suggestion}
+            type="button"
+            onClick={() => selectIngredient(ingredientSuggestion)}
+          >
+            {suggestion}
+          </DropDownOption> )
+              
             )}
             <DropDownOption
               type="button"
@@ -235,6 +237,15 @@ export default function RecipeForm({ recipeToEdit }) {
             </DropDownOption>
           </FakeDropDown>
         )}
+
+
+
+
+
+
+
+
+
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
