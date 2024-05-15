@@ -12,19 +12,14 @@ export default function EditRecipePage({}) {
     error,
   } = useSWR(`/api/recipes/${id}`);
 
- const {
-    data: recipes,
-    isLoading: isLoadingRecipes,
-    error: errorRecipes,
-  } = useSWR(`/api/recipes`);
 
-  if (isLoading || isLoadingRecipes) {
+  if (isLoading ) {
     return <h1>Loading ...</h1>;
   }
 
-  if (error || errorRecipes) {
+  if (error ) {
     return <h1>Oops! Something went wrong..</h1>;
   }
 
-  return <RecipeForm recipeToEdit={currentRecipe} recipes={recipes} />;
+  return <RecipeForm recipeToEdit={currentRecipe}  />;
 }

@@ -51,7 +51,7 @@ const WhiteSpace = styled.div`
 
 const BiggerFormField = styled.textarea`height: 10vh;`
 
-export default function RecipeForm({ recipeToEdit, recipes }) {
+export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
   const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
@@ -59,19 +59,7 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
 
   const router = useRouter();
-
-
-  // function handleIngredientsChange(event) {
-  //   const userInput = event.target.value;
-  //   const suggestion = getSuggestion(
-  //     userInput,
-  //     ingredients,
-  //     selectedIngredients,
-  //   );
-  //   setIngredientSuggestions(suggestion);
-  //   setIngredientsInput(userInput || "");
-  //   setErrorMessage("");
-  // }
+  const { data: recipes, error, isLoading, mutate } = useSWR("/api/recipes");
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
@@ -147,7 +135,7 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
     recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
   }, [recipeToEdit]);
 
-  const { data, error, isLoading, mutate } = useSWR("/api/recipes");
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -167,7 +155,6 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
       return;
     }
     setErrorMessage({ field: "", message: "" });
-
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
@@ -232,7 +219,6 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
         />
         <label htmlFor="ingredients">Ingredients</label>
         <input
-  
           type="text"
           placeholder="What ingredients are needed?"
           minLength="1"
@@ -244,7 +230,6 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-
 {(ingredientSuggestions || ingredientsInput) && (
           <FakeDropDown>
               {ingredientSuggestions && 
@@ -264,7 +249,6 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
             </DropDownOption>}
           </FakeDropDown>
         )}
-
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>

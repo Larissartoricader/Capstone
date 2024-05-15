@@ -17,9 +17,6 @@ export default async function handler(request, response) {
     await dbConnect();
     try {
       const recipeData = request.body;
-      if (!recipeData.hasOwnProperty("editable")) {
-        recipeData.editable = true;
-      }
       await Recipe.create(recipeData);
 
       response.status(201).json({ status: "Recipe created." });
