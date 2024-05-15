@@ -1,4 +1,7 @@
 {
+  "files": {
+    "ignore": ["node_modules", ".next"]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
