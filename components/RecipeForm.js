@@ -51,6 +51,8 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
+const BiggerFormField = styled.input`height: 10vh;`;
+
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
   const [symptomSuggestions, setSymptomSuggestions] = useState();
@@ -237,15 +239,6 @@ export default function RecipeForm({ recipeToEdit }) {
             </DropDownOption>
           </FakeDropDown>
         )}
-
-
-
-
-
-
-
-
-
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
@@ -260,7 +253,7 @@ export default function RecipeForm({ recipeToEdit }) {
           ))}
         </ul>
         <label htmlFor="preparation">Preparation</label>
-        <input
+        <BiggerFormField
           type="text"
           placeholder="e.g Add thyme to the water"
           minLength="1"
@@ -270,8 +263,9 @@ export default function RecipeForm({ recipeToEdit }) {
           name="preparation"
           defaultValue={recipeToEdit?.preparation}
         />
+        
         <label htmlFor="usage">Usage</label>
-        <input
+        <BiggerFormField
           type="text"
           placeholder="How to use it?"
           minLength="4"
