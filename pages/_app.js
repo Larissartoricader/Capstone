@@ -42,16 +42,6 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
-<<<<<<< HEAD
-  function handleDeleteRecipe(deletedRecipe) {
-    const updatedRecipes = recipes.filter(
-      (recipe) => recipe.id !== deletedRecipe
-    );
-    setRecipes(updatedRecipes);
-  }
-
-=======
->>>>>>> main
   return (
     <>
       <GlobalStyle />
