@@ -1,6 +1,5 @@
 import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
-import { uid } from "uid";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
 
@@ -43,13 +42,6 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
-  // function handleEditRecipe(editedRecipe, recipeToEdit) {
-  //   recipeToEdit.title = editedRecipe.title;
-  //   recipeToEdit.ingredients = editedRecipe.ingredients;
-  //   recipeToEdit.preparation = editedRecipe.preparation;
-  //   recipeToEdit.usage = editedRecipe.usage;
-  //   recipeToEdit.symptoms = editedRecipe.symptoms;
-  // }
 
   function handleDeleteRecipe(deletedRecipe) {
     const updatedRecipes = recipes.filter(

@@ -156,12 +156,16 @@ export default function RecipeDetails({
 		router.push(`/edit/${currentRecipe._id}`);
 	}
 
-	function handleDelete() {
-		if (confirm("Are you sure you want to delete this recipe?")) {
-			onDeleteRecipe(currentRecipe._id);
-			router.push("/");
-		}
-	}
+
+
+  async function handleDelete() {
+    const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      router.push("/");
+    }
+  }
 
 	return (
 		<RecipeArticle aria-label="Recipe Details">
@@ -224,5 +228,6 @@ export default function RecipeDetails({
 				)}
 			</ButtonsBox>
 		</RecipeArticle>
-	);
-}
+	)};
+ 
+

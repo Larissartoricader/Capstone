@@ -1,7 +1,22 @@
 {
+<<<<<<< HEAD
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2
   }
 }
+=======
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  }
+  
+  
+  
+  
+  
+  
+>>>>>>> main
