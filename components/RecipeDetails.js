@@ -104,24 +104,25 @@ const CollapsibleText = styled.p`
   font-size: medium;
 `;
 
-const EditButton = styled.button`
-  background-color: #ffc107;
+const StyledButton = styled.button`
+  
   height: 32px;
   width: 64px;
   color: white;
   font-size: medium;
   border-radius: 7px;
   border: none;
+  
+  &:hover {
+    background-color: #808080};
 `;
 
-const DeleteButton = styled.button`
+const EditButton = styled(StyledButton)`
+  background-color: #ffc107;
+`;
+
+const DeleteButton = styled(StyledButton)`
   background-color: #ff0000;
-  height: 32px;
-  width: 64px;
-  color: white;
-  font-size: medium;
-  border-radius: 7px;
-  border: none;
 `;
 
 const ButtonsBox = styled.div`
@@ -130,13 +131,13 @@ const ButtonsBox = styled.div`
   gap: 10px;
   margin-bottom: 10px;
   padding-bottom: 10px;
+  
 `;
 
 export default function RecipeDetails({
 	currentRecipe,
-	onDeleteRecipe,
 	bookmarkedRecipesIDs,
-	onHandleBookmarkedIcon,
+	onToggleBookmark,
 }) {
 	const router = useRouter();
 	const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
@@ -152,7 +153,7 @@ export default function RecipeDetails({
 		setIsUsageOpen(!isUsageOpen);
 	};
 
-	function handleClick() {
+	function handleEdit() {
 		router.push(`/edit/${currentRecipe._id}`);
 	}
 
@@ -171,7 +172,7 @@ export default function RecipeDetails({
 		<RecipeArticle aria-label="Recipe Details">
 			<StyledBookmarkIcon>
 				<BookmarkIcon
-					onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+					onToggleBookmark={onToggleBookmark}
 					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
 					recipe={currentRecipe}
 				/>
@@ -221,7 +222,7 @@ export default function RecipeDetails({
 			</StyledItemsBox>
 			<ButtonsBox>
 				{currentRecipe.editable && (
-					<EditButton onClick={handleClick}>Edit</EditButton>
+					<EditButton  onClick={handleEdit}>Edit</EditButton>
 				)}
 				{currentRecipe.editable && (
 					<DeleteButton onClick={handleDelete}>Delete</DeleteButton>

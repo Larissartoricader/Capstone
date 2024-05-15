@@ -1,13 +1,21 @@
 import { createGlobalStyle } from "styled-components";
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+});
+
+
 
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@500&display=swap');
 
   body {
     margin: 0;
     padding: 0;
     background-color: #c8ecb8;
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: Roboto, sans-serif;
+
     
   }
 `;

@@ -8,7 +8,7 @@ import useSWR from "swr";
 
 export default function HomePage({
 	bookmarkedRecipesIDs,
-	onHandleBookmarkedIcon,
+	onToggleBookmark,
 }) {
 	const StyledHeadline = styled.h1`
     text-align: center;
@@ -58,7 +58,7 @@ export default function HomePage({
 			<FilterForm
 				recipes={recipes}
 				bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-				onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+				onToggleBookmark={onToggleBookmark}
 			/>
 		</div>
 	);

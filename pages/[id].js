@@ -2,8 +2,9 @@ import { useRouter } from "next/router";
 import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
 import useSWR from "swr";
+import Link from "next/link";
 
-const StyledRecipeDetailPage = styled.div``;
+
 
 const StyledRecipeHeader = styled.div`
 display: flex;
@@ -12,13 +13,14 @@ justify-content: space-between;
 
 `;
 
-const BackLink = styled.p`
+const BackLink = styled(Link)`
   background-color: #fcfbf4;
   padding: 10px;
   margin-top: 20px;
   margin-left: 20px;
   border-radius: 15px;
-  width: 15%;
+  width: 10%;
+  height: 10%;
   color: black;
   text-align: center;
   font-weight: bold;
@@ -49,7 +51,7 @@ const WhiteSpace = styled.div`
 export default function RecipeDetailsPage({
 	onDeleteRecipe,
 	bookmarkedRecipesIDs,
-	onHandleBookmarkedIcon,
+	onToggleBookmark,
 }) {
 	const router = useRouter();
 	const { id } = router.query;
@@ -73,7 +75,7 @@ export default function RecipeDetailsPage({
 	}
 
 	return (
-		<StyledRecipeDetailPage>
+		<>
 			<StyledRecipeHeader>
 				<BackLink href="/" onClick={handleBackClick}>
 					back
@@ -87,11 +89,11 @@ export default function RecipeDetailsPage({
 				<RecipeDetails
 					currentRecipe={currentRecipe}
 					onDeleteRecipe={onDeleteRecipe}
-					onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+					onToggleBookmark={onToggleBookmark}
 					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
 				/>
 			</ContentContainer>
 			<WhiteSpace />
-		</StyledRecipeDetailPage>
+		</>
 	);
 }

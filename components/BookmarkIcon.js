@@ -13,8 +13,6 @@ const StyledBookmarkIcon = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 5px;
-  right: 5px;
   font-size: 1.5em;
 `;
 
@@ -27,12 +25,12 @@ const StyledUnfilledHeart = styled(FaRegHeart)`
 `;
 
 export function BookmarkIcon({
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
   recipe,
   bookmarkedRecipesIDs,
 }) {
   function handleClick() {
-    onHandleBookmarkedIcon(recipe);
+    onToggleBookmark(recipe);
   }
 
   const isBookmarked = bookmarkedRecipesIDs.includes(recipe._id);

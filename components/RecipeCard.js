@@ -56,7 +56,7 @@ const StyledLinkWrapper = styled.div`
 
 export default function RecipeCard({
 	bookmarkedRecipesIDs,
-	onHandleBookmarkedIcon,
+	onToggleBookmark,
 	recipe,
 }) {
 	return (
@@ -73,7 +73,7 @@ export default function RecipeCard({
 			</StyledImageWrapper>
 			<StyledBookmarkIcon>
 				<BookmarkIcon
-					onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+					onToggleBookmark={onToggleBookmark}
 					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
 					recipe={recipe}
 				/>

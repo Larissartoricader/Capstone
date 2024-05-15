@@ -44,15 +44,16 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle/>
       <SWRConfig value={{ fetcher }}>
         <Component
           {...pageProps}
-          onHandleBookmarkedIcon={handleBookmarkedIcon}
+          onToggleBookmark={handleBookmarkedIcon}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         />
       </SWRConfig>
       <NavigationBar />
+   
     </>
   );
 }
