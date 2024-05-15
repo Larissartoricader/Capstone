@@ -52,8 +52,8 @@ const WhiteSpace = styled.div`
 `;
 
 export default function RecipeForm({ recipeToEdit }) {
-  const [ingredientSuggestion, setIngredientSuggestion] = useState();
-  const [symptomSuggestion, setSymptomSuggestion] = useState();
+  const [ingredientSuggestions, setIngredientSuggestions] = useState();
+  const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [symptomsInput, setSymptomsInput] = useState("");
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
@@ -67,7 +67,7 @@ export default function RecipeForm({ recipeToEdit }) {
       ingredients,
       selectedIngredients,
     );
-    setIngredientSuggestion(suggestion);
+    setIngredientSuggestions(suggestion);
     setIngredientsInput(userInput || "");
     setErrorMessage("");
   }
@@ -75,7 +75,7 @@ export default function RecipeForm({ recipeToEdit }) {
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     const suggestion = getSuggestion(userInput, symptoms, selectedSymptoms);
-    setSymptomSuggestion(suggestion);
+    setSymptomSuggestions(suggestion);
     setSymptomsInput(userInput || "");
     setErrorMessage("");
   }
@@ -86,7 +86,7 @@ export default function RecipeForm({ recipeToEdit }) {
     if (!selectedIngredients.includes(ingredientToBeSelected)) {
       setSelectedIngredients([...selectedIngredients, ingredientToBeSelected]);
       setIngredientsInput("");
-      setIngredientSuggestion("");
+      setIngredientSuggestions("");
     }
   }
 
@@ -219,11 +219,11 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {ingredientsInput && (
           <FakeDropDown>
-            {ingredientSuggestion && 
-            ingredientSuggestion.map((suggestion) => (<DropDownOption
+            {ingredientSuggestions && 
+            ingredientSuggestions.map((suggestion) => (<DropDownOption
             key={suggestion}
             type="button"
-            onClick={() => selectIngredient(ingredientSuggestion)}
+            onClick={() => selectIngredient(ingredientSuggestions)}
           >
             {suggestion}
           </DropDownOption> )
@@ -295,12 +295,12 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {symptomsInput && (
           <FakeDropDown>
-            {symptomSuggestion && (
+            {symptomSuggestions && (
               <DropDownOption
                 type="button"
-                onClick={() => selectSymptom(symptomSuggestion)}
+                onClick={() => selectSymptom(symptomSuggestions)}
               >
-                {symptomSuggestion}
+                {symptomSuggestions}
               </DropDownOption>
             )}
             <DropDownOption
