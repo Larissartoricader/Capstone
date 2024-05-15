@@ -1,8 +1,5 @@
-import { ingredients } from "@/lib/ingredients";
-import { symptoms } from "@/lib/symptoms";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getSuggestion } from "@/utils/get-suggestions";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -53,7 +50,7 @@ const WhiteSpace = styled.div`
 
 const BiggerFormField = styled.textarea`height: 10vh;`
 
-export default function RecipeForm({ recipeToEdit }) {
+export default function RecipeForm({ recipeToEdit, recipes }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
   const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
@@ -75,13 +72,10 @@ export default function RecipeForm({ recipeToEdit }) {
     setErrorMessage("");
   }
 
-  // function handleSymptomsChange(event) {
-  //   const userInput = event.target.value;
-  //   const suggestion = getSuggestion(userInput, symptoms, selectedSymptoms);
-  //   setSymptomSuggestions(suggestion);
-  //   setSymptomsInput(userInput || "");
-  //   setErrorMessage("");
-  // }
+
+  function filterArray(arr1, arr2) {
+    return arr1.filter(item => !arr2.includes(item));
+}
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
@@ -92,16 +86,20 @@ export default function RecipeForm({ recipeToEdit }) {
       );
       return [...acc, ...matchingSymptoms];
     }, []);
-    setSymptomSuggestions(Array.from(new Set(suggestions)));
+    const notYetSelectedSymptoms = filterArray(suggestions, selectedSymptoms)
+    setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
+    setSymptomsInput(userInput);
+    setErrorMessage("");
   }
 
+ 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   function selectIngredient(ingredientToBeSelected) {
     if (!selectedIngredients.includes(ingredientToBeSelected)) {
       setSelectedIngredients([...selectedIngredients, ingredientToBeSelected]);
       setIngredientsInput("");
-      setIngredientSuggestions("");
+      setIngredientSuggestions();
     }
   }
 
@@ -111,6 +109,7 @@ export default function RecipeForm({ recipeToEdit }) {
         (ingredient) => ingredient !== ingredientToBeDeleted,
       ),
     );
+
   }
 
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
@@ -118,8 +117,9 @@ export default function RecipeForm({ recipeToEdit }) {
   function selectSymptom(symptomToBeSelected) {
     if (!selectedSymptoms.includes(symptomToBeSelected)) {
       setSelectedSymptoms([...selectedSymptoms, symptomToBeSelected]);
-      setSymptomsInput("");
-    }
+      symptomsInput === symptomToBeSelected && setSymptomsInput("");
+      symptomSuggestions.includes(symptomToBeSelected) && setSymptomSuggestions(filterArray(symptomSuggestions, symptomToBeSelected))
+    } else {setSymptomSuggestions(filterArray(symptomSuggestions, symptomToBeSelected))}
   }
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
@@ -244,6 +244,7 @@ export default function RecipeForm({ recipeToEdit }) {
           </DropDownOption> )
               
             )}
+
             <DropDownOption
               type="button"
               onClick={() => selectIngredient(ingredientsInput)}
@@ -289,7 +290,7 @@ export default function RecipeForm({ recipeToEdit }) {
         />
         <label htmlFor="symptoms">Symptoms</label>
         <input
-          value={symptomsInput}
+          // value={symptomsInput}
           type="text"
           placeholder="min 2 Symptoms"
           id="symptoms"
@@ -299,22 +300,23 @@ export default function RecipeForm({ recipeToEdit }) {
         {errorMessage.field === "symptoms" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {symptomsInput && (
+        {symptomSuggestions && (
           <FakeDropDown>
-            {symptomSuggestions && (
-              <DropDownOption
-                type="button"
-                onClick={() => selectSymptom(symptomSuggestions)}
-              >
-                {symptomSuggestions}
-              </DropDownOption>
+              {symptomSuggestions && 
+            symptomSuggestions.map((suggestion) => <DropDownOption
+            key={suggestion}
+            type="button"
+            onClick={() => selectSymptom(suggestion)}
+          >
+            {suggestion}
+          </DropDownOption> 
             )}
-            <DropDownOption
+            {symptomsInput && <DropDownOption
               type="button"
               onClick={() => selectSymptom(symptomsInput)}
             >
               {symptomsInput}
-            </DropDownOption>
+            </DropDownOption>}
           </FakeDropDown>
         )}
         <ul>
