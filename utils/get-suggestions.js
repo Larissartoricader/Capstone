@@ -8,12 +8,12 @@ function capitalizeFirstLetter(string) {
 export function getSuggestion(
   userInput,
   arrayToGetSuggestionsFrom,
-  selectionArray
+  selectionArray,
 ) {
   // turn both the user input and the array to pick a suggestion from to lower case
   const userInputLowerCase = userInput.toLowerCase();
   const arrayLowerCase = arrayToGetSuggestionsFrom.map((item) =>
-    item.toLowerCase()
+    item.toLowerCase(),
   );
   // find array-item of which the user input is a substring
   // set suggestion to empty string if no match is found
@@ -21,7 +21,7 @@ export function getSuggestion(
     const itemMatchingUserInput = arrayLowerCase.find(
       (item) =>
         startsWithSubString(item, userInputLowerCase) &&
-        item.includes(userInputLowerCase)
+        item.includes(userInputLowerCase),
     );
     // leave function if no match was found
     if (!itemMatchingUserInput) {
@@ -29,7 +29,7 @@ export function getSuggestion(
     }
     // turn first letter of found suggestion to capital
     const itemFirstLetterUpperCase = capitalizeFirstLetter(
-      itemMatchingUserInput
+      itemMatchingUserInput,
     );
     // if the suggested item is not already being displayed, return suggestion
     if (selectionArray.includes(itemFirstLetterUpperCase)) {

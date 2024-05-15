@@ -25,7 +25,6 @@ export default function FilterForm({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
-  const [filteredRecipes, setFilteredRecipes] = useState(recipes);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
@@ -36,7 +35,7 @@ export default function FilterForm({
 
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
-        symptom.toLowerCase().startsWith(userInput.toLowerCase())
+        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingSymptoms];
     }, []);
@@ -64,17 +63,17 @@ export default function FilterForm({
 
     if (selectedSymptoms.length > 0) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom))
+        selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom)),
       );
     }
 
     return filteredRecipes;
   }
 
+  const filteredRecipes = filterRecipes();
+
   function handleSearchSubmit(event) {
     event.preventDefault();
-    const filtered = filterRecipes();
-    setFilteredRecipes(filtered);
     setSearchSubmitted(true);
     event.target.reset();
   }

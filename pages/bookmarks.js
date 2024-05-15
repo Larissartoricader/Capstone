@@ -26,7 +26,7 @@ export default function BookmarkPage({
   }
 
   const bookmarkedRecipes = recipes.filter((recipe) =>
-    bookmarkedRecipesIDs.includes(recipe._id)
+    bookmarkedRecipesIDs.includes(recipe._id),
   );
 
   return (
