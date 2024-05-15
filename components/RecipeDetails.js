@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Image from "next/image";
 import { BookmarkIcon } from "./BookmarkIcon";
+import Link from "next/link";
 
 const RecipeArticle = styled.article`
   background-color: #fcfbf4;
@@ -153,11 +154,6 @@ export default function RecipeDetails({
 		setIsUsageOpen(!isUsageOpen);
 	};
 
-	function handleEdit() {
-		router.push(`/edit/${currentRecipe._id}`);
-	}
-
-
 
   async function handleDelete() {
     const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
@@ -222,7 +218,8 @@ export default function RecipeDetails({
 			</StyledItemsBox>
 			<ButtonsBox>
 				{currentRecipe.editable && (
-					<EditButton  onClick={handleEdit}>Edit</EditButton>
+          <Link href={`/edit/${currentRecipe._id}`}>
+					<EditButton >Edit</EditButton></Link>
 				)}
 				{currentRecipe.editable && (
 					<DeleteButton onClick={handleDelete}>Delete</DeleteButton>
