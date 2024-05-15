@@ -20,14 +20,14 @@ const StyledFilterInfo = styled.p`
   font-size: 12px;
 `;
 
-export default function FilterForm({
+export default function FilteredRecipes({
   recipes,
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
-  const [searchSubmitted, setSearchSubmitted] = useState(false);
+
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
@@ -40,6 +40,7 @@ export default function FilterForm({
       return [...acc, ...matchingSymptoms];
     }, []);
     setSymptomSuggestions(Array.from(new Set(suggestions)));
+    
   }
 
   function handleSymptomSuggestionClick(suggestion) {
@@ -48,6 +49,7 @@ export default function FilterForm({
       suggestion,
     ]);
     setSymptomSuggestions([]);
+    // TODO feld soll wieder geleert werden, wenn etwas ausgewählt wurde
   }
 
   function removeSelectedSymptom(index) {
@@ -74,16 +76,19 @@ export default function FilterForm({
 
   function handleSearchSubmit(event) {
     event.preventDefault();
-    setSearchSubmitted(true);
     event.target.reset();
+
   }
+
+const [userInput, setUserInput] = useState("");
+
 
   function handleResetSubmit(event) {
     event.preventDefault();
-    setFilteredRecipes(recipes);
     setSelectedSymptoms([]);
-    setSearchSubmitted(false);
+    setUserInput("");
   }
+
 
   return (
     <>
@@ -96,10 +101,14 @@ export default function FilterForm({
             placeholder="Type your symptom and select from the list"
             type="text"
             id="symptom"
-            name="symptom"
-            onChange={handleSymptomsChange}
+            name="inputfield"
+            onChange={(event) => {
+              handleSymptomsChange(event);
+              setUserInput(event.target.value);
+          }}
+          value={userInput}
           />
-          <div>
+          {userInput && <div>
             {selectedSymptoms.map((symptom, index) => (
               <p key={index}>
                 {symptom}{" "}
@@ -114,16 +123,15 @@ export default function FilterForm({
                 {suggestion}
               </p>
             ))}
-          </div>
+          </div>}
           <div>
-            <button>Search</button>
+          
             <button onClick={handleResetSubmit}>Reset</button>
           </div>
         </StyledFilterForm>
       </SearchBox>
-      {searchSubmitted && filteredRecipes.length === 0 && (
-        <p>Ups! No recipe to be found. How about trying another criteria?</p>
-      )}
+    
+    
       {filteredRecipes.length > 0 ? (
         <div>
           <h2>The Perfect Recipes for you</h2>

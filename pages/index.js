@@ -1,9 +1,8 @@
 "use client";
-import RecipeList from "@/components/RecipeList";
+import FilteredRecipes from "@/components/FilteredRecipes";
 import TipOfTheDay from "@/components/TipOfTheDay";
 import styled from "styled-components";
 import { useState } from "react";
-import FilterForm from "@/components/FilterForm";
 import useSWR from "swr";
 
 export default function HomePage({
@@ -56,7 +55,7 @@ export default function HomePage({
         <Button onClick={handleNextTip}>Get Another Tip</Button>
         <TipOfTheDay recipe={currentTip}></TipOfTheDay>
       </TipOfTheDayWrapper>
-      <FilterForm
+      <FilteredRecipes
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onHandleBookmarkedIcon={onHandleBookmarkedIcon}
