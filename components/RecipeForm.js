@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { filterArray } from "@/utils/filter-array";
 
 const StyledForm = styled.form`
   border: 1px solid #ccc;
@@ -60,22 +61,33 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
   const router = useRouter();
 
 
+  // function handleIngredientsChange(event) {
+  //   const userInput = event.target.value;
+  //   const suggestion = getSuggestion(
+  //     userInput,
+  //     ingredients,
+  //     selectedIngredients,
+  //   );
+  //   setIngredientSuggestions(suggestion);
+  //   setIngredientsInput(userInput || "");
+  //   setErrorMessage("");
+  // }
+
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-    const suggestion = getSuggestion(
-      userInput,
-      ingredients,
-      selectedIngredients,
-    );
-    setIngredientSuggestions(suggestion);
-    setIngredientsInput(userInput || "");
+    setIngredientSuggestions([]);
+    const suggestions = recipes.reduce((acc, recipe) => {
+      const matchingIngredients = recipe.ingredients.filter((ingredient) =>
+        ingredient.toLowerCase().startsWith(userInput.toLowerCase()),
+      );
+      return [...acc, ...matchingIngredients];
+    }, []);
+    const notYetSelectedIngredients = filterArray(suggestions, selectedIngredients)
+    setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
+    setIngredientsInput(userInput);
     setErrorMessage("");
   }
 
-
-  function filterArray(arr1, arr2) {
-    return arr1.filter(item => !arr2.includes(item));
-}
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
@@ -220,7 +232,7 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
         />
         <label htmlFor="ingredients">Ingredients</label>
         <input
-          value={ingredientsInput}
+  
           type="text"
           placeholder="What ingredients are needed?"
           minLength="1"
@@ -232,27 +244,27 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {ingredientsInput && (
+
+{(ingredientSuggestions || ingredientsInput) && (
           <FakeDropDown>
-            {ingredientSuggestions && 
-            ingredientSuggestions.map((suggestion) => (<DropDownOption
+              {ingredientSuggestions && 
+            ingredientSuggestions.map((suggestion) => <DropDownOption
             key={suggestion}
             type="button"
-            onClick={() => selectIngredient(ingredientSuggestions)}
+            onClick={() => selectIngredient(suggestion)}
           >
             {suggestion}
-          </DropDownOption> )
-              
+          </DropDownOption> 
             )}
-
-            <DropDownOption
+            {ingredientsInput && <DropDownOption
               type="button"
               onClick={() => selectIngredient(ingredientsInput)}
             >
               {ingredientsInput}
-            </DropDownOption>
+            </DropDownOption>}
           </FakeDropDown>
         )}
+
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
@@ -290,7 +302,7 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
         />
         <label htmlFor="symptoms">Symptoms</label>
         <input
-          // value={symptomsInput}
+
           type="text"
           placeholder="min 2 Symptoms"
           id="symptoms"
@@ -300,7 +312,7 @@ export default function RecipeForm({ recipeToEdit, recipes }) {
         {errorMessage.field === "symptoms" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {symptomSuggestions && (
+        {(symptomSuggestions || symptomsInput) && (
           <FakeDropDown>
               {symptomSuggestions && 
             symptomSuggestions.map((suggestion) => <DropDownOption
