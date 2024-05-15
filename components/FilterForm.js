@@ -25,7 +25,6 @@ export default function FilterForm({
   bookmarkedRecipesIDs,
   onHandleBookmarkedIcon,
 }) {
-  const [filteredRecipes, setFilteredRecipes] = useState(recipes);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
@@ -71,10 +70,10 @@ export default function FilterForm({
     return filteredRecipes;
   }
 
+  const filteredRecipes = filterRecipes();
+
   function handleSearchSubmit(event) {
     event.preventDefault();
-    const filtered = filterRecipes();
-    setFilteredRecipes(filtered);
     setSearchSubmitted(true);
     event.target.reset();
   }

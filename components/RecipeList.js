@@ -31,7 +31,7 @@ export default function RecipeList({
     <>
       <StyledList>
         {recipes.map((recipe) => (
-          <li key={recipe.id}>
+          <li key={recipe._id}>
             <RecipeCard
               onHandleBookmarkedIcon={onHandleBookmarkedIcon}
               bookmarkedRecipesIDs={bookmarkedRecipesIDs}
@@ -40,7 +40,7 @@ export default function RecipeList({
           </li>
         ))}
       </StyledList>
-      <WhiteSpace></WhiteSpace>
+      <WhiteSpace />
     </>
   );
 }
