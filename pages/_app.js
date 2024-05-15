@@ -3,21 +3,21 @@ import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
 
-export default function App({ Component, pageProps }) {
-  const fetcher = async (url) => {
-    const res = await fetch(url);
-    if (!res.ok) {
-      const error = new Error("An error occurred while trying to fetch");
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    return res.json();
-  };
+const fetcher = async (url) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    const error = new Error("An error occurred while trying to fetch");
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+  return res.json();
+};
 
+export default function App({ Component, pageProps }) {
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
     "bookmarkedRecipesIDs",
-    { defaultValue: [] }
+    { defaultValue: [] },
   );
 
   function checkIfRecipeIsBookmarked(id) {
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
 
   function removeRecipeFromBookmarked(id) {
     const recipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
-      (item) => item !== id
+      (item) => item !== id,
     );
     setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
   }
@@ -42,6 +42,7 @@ export default function App({ Component, pageProps }) {
       : addRecipeToBookmarked(id);
   }
 
+<<<<<<< HEAD
   function handleDeleteRecipe(deletedRecipe) {
     const updatedRecipes = recipes.filter(
       (recipe) => recipe.id !== deletedRecipe
@@ -49,6 +50,8 @@ export default function App({ Component, pageProps }) {
     setRecipes(updatedRecipes);
   }
 
+=======
+>>>>>>> main
   return (
     <>
       <GlobalStyle />
@@ -57,7 +60,6 @@ export default function App({ Component, pageProps }) {
           {...pageProps}
           onHandleBookmarkedIcon={handleBookmarkedIcon}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          onDeleteRecipe={handleDeleteRecipe}
         />
       </SWRConfig>
       <NavigationBar />
