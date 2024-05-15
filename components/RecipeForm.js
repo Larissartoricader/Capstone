@@ -65,7 +65,7 @@ export default function RecipeForm({ recipeToEdit }) {
     const suggestion = getSuggestion(
       userInput,
       ingredients,
-      selectedIngredients
+      selectedIngredients,
     );
     setIngredientSuggestion(suggestion);
     setIngredientsInput(userInput || "");
@@ -93,8 +93,8 @@ export default function RecipeForm({ recipeToEdit }) {
   function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
-        (ingredient) => ingredient !== ingredientToBeDeleted
-      )
+        (ingredient) => ingredient !== ingredientToBeDeleted,
+      ),
     );
   }
 
@@ -109,7 +109,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
-      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted),
     );
   }
 
@@ -120,19 +120,19 @@ export default function RecipeForm({ recipeToEdit }) {
     recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
   }, [recipeToEdit]);
 
-  //SUBMIT
   const { data, error, isLoading, mutate } = useSWR("/api/recipes");
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // handle empty input
+
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
         message: "Please add at least one ingredient.",
       });
       return;
-    } else if (selectedSymptoms.length === 0) {
+    }
+    if (selectedSymptoms.length === 0) {
       setErrorMessage({
         field: "symptoms",
         message: "Please add at least one symptom.",
@@ -140,13 +140,12 @@ export default function RecipeForm({ recipeToEdit }) {
       return;
     }
     setErrorMessage({ field: "", message: "" });
-    // get data from form
+
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
     if (recipeToEdit) {
-      // edit
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
         headers: {
@@ -158,7 +157,6 @@ export default function RecipeForm({ recipeToEdit }) {
         mutate();
       }
     } else {
-      // create
       userRecipe.editable = true;
       const response = await fetch("/api/recipes", {
         method: "POST",
@@ -185,7 +183,9 @@ export default function RecipeForm({ recipeToEdit }) {
 
   return (
     <>
-      <button onClick={() => router.back()}>Cancel</button>
+      <button type="button" onClick={() => router.back()}>
+        Cancel
+      </button>
       {recipeToEdit ? (
         <h2>Edit your Recipe</h2>
       ) : (
@@ -202,7 +202,7 @@ export default function RecipeForm({ recipeToEdit }) {
           name="title"
           required
           defaultValue={recipeToEdit?.title}
-        ></input>
+        />
         <label htmlFor="ingredients">Ingredients</label>
         <input
           value={ingredientsInput}
@@ -213,7 +213,7 @@ export default function RecipeForm({ recipeToEdit }) {
           id="ingredients"
           name="ingredients"
           onChange={handleIngredientsChange}
-        ></input>
+        />
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
@@ -258,7 +258,7 @@ export default function RecipeForm({ recipeToEdit }) {
           id="preparation"
           name="preparation"
           defaultValue={recipeToEdit?.preparation}
-        ></input>
+        />
         <label htmlFor="usage">Usage</label>
         <input
           type="text"
@@ -269,7 +269,7 @@ export default function RecipeForm({ recipeToEdit }) {
           id="usage"
           name="usage"
           defaultValue={recipeToEdit?.usage}
-        ></input>
+        />
         <label htmlFor="symptoms">Symptoms</label>
         <input
           value={symptomsInput}
@@ -278,7 +278,7 @@ export default function RecipeForm({ recipeToEdit }) {
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
-        ></input>
+        />
         {errorMessage.field === "symptoms" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
