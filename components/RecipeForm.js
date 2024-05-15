@@ -51,7 +51,7 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-const BiggerFormField = styled.input`height: 10vh;`;
+const BiggerFormField = styled.textarea`height: 10vh;`
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -61,6 +61,7 @@ export default function RecipeForm({ recipeToEdit }) {
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
 
   const router = useRouter();
+
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
@@ -74,12 +75,24 @@ export default function RecipeForm({ recipeToEdit }) {
     setErrorMessage("");
   }
 
+  // function handleSymptomsChange(event) {
+  //   const userInput = event.target.value;
+  //   const suggestion = getSuggestion(userInput, symptoms, selectedSymptoms);
+  //   setSymptomSuggestions(suggestion);
+  //   setSymptomsInput(userInput || "");
+  //   setErrorMessage("");
+  // }
+
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
-    const suggestion = getSuggestion(userInput, symptoms, selectedSymptoms);
-    setSymptomSuggestions(suggestion);
-    setSymptomsInput(userInput || "");
-    setErrorMessage("");
+    setSymptomSuggestions([]);
+    const suggestions = recipes.reduce((acc, recipe) => {
+      const matchingSymptoms = recipe.symptoms.filter((symptom) =>
+        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
+      );
+      return [...acc, ...matchingSymptoms];
+    }, []);
+    setSymptomSuggestions(Array.from(new Set(suggestions)));
   }
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -263,7 +276,6 @@ export default function RecipeForm({ recipeToEdit }) {
           name="preparation"
           defaultValue={recipeToEdit?.preparation}
         />
-        
         <label htmlFor="usage">Usage</label>
         <BiggerFormField
           type="text"
