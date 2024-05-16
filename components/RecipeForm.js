@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { getSuggestion } from "@/utils/get-suggestions";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StyledForm = styled.form`
   border: 1px solid #ccc;
@@ -169,8 +171,10 @@ export default function RecipeForm({ recipeToEdit }) {
         mutate();
       }
     }
+
     event.target.reset();
     router.push("/");
+    toast.success("Recipe created successfully!", {});
   }
 
   if (isLoading) {
