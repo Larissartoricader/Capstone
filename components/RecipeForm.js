@@ -109,7 +109,6 @@ export default function RecipeForm({ recipeToEdit }) {
         (ingredient) => ingredient !== ingredientToBeDeleted,
       ),
     );
-
   }
 
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
@@ -117,10 +116,11 @@ export default function RecipeForm({ recipeToEdit }) {
   function selectSymptom(symptomToBeSelected) {
     if (!selectedSymptoms.includes(symptomToBeSelected)) {
       setSelectedSymptoms([...selectedSymptoms, symptomToBeSelected]);
-      symptomsInput === symptomToBeSelected && setSymptomsInput("");
-      symptomSuggestions.includes(symptomToBeSelected) && setSymptomSuggestions(filterArray(symptomSuggestions, symptomToBeSelected))
-    } else {setSymptomSuggestions(filterArray(symptomSuggestions, symptomToBeSelected))}
+      setSymptomsInput("");
+      setSymptomSuggestions();
+    } 
   }
+
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
@@ -245,6 +245,7 @@ export default function RecipeForm({ recipeToEdit }) {
           id="ingredients"
           name="ingredients"
           onChange={handleIngredientsChange}
+          value={ingredientsInput}
         />
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
@@ -310,6 +311,7 @@ export default function RecipeForm({ recipeToEdit }) {
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
+          value={symptomsInput}
         />
         {errorMessage.field === "symptoms" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
