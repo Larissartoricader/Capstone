@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { filterArray } from "@/utils/filter-array";
 
 const StyledForm = styled.form`
@@ -202,8 +204,10 @@ export default function RecipeForm({ recipeToEdit }) {
         mutate();
       }
     }
+
     event.target.reset();
     router.push("/");
+    toast.success("Recipe created successfully!", {});
   }
 
   if (isLoading) {
