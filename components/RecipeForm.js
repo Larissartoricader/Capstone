@@ -49,9 +49,7 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-const BiggerFormField = styled.textarea`
-  height: 10vh;
-`;
+const BiggerFormField = styled.textarea`height: 10vh;`
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -60,7 +58,7 @@ export default function RecipeForm({ recipeToEdit }) {
   const [symptomsInput, setSymptomsInput] = useState("");
   // "error" message if input field is empty
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
-  const { data, error: fetchError, isLoading, mutate } = useSWR("/api/recipes");
+
   const router = useRouter();
 
   function handleIngredientsChange(event) {
@@ -68,34 +66,33 @@ export default function RecipeForm({ recipeToEdit }) {
     setIngredientSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
-        ingredient.toLowerCase().startsWith(userInput.toLowerCase())
+        ingredient.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingIngredients];
     }, []);
-    const notYetSelectedIngredients = filterArray(
-      suggestions,
-      selectedIngredients
-    );
+    const notYetSelectedIngredients = filterArray(suggestions, selectedIngredients)
     setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
     setIngredientsInput(userInput);
     setErrorMessage("");
   }
+
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     setSymptomSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
-        symptom.toLowerCase().startsWith(userInput.toLowerCase())
+        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingSymptoms];
     }, []);
-    const notYetSelectedSymptoms = filterArray(suggestions, selectedSymptoms);
+    const notYetSelectedSymptoms = filterArray(suggestions, selectedSymptoms)
     setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
     setSymptomsInput(userInput);
     setErrorMessage("");
   }
 
+ 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   function selectIngredient(ingredientToBeSelected) {
@@ -109,8 +106,8 @@ export default function RecipeForm({ recipeToEdit }) {
   function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
-        (ingredient) => ingredient !== ingredientToBeDeleted
-      )
+        (ingredient) => ingredient !== ingredientToBeDeleted,
+      ),
     );
   }
 
@@ -121,12 +118,13 @@ export default function RecipeForm({ recipeToEdit }) {
       setSelectedSymptoms([...selectedSymptoms, symptomToBeSelected]);
       setSymptomsInput("");
       setSymptomSuggestions();
-    }
+    } 
   }
+
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
-      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted),
     );
   }
 
@@ -139,23 +137,17 @@ export default function RecipeForm({ recipeToEdit }) {
 
   const ingredientDropdownRef = useRef(null);
   const symptomDropdownRef = useRef(null);
-
+  
   useEffect(() => {
     function handleClickOutside(event) {
-      if (
-        ingredientDropdownRef.current &&
-        !ingredientDropdownRef.current.contains(event.target)
-      ) {
+      if (ingredientDropdownRef.current && !ingredientDropdownRef.current.contains(event.target)) {
         setIngredientSuggestions([]);
       }
-      if (
-        symptomDropdownRef.current &&
-        !symptomDropdownRef.current.contains(event.target)
-      ) {
+      if (symptomDropdownRef.current && !symptomDropdownRef.current.contains(event.target)) {
         setSymptomSuggestions([]);
       }
     }
-
+  
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -165,6 +157,7 @@ export default function RecipeForm({ recipeToEdit }) {
   //SUBMIT
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
+  const { data, error: fetchError, isLoading, mutate } = useSWR("/api/recipes");
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -264,26 +257,23 @@ export default function RecipeForm({ recipeToEdit }) {
         {errorMessage.field === "ingredients" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {(ingredientSuggestions || ingredientsInput) && (
+{(ingredientSuggestions || ingredientsInput) && (
           <FakeDropDown ref={ingredientDropdownRef}>
-            {ingredientSuggestions &&
-              ingredientSuggestions.map((suggestion) => (
-                <DropDownOption
-                  key={suggestion}
-                  type="button"
-                  onClick={() => selectIngredient(suggestion)}
-                >
-                  {suggestion}
-                </DropDownOption>
-              ))}
-            {ingredientsInput && (
-              <DropDownOption
-                type="button"
-                onClick={() => selectIngredient(ingredientsInput)}
-              >
-                {ingredientsInput}
-              </DropDownOption>
+              {ingredientSuggestions && 
+            ingredientSuggestions.map((suggestion) => <DropDownOption
+            key={suggestion}
+            type="button"
+            onClick={() => selectIngredient(suggestion)}
+          >
+            {suggestion}
+          </DropDownOption> 
             )}
+            {ingredientsInput && <DropDownOption
+              type="button"
+              onClick={() => selectIngredient(ingredientsInput)}
+            >
+              {ingredientsInput}
+            </DropDownOption>}
           </FakeDropDown>
         )}
         <ul>
@@ -333,26 +323,23 @@ export default function RecipeForm({ recipeToEdit }) {
         {errorMessage.field === "symptoms" && (
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
-        {(symptomSuggestions || symptomsInput) && (
+        {(symptomSuggestions || symptomsInput) && (
           <FakeDropDown ref={symptomDropdownRef}>
-            {symptomSuggestions &&
-              symptomSuggestions.map((suggestion) => (
-                <DropDownOption
-                  key={suggestion}
-                  type="button"
-                  onClick={() => selectSymptom(suggestion)}
-                >
-                  {suggestion}
-                </DropDownOption>
-              ))}
-            {symptomsInput && (
-              <DropDownOption
-                type="button"
-                onClick={() => selectSymptom(symptomsInput)}
-              >
-                {symptomsInput}
-              </DropDownOption>
+              {symptomSuggestions && 
+            symptomSuggestions.map((suggestion) => <DropDownOption
+            key={suggestion}
+            type="button"
+            onClick={() => selectSymptom(suggestion)}
+          >
+            {suggestion}
+          </DropDownOption> 
             )}
+            {symptomsInput && <DropDownOption
+              type="button"
+              onClick={() => selectSymptom(symptomsInput)}
+            >
+              {symptomsInput}
+            </DropDownOption>}
           </FakeDropDown>
         )}
         <ul>
