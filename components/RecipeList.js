@@ -24,7 +24,7 @@ const WhiteSpace = styled.div`
 
 export default function RecipeList({
   recipes,
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
   bookmarkedRecipesIDs,
 }) {
   return (
@@ -33,7 +33,7 @@ export default function RecipeList({
         {recipes.map((recipe) => (
           <li key={recipe._id}>
             <RecipeCard
-              onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+              onToggleBookmark={onToggleBookmark}
               bookmarkedRecipesIDs={bookmarkedRecipesIDs}
               recipe={recipe}
             />

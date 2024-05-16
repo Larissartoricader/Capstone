@@ -23,7 +23,7 @@ const StyledFilterInfo = styled.p`
 export default function FilterForm({
   recipes,
   bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
 }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
@@ -127,7 +127,7 @@ export default function FilterForm({
           <RecipeList
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
             recipes={filteredRecipes}
-            onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+            onToggleBookmark={onToggleBookmark}
           />
         </div>
       ) : null}
