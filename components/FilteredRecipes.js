@@ -38,7 +38,10 @@ export default function FilteredRecipes({
       );
       return [...acc, ...matchingSymptoms];
     }, []);
-    setSymptomSuggestions(Array.from(new Set(suggestions)));
+    console.log(suggestions);
+   const notYetSelectedSuggestions = suggestions.filter((suggestion) => !selectedSymptoms.includes(suggestion));
+   console.log(notYetSelectedSuggestions); 
+   setSymptomSuggestions(Array.from(new Set(notYetSelectedSuggestions)));
     
   }
 
