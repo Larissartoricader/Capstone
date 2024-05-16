@@ -32,7 +32,6 @@ export default function FilterForm({
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     setSymptomSuggestions([]);
-
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
         symptom.toLowerCase().startsWith(userInput.toLowerCase()),
@@ -60,13 +59,11 @@ export default function FilterForm({
 
   function filterRecipes() {
     let filteredRecipes = [...recipes];
-
     if (selectedSymptoms.length > 0) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
         selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom)),
       );
     }
-
     return filteredRecipes;
   }
 

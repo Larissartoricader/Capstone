@@ -13,14 +13,11 @@ export default async function handler(request, response) {
 		return response.status(500).json({ error: "Internal Server Error!" });
 	}
 
-	if (request.method === "POST") {
-		await dbConnect();
-		try {
-			const recipeData = request.body;
-			if (!recipeData.hasOwnProperty("editable")) {
-				recipeData.editable = true;
-			}
-			await Recipe.create(recipeData);
+  if (request.method === "POST") {
+    await dbConnect();
+    try {
+      const recipeData = request.body;
+      await Recipe.create(recipeData);
 
 			response.status(201).json({ status: "Recipe created." });
 		} catch (error) {
