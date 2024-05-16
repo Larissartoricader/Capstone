@@ -13,18 +13,22 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   margin: 5px;
-  padding: 25px;
-`;
+  padding: 0 10%;
+  border-radius: var(--primary-border-radius)
+; background-color: var(--secondary-background-color);`
 
 const FakeDropDown = styled.div`
-  width: 85vw;
+  width: var(--input-field-width);
   border: solid black 1px;
+  background-color: var(--box-background-color);
 `;
 const DropDownOption = styled.button`
   width: 85vw;
-  background-color: white;
+  background-color: var(--box-background-color);
   text-align: left;
   border: none;
+  font-size: var(--label-font-size); font-family: var(--label-font);
+  width: var(--input-field-width);
 `;
 
 const ListItemSelectedValues = styled.li`
@@ -34,7 +38,9 @@ const ListItemSelectedValues = styled.li`
   border-radius: 5px;
   width: auto;
   padding: 0 2vw;
+  font-size: var(--label-font-size); font-family: var(--label-font);
 `;
+const DeleteSelectedButton = styled.button`background-color: var( --secondary-background-color);`
 
 const ErrorMessage = styled.div`
   color: red;
@@ -49,9 +55,16 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-const BiggerFormField = styled.textarea`height: 10vh; margin: 0 0;`
+const BiggerFormField = styled.textarea`height: 10vh; margin: 0 0;font-size: var(--label-font-size); font-family: var(--label-font); border-radius: 12px;
+`
 
-const InputFieldLabel = styled.label`padding: 15px 0 10px 0; margin: 0 0;`
+const InputFieldLabel = styled.label`padding: 15px 0 10px 0; margin: 0 0; font-size: var(--label-font-size); font-family: var(--label-font);`
+
+const InputField = styled.input`
+padding: 2px 2px; 
+font-size: var(--label-font-size); font-family: var(--label-font); width: var(--input-field-width); border-radius: var(--secondary-border-radius);`
+
+const SubmitButton = styled.button`background-color: #FFA500; margin-bottom: 5%; border-radius: var(--secondary-border-radius);`
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -76,7 +89,7 @@ export default function RecipeForm({ recipeToEdit }) {
     setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
     setIngredientsInput(userInput);
     setErrorMessage("");
-  }
+  };
 
 
   function handleSymptomsChange(event) {
@@ -228,7 +241,7 @@ export default function RecipeForm({ recipeToEdit }) {
       )}
       <StyledForm onSubmit={handleSubmit}>
         <InputFieldLabel htmlFor="title">Title</InputFieldLabel>
-        <input
+        <InputField
           type="text"
           placeholder="What's the recipe's name?"
           minLength="1"
@@ -239,7 +252,7 @@ export default function RecipeForm({ recipeToEdit }) {
           defaultValue={recipeToEdit?.title}
         />
         <InputFieldLabel htmlFor="ingredients">Ingredients</InputFieldLabel>
-        <input
+        <InputField
           type="text"
           placeholder="What ingredients are needed?"
           minLength="1"
@@ -275,12 +288,12 @@ export default function RecipeForm({ recipeToEdit }) {
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
               <p>{ingredient}</p>
-              <button
+              <DeleteSelectedButton
                 type="button"
                 onClick={() => deleteSelectedIngredient(ingredient)}
               >
-                ❌
-              </button>
+                ✖️
+              </DeleteSelectedButton>
             </ListItemSelectedValues>
           ))}
         </ul>
@@ -307,7 +320,7 @@ export default function RecipeForm({ recipeToEdit }) {
           defaultValue={recipeToEdit?.usage}
         />
         <InputFieldLabel htmlFor="symptoms">Symptoms</InputFieldLabel>
-        <input
+        <InputField
           type="text"
           placeholder="min 2 Symptoms"
           id="symptoms"
@@ -341,16 +354,16 @@ export default function RecipeForm({ recipeToEdit }) {
           {selectedSymptoms.map((symptom) => (
             <ListItemSelectedValues key={symptom}>
               <p>{symptom}</p>
-              <button
+              <DeleteSelectedButton
                 type="button"
                 onClick={() => deleteSelectedSymptom(symptom)}
               >
-                ❌
-              </button>
+                ✖️
+              </DeleteSelectedButton>
             </ListItemSelectedValues>
           ))}
         </ul>
-        <button type="submit">Save</button>
+        <SubmitButton type="submit">Save</SubmitButton>
       </StyledForm>
       <WhiteSpace />
     </>
