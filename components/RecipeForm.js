@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -136,6 +136,25 @@ export default function RecipeForm({ recipeToEdit }) {
   }, [recipeToEdit]);
 
 
+  const ingredientDropdownRef = useRef(null);
+  const symptomDropdownRef = useRef(null);
+  
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ingredientDropdownRef.current && !ingredientDropdownRef.current.contains(event.target)) {
+        setIngredientSuggestions([]);
+      }
+      if (symptomDropdownRef.current && !symptomDropdownRef.current.contains(event.target)) {
+        setSymptomSuggestions([]);
+      }
+    }
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -231,7 +250,7 @@ export default function RecipeForm({ recipeToEdit }) {
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
 {(ingredientSuggestions || ingredientsInput) && (
-          <FakeDropDown>
+          <FakeDropDown ref={ingredientDropdownRef}>
               {ingredientSuggestions && 
             ingredientSuggestions.map((suggestion) => <DropDownOption
             key={suggestion}
@@ -286,7 +305,6 @@ export default function RecipeForm({ recipeToEdit }) {
         />
         <label htmlFor="symptoms">Symptoms</label>
         <input
-
           type="text"
           placeholder="min 2 Symptoms"
           id="symptoms"
@@ -297,7 +315,7 @@ export default function RecipeForm({ recipeToEdit }) {
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
         {(symptomSuggestions || symptomsInput) && (
-          <FakeDropDown>
+          <FakeDropDown ref={symptomDropdownRef}>
               {symptomSuggestions && 
             symptomSuggestions.map((suggestion) => <DropDownOption
             key={suggestion}
