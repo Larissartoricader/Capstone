@@ -49,7 +49,9 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-const BiggerFormField = styled.textarea`height: 10vh;`
+const BiggerFormField = styled.textarea`height: 10vh; margin: 0 0;`
+
+const InputFieldLabel = styled.label`padding: 15px 0 10px 0; margin: 0 0;`
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -225,7 +227,7 @@ export default function RecipeForm({ recipeToEdit }) {
         <StyledHeadline>Add your Recipe</StyledHeadline>
       )}
       <StyledForm onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
+        <InputFieldLabel htmlFor="title">Title</InputFieldLabel>
         <input
           type="text"
           placeholder="What's the recipe's name?"
@@ -236,7 +238,7 @@ export default function RecipeForm({ recipeToEdit }) {
           required
           defaultValue={recipeToEdit?.title}
         />
-        <label htmlFor="ingredients">Ingredients</label>
+        <InputFieldLabel htmlFor="ingredients">Ingredients</InputFieldLabel>
         <input
           type="text"
           placeholder="What ingredients are needed?"
@@ -282,7 +284,7 @@ export default function RecipeForm({ recipeToEdit }) {
             </ListItemSelectedValues>
           ))}
         </ul>
-        <label htmlFor="preparation">Preparation</label>
+        <InputFieldLabel htmlFor="preparation">Preparation</InputFieldLabel>
         <BiggerFormField
           type="text"
           placeholder="e.g Add thyme to the water"
@@ -293,7 +295,7 @@ export default function RecipeForm({ recipeToEdit }) {
           name="preparation"
           defaultValue={recipeToEdit?.preparation}
         />
-        <label htmlFor="usage">Usage</label>
+        <InputFieldLabel htmlFor="usage">Usage</InputFieldLabel>
         <BiggerFormField
           type="text"
           placeholder="How to use it?"
@@ -304,7 +306,7 @@ export default function RecipeForm({ recipeToEdit }) {
           name="usage"
           defaultValue={recipeToEdit?.usage}
         />
-        <label htmlFor="symptoms">Symptoms</label>
+        <InputFieldLabel htmlFor="symptoms">Symptoms</InputFieldLabel>
         <input
           type="text"
           placeholder="min 2 Symptoms"
