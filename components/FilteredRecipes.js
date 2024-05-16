@@ -89,14 +89,13 @@ const [userInput, setUserInput] = useState("");
     setUserInput("");
   }
 
-
+// TODO selected müssen noch angezeigt werden auch wenn es keinen userInput gibt
   return (
     <>
       <SearchBox>
         <h1>Search Recipes</h1>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
           <label htmlFor="symptom">Select a symptom</label>
-          <StyledFilterInfo>Please, select only one symptom.</StyledFilterInfo>
           <input
             placeholder="Type your symptom and select from the list"
             type="text"
@@ -108,6 +107,7 @@ const [userInput, setUserInput] = useState("");
           }}
           value={userInput}
           />
+
           {userInput && <div>
             {selectedSymptoms.map((symptom, index) => (
               <p key={index}>
@@ -130,9 +130,6 @@ const [userInput, setUserInput] = useState("");
           </div>
         </StyledFilterForm>
       </SearchBox>
-    
-    
-      {filteredRecipes.length > 0 ? (
         <div>
           <h2>The Perfect Recipes for you</h2>
           <RecipeList
@@ -141,7 +138,6 @@ const [userInput, setUserInput] = useState("");
             onHandleBookmarkedIcon={onHandleBookmarkedIcon}
           />
         </div>
-      ) : null}
     </>
   );
 }
