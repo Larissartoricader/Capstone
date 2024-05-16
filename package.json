@@ -24,6 +24,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^5.2.0",
     "react-render": "^4.0.0",
+    "react-toastify": "^10.0.5",
     "styled-components": "^6.1.8",
     "swr": "^2.2.5",
     "uid": "^2.0.2",

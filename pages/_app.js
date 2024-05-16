@@ -2,6 +2,8 @@ import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -44,7 +46,8 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <GlobalStyle/>
+      <GlobalStyle />
+      <ToastContainer />
       <SWRConfig value={{ fetcher }}>
         <Component
           {...pageProps}
