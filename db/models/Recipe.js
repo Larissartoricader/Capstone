@@ -8,7 +8,11 @@ const RecipeSchema = new Schema({
 	preparation: { type: String, required: true },
 	usage: { type: String, required: true },
 	symptoms: [{ type: String, required: true }],
+<<<<<<< HEAD
 	image: { type: String },
+=======
+	image: { type: String, required: false },
+>>>>>>> 0182b4e (add changes)
 	editable: { type: Boolean, required: false },
 });
 
