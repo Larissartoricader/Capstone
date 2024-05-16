@@ -48,7 +48,7 @@ export default function FilteredRecipes({
       suggestion,
     ]);
     setSymptomSuggestions([]);
-    // TODO feld soll wieder geleert werden, wenn etwas ausgewählt wurde
+    setUserInput("");
   }
 
   function removeSelectedSymptom(index) {
@@ -86,7 +86,6 @@ const [userInput, setUserInput] = useState("");
     setUserInput("");
   }
 
-// TODO selected müssen noch angezeigt werden auch wenn es keinen userInput gibt
   return (
     <>
       <SearchBox>
@@ -104,15 +103,14 @@ const [userInput, setUserInput] = useState("");
           }}
           value={userInput}
           />
-
-          {userInput && <div>
+           <div>
             {selectedSymptoms.map((symptom, index) => (
               <p key={index}>
                 {symptom}{" "}
                 <span onClick={() => removeSelectedSymptom(index)}>✖️</span>
               </p>
             ))}
-            {symptomSuggestions.map((suggestion, index) => (
+            {userInput && symptomSuggestions.map((suggestion, index) => (
               <p
                 key={index}
                 onClick={() => handleSymptomSuggestionClick(suggestion)}
@@ -120,7 +118,7 @@ const [userInput, setUserInput] = useState("");
                 {suggestion}
               </p>
             ))}
-          </div>}
+          </div>
           <div>
           
             <button onClick={handleResetSubmit}>Reset</button>
