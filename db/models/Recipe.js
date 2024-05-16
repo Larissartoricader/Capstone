@@ -8,7 +8,7 @@ const RecipeSchema = new Schema({
 	preparation: { type: String, required: true },
 	usage: { type: String, required: true },
 	symptoms: [{ type: String, required: true }],
-	image: { type: String, required: false },
+	image: { type: String },
 	editable: { type: Boolean, required: false },
 });
 
