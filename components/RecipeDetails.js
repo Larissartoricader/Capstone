@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
 
 const StyledToast = styled.div`
   background-color: #5cb85c;
@@ -68,18 +67,14 @@ export default function RecipeDetails({ currentRecipe }) {
     router.push(`/edit/${currentRecipe._id}`);
   }
 
-  const [showToast, setShowToast] = useState(false);
-
-  async function handleDelete() {
+  const handleDelete = async () => {
     const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
       method: "DELETE",
     });
     if (response.ok) {
       router.push("/");
+      toast.success("Recipe deleted successfully!", {});
     }
-  }
-  const showToastMessage = () => {
-    toast.success("Recipe deleted successfully!", {});
   };
 
   return (
@@ -115,18 +110,10 @@ export default function RecipeDetails({ currentRecipe }) {
         </button>
       )}
       {currentRecipe.editable && (
-        <button
-          type="button"
-          onClick={() => {
-            handleDelete();
-            showToastMessage();
-          }}
-        >
+        <button type="button" onClick={handleDelete}>
           Delete
         </button>
       )}
-      {showToastMessage}
-      {showToast && <StyledToast>Recipe deleted successfully!</StyledToast>}
     </article>
   );
 }
