@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
-import { useRouter } from "next/router";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -55,9 +54,9 @@ const StyledLinkWrapper = styled.div`
 `;
 
 export default function RecipeCard({
-  bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
-  recipe,
+	bookmarkedRecipesIDs,
+	onToggleBookmark,
+	recipe,
 }) {
   return (
     <StyledArticle>
@@ -73,7 +72,7 @@ export default function RecipeCard({
       </StyledImageWrapper>
       <StyledBookmarkIcon>
         <BookmarkIcon
-          onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+          onToggleBookmark={onToggleBookmark}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
           recipe={recipe}
         />

@@ -1,101 +1,241 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import Image from "next/image";
+import { BookmarkIcon } from "./BookmarkIcon";
+import Link from "next/link";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const ListItem = styled.ul`
-  border: 1px solid #ccc;
-  border-radius: 5px;
+const StyledToast = styled.div`
+  background-color: #5cb85c;
+  color: #fff;
   padding: 10px;
-  font-size: 14px;
-  border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 5px;
-  padding: 25px;
+  border-radius: 4px;
 `;
 
-const CollapsibleButton = styled.button`
-  background-color: #777;
-  color: white;
+const RecipeArticle = styled.article`
+  background-color: #fcfbf4;
+  margin-inline: 15px;
+  border-radius: 20px;
+  position: relative;
+`;
+
+const StyledRecipeDetailPicture = styled.div`
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  height: 180px;
+  position: relative;
+`;
+
+const StyledBookmarkIcon = styled.div`
+  width: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+`;
+
+const StyledImage = styled(Image)`
+  border-radius: 20px 20px 0 0;
+`;
+
+const SytledRecipeTitle = styled.h2`
+  margin-left: 20px;
+  font-size: xx-large;
+`;
+
+const StyledItemsBox = styled.div`
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 10px;
+`;
+
+const StyledItemListTitle = styled.h3`
+  margin-left: 20px;
+  font-size: medium;
+  margin-left: 20px;
+`;
+
+const StyleItemsList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+`;
+
+const StyledItems = styled.li`
+  background-color: #f1efe2;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px;
+`;
+
+const CollapsibleContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const CollapsibleButton = styled.div`
+  background-color: #dedbdb;
+  color: black;
   cursor: pointer;
-  padding: 18px;
+  padding: 2px;
   margin: 5px;
-  width: 80%;
-  border-radius: 5px;
-  border: none;
-  text-align: left;
+  border-radius: 7px;
+  border: solid black 1px;
   outline: none;
-  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledIcon = styled(RiArrowDropDownLine)`
+  font-size: 40px;
+`;
+
+const StyledTextButton = styled.p`
+  font-size: medium;
+  text-align: center;
 `;
 
 const CollapsibleContent = styled.div`
   padding: 0 18px;
   margin: 5px;
-  width: 80%;
   overflow: hidden;
   background-color: #f1f1f1;
   max-height: ${(props) => (props.isOpen ? "500px" : "0")};
   transition: max-height 0.3s ease-out;
 `;
 
-export default function RecipeDetails({ currentRecipe }) {
-  const router = useRouter();
-  const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
+const CollapsibleText = styled.p`
+  font-size: medium;
+`;
 
-  const [isPreparationOpen, setIsPreparationOpen] = useState(false);
-  const [isUsageOpen, setIsUsageOpen] = useState(false);
+const StyledButton = styled.button`
+  
+  height: 32px;
+  width: 64px;
+  color: white;
+  font-size: medium;
+  border-radius: 7px;
+  border: none;
+  
+  &:hover {
+    background-color: #808080};
+`;
 
-  const togglePreparationCollapse = () => {
-    setIsPreparationOpen(!isPreparationOpen);
-  };
+const EditButton = styled(StyledButton)`
+  background-color: #ffc107;
+`;
 
-  const toggleUsageCollapse = () => {
-    setIsUsageOpen(!isUsageOpen);
-  };
+const DeleteButton = styled(StyledButton)`
+  background-color: #ff0000;
+`;
 
-  function handleClick() {
-    router.push(`/edit/${currentRecipe._id}`);
-  }
+const ButtonsBox = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  
+`;
 
-  async function handleDelete() {
+export default function RecipeDetails({
+	currentRecipe,
+	bookmarkedRecipesIDs,
+	onToggleBookmark,
+}) {
+	const router = useRouter();
+	const { title, ingredients, preparation, usage, symptoms } = currentRecipe;
+
+	const [isPreparationOpen, setIsPreparationOpen] = useState(false);
+	const [isUsageOpen, setIsUsageOpen] = useState(false);
+
+	const togglePreparationCollapse = () => {
+		setIsPreparationOpen(!isPreparationOpen);
+	};
+
+	const toggleUsageCollapse = () => {
+		setIsUsageOpen(!isUsageOpen);
+	};
+
+
+  const handleDelete = async () => {
     const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
       method: "DELETE",
     });
     if (response.ok) {
       router.push("/");
+      toast.success("Recipe deleted successfully!", {});
     }
-  }
+  };
 
-  return (
-    <article aria-label="Recipe Details">
-      <h2>{title}</h2>
-      <h3>Ingredients</h3>
-      <ListItem>
-        {ingredients.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ListItem>
-      <CollapsibleButton onClick={togglePreparationCollapse}>
-        Open the Preperation
-      </CollapsibleButton>
-      <CollapsibleContent isOpen={isPreparationOpen}>
-        <p>{preparation}</p>
-      </CollapsibleContent>
-      <CollapsibleButton onClick={toggleUsageCollapse}>
-        Open the Usage
-      </CollapsibleButton>
-      <CollapsibleContent isOpen={isUsageOpen}>
-        <p>{usage}</p>
-      </CollapsibleContent>
-      <h3> Symptoms</h3>
-      <ListItem>
-        {symptoms.map((symptoms, index) => (
-          <li key={index}>{symptoms}</li>
-        ))}
-      </ListItem>
-      {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
-      {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
-    </article>
-  );
-}
+	return (
+		<RecipeArticle aria-label="Recipe Details">
+			<StyledBookmarkIcon>
+				<BookmarkIcon
+					onToggleBookmark={onToggleBookmark}
+					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+					recipe={currentRecipe}
+				/>
+			</StyledBookmarkIcon>
+			<StyledRecipeDetailPicture>
+				<StyledImage
+					src="https://images.unsplash.com/photo-1564278453360-c65eda0a200e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+					layout="fill"
+					objectFit="cover"
+					alt="bottle of rum e.g. remedy"
+				/>
+			</StyledRecipeDetailPicture>
+			<SytledRecipeTitle>{title}</SytledRecipeTitle>
+			<StyledItemsBox>
+				<StyledItemListTitle>Ingredients:</StyledItemListTitle>
+				<StyleItemsList>
+					{ingredients.map((ingredient, _id) => (
+						<StyledItems key={_id}>{ingredient}</StyledItems>
+					))}
+				</StyleItemsList>
+			</StyledItemsBox>
+			<CollapsibleContainer>
+				<CollapsibleButton onClick={togglePreparationCollapse}>
+					<StyledTextButton>Preparation</StyledTextButton>
+					<StyledIcon />
+				</CollapsibleButton>
+				<CollapsibleContent isOpen={isPreparationOpen}>
+					<CollapsibleText>{preparation}</CollapsibleText>
+				</CollapsibleContent>
+
+				<CollapsibleButton onClick={toggleUsageCollapse}>
+					Usage
+					<StyledIcon />
+				</CollapsibleButton>
+
+				<CollapsibleContent isOpen={isUsageOpen}>
+					<CollapsibleText>{usage}</CollapsibleText>
+				</CollapsibleContent>
+			</CollapsibleContainer>
+			<StyledItemsBox>
+				<StyledItemListTitle> Symptoms</StyledItemListTitle>
+				<StyleItemsList>
+					{symptoms.map((symptoms, _id) => (
+						<StyledItems key={_id}>{symptoms}</StyledItems>
+					))}
+				</StyleItemsList>
+			</StyledItemsBox>
+			<ButtonsBox>
+				{currentRecipe.editable && (
+          <Link href={`/edit/${currentRecipe._id}`}>
+					<EditButton type="button">Edit</EditButton></Link>
+				)}
+				{currentRecipe.editable && (
+					<DeleteButton onClick={handleDelete} type="button">Delete</DeleteButton>
+				)}
+			</ButtonsBox>
+		</RecipeArticle>
+	)};
+ 
+

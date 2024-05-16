@@ -18,9 +18,6 @@ export default async function handler(request, response) {
     await dbConnect();
     try {
       const recipeData = request.body;
-      if (!recipeData.hasOwnProperty("editable")) {
-        recipeData.editable = true;
-      }
       const imageUrl = await generateImage(request.body.title);
       recipeData.image = imageUrl;
       await Recipe.create(recipeData);
