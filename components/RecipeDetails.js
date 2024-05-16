@@ -1,6 +1,15 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const StyledToast = styled.div`
+  background-color: #5cb85c;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+`;
 
 const ListItem = styled.ul`
   border: 1px solid #ccc;
@@ -58,14 +67,15 @@ export default function RecipeDetails({ currentRecipe }) {
     router.push(`/edit/${currentRecipe._id}`);
   }
 
-  async function handleDelete() {
+  const handleDelete = async () => {
     const response = await fetch(`/api/recipes/${currentRecipe._id}`, {
       method: "DELETE",
     });
     if (response.ok) {
       router.push("/");
+      toast.success("Recipe deleted successfully!", {});
     }
-  }
+  };
 
   return (
     <article aria-label="Recipe Details">
@@ -94,8 +104,16 @@ export default function RecipeDetails({ currentRecipe }) {
           <li key={index}>{symptoms}</li>
         ))}
       </ListItem>
-      {currentRecipe.editable && <button onClick={handleClick}>Edit</button>}
-      {currentRecipe.editable && <button onClick={handleDelete}>Delete</button>}
+      {currentRecipe.editable && (
+        <button type="button" onClick={handleClick}>
+          Edit
+        </button>
+      )}
+      {currentRecipe.editable && (
+        <button type="button" onClick={handleDelete}>
+          Delete
+        </button>
+      )}
     </article>
   );
 }
