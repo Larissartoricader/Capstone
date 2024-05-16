@@ -23,7 +23,7 @@ const StyledFilterInfo = styled.p`
 export default function FilteredRecipes({
   recipes,
   bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
 }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
@@ -32,7 +32,6 @@ export default function FilteredRecipes({
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     setSymptomSuggestions([]);
-
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
         symptom.toLowerCase().startsWith(userInput.toLowerCase()),
@@ -62,13 +61,11 @@ export default function FilteredRecipes({
 
   function filterRecipes() {
     let filteredRecipes = [...recipes];
-
     if (selectedSymptoms.length > 0) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
         selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom)),
       );
     }
-
     return filteredRecipes;
   }
 
@@ -135,7 +132,7 @@ const [userInput, setUserInput] = useState("");
           <RecipeList
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
             recipes={filteredRecipes}
-            onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+            onToggleBookmark={onToggleBookmark}
           />
         </div>
     </>
