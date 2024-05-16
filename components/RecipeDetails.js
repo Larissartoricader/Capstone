@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-<<<<<<< HEAD
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Image from "next/image";
 import { BookmarkIcon } from "./BookmarkIcon";
 import Link from "next/link";
-=======
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,7 +14,6 @@ const StyledToast = styled.div`
   padding: 10px;
   border-radius: 4px;
 `;
->>>>>>> main
 
 const RecipeArticle = styled.article`
   background-color: #fcfbf4;
