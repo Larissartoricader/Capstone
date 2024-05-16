@@ -20,26 +20,27 @@ const StyledFilterInfo = styled.p`
   font-size: 12px;
 `;
 
-export default function FilterForm({
+export default function FilteredRecipes({
   recipes,
   bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
 }) {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
-  const [searchSubmitted, setSearchSubmitted] = useState(false);
+
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     setSymptomSuggestions([]);
-
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
         symptom.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingSymptoms];
     }, []);
-    setSymptomSuggestions(Array.from(new Set(suggestions)));
+   const notYetSelectedSuggestions = suggestions.filter((suggestion) => !selectedSymptoms.includes(suggestion));
+   setSymptomSuggestions(Array.from(new Set(notYetSelectedSuggestions)));
+    
   }
 
   function handleSymptomSuggestionClick(suggestion) {
@@ -48,6 +49,7 @@ export default function FilterForm({
       suggestion,
     ]);
     setSymptomSuggestions([]);
+    setUserInput("");
   }
 
   function removeSelectedSymptom(index) {
@@ -60,13 +62,11 @@ export default function FilterForm({
 
   function filterRecipes() {
     let filteredRecipes = [...recipes];
-
     if (selectedSymptoms.length > 0) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
         selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom)),
       );
     }
-
     return filteredRecipes;
   }
 
@@ -74,15 +74,17 @@ export default function FilterForm({
 
   function handleSearchSubmit(event) {
     event.preventDefault();
-    setSearchSubmitted(true);
     event.target.reset();
+
   }
+
+const [userInput, setUserInput] = useState("");
+
 
   function handleResetSubmit(event) {
     event.preventDefault();
-    setFilteredRecipes(recipes);
     setSelectedSymptoms([]);
-    setSearchSubmitted(false);
+    setUserInput("");
   }
 
   return (
@@ -91,22 +93,25 @@ export default function FilterForm({
         <h1>Search Recipes</h1>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
           <label htmlFor="symptom">Select a symptom</label>
-          <StyledFilterInfo>Please, select only one symptom.</StyledFilterInfo>
           <input
             placeholder="Type your symptom and select from the list"
             type="text"
             id="symptom"
-            name="symptom"
-            onChange={handleSymptomsChange}
+            name="inputfield"
+            onChange={(event) => {
+              handleSymptomsChange(event);
+              setUserInput(event.target.value);
+          }}
+          value={userInput}
           />
-          <div>
+           <div>
             {selectedSymptoms.map((symptom, index) => (
               <p key={index}>
                 {symptom}{" "}
                 <span onClick={() => removeSelectedSymptom(index)}>✖️</span>
               </p>
             ))}
-            {symptomSuggestions.map((suggestion, index) => (
+            {userInput && symptomSuggestions.map((suggestion, index) => (
               <p
                 key={index}
                 onClick={() => handleSymptomSuggestionClick(suggestion)}
@@ -116,24 +121,19 @@ export default function FilterForm({
             ))}
           </div>
           <div>
-            <button>Search</button>
+          
             <button onClick={handleResetSubmit}>Reset</button>
           </div>
         </StyledFilterForm>
       </SearchBox>
-      {searchSubmitted && filteredRecipes.length === 0 && (
-        <p>Ups! No recipe to be found. How about trying another criteria?</p>
-      )}
-      {filteredRecipes.length > 0 ? (
         <div>
           <h2>The Perfect Recipes for you</h2>
           <RecipeList
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
             recipes={filteredRecipes}
-            onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+            onToggleBookmark={onToggleBookmark}
           />
         </div>
-      ) : null}
     </>
   );
 }

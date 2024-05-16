@@ -1,30 +1,43 @@
 import React from "react";
 import styled from "styled-components";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const StyledBookmarkIcon = styled.button`
   border: none;
   cursor: pointer;
-  background-color: transparent;
-  top: 5px;
-  right: 5px;
+  background-color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.5em;
 `;
 
+const StyledFilledHeart = styled(FaHeart)`
+  color: red;
+`;
+
+const StyledUnfilledHeart = styled(FaRegHeart)`
+  color: red;
+`;
+
 export function BookmarkIcon({
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
   recipe,
   bookmarkedRecipesIDs,
 }) {
   function handleClick() {
-    onHandleBookmarkedIcon(recipe);
+    onToggleBookmark(recipe);
   }
 
   const isBookmarked = bookmarkedRecipesIDs.includes(recipe._id);
 
   return (
     <StyledBookmarkIcon onClick={handleClick}>
-      {isBookmarked ? <FaBookmark /> : <FaRegBookmark />}
+      {isBookmarked ? <StyledFilledHeart /> : <StyledUnfilledHeart />}
     </StyledBookmarkIcon>
   );
 }
