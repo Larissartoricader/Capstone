@@ -20,6 +20,9 @@ const StyledFilterInfo = styled.p`
   font-size: 12px;
 `;
 
+const FilterHeadline = styled.h1`font-family: var(--headline-font);
+font-size: 200%;`
+
 export default function FilteredRecipes({
   recipes,
   bookmarkedRecipesIDs,
@@ -90,7 +93,7 @@ const [userInput, setUserInput] = useState("");
   return (
     <>
       <SearchBox>
-        <h1>Search Recipes</h1>
+        <FilterHeadline>Search Recipes</FilterHeadline>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
           <label htmlFor="symptom">Select a symptom</label>
           <input

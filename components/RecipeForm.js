@@ -5,16 +5,13 @@ import useSWR from "swr";
 import { filterArray } from "@/utils/filter-array";
 
 const StyledForm = styled.form`
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
+  border: var(--general-border);
+ border-radius: var(--big-box-border-radius);
   font-size: 14px;
-  border: 2px solid black;
   display: flex;
   flex-direction: column;
   margin: 5px;
   padding: 0 10%;
-  border-radius: var(--primary-border-radius)
 ; background-color: var(--secondary-background-color);`
 
 const FakeDropDown = styled.div`
@@ -40,6 +37,7 @@ const ListItemSelectedValues = styled.li`
   padding: 0 2vw;
   font-size: var(--label-font-size); font-family: var(--label-font);
 `;
+
 const DeleteSelectedButton = styled.button`background-color: var( --secondary-background-color);`
 
 const ErrorMessage = styled.div`
@@ -62,9 +60,12 @@ const InputFieldLabel = styled.label`padding: 15px 0 10px 0; margin: 0 0; font-s
 
 const InputField = styled.input`
 padding: 2px 2px; 
-font-size: var(--label-font-size); font-family: var(--label-font); width: var(--input-field-width); border-radius: var(--secondary-border-radius);`
+font-size: var(--label-font-size); font-family: var(--label-font); width: var(--input-field-width); border-radius: var(--small-box-border-radius);`
 
-const SubmitButton = styled.button`background-color: #FFA500; margin-bottom: 5%; border-radius: var(--secondary-border-radius);`
+const SubmitButton = styled.button`background-color: #ffc107; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh;`
+const CancelButton = styled.button`background-color: #ff0000; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh;`
+
+const ButtonContainer = styled.div`display: flex; gap: 10px;`
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -231,9 +232,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
   return (
     <>
-      <button type="button" onClick={() => router.back()}>
-        Cancel
-      </button>
+     
       {recipeToEdit ? (
         <h2>Edit your Recipe</h2>
       ) : (
@@ -363,7 +362,10 @@ export default function RecipeForm({ recipeToEdit }) {
             </ListItemSelectedValues>
           ))}
         </ul>
-        <SubmitButton type="submit">Save</SubmitButton>
+        <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
+        Cancel
+      </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
+        
       </StyledForm>
       <WhiteSpace />
     </>

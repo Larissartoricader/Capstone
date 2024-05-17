@@ -115,14 +115,12 @@ const CollapsibleText = styled.p`
 `;
 
 const StyledButton = styled.button`
-  
   height: 32px;
   width: 64px;
   color: white;
   font-size: medium;
   border-radius: 7px;
   border: none;
-  
   &:hover {
     background-color: #808080};
 `;

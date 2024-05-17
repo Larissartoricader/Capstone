@@ -5,9 +5,11 @@ import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
 
+
 const StyledHeadline = styled.h1`
     text-align: center;
-    font: Lora;
+    font-family: var(--headline-font);
+    font-size: 300%;
   `;
 	const Button = styled.button`
     background-color: black;
@@ -50,7 +52,7 @@ export default function HomePage({
   const currentTip = recipes[currentTipIndex];
   return (
     <div>
-      <StyledHeadline>Recipes Overview</StyledHeadline>
+      <StyledHeadline>Herbie</StyledHeadline>
       <TipOfTheDayWrapper>
         <Button onClick={handleNextTip}>Get Another Tip</Button>
         <TipOfTheDay recipe={currentTip}></TipOfTheDay>
