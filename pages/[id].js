@@ -2,35 +2,54 @@ import { useRouter } from "next/router";
 import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
 import useSWR from "swr";
+import Link from "next/link";
 
-const BackgroundContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 10vh;
-  /* background-image: url("https://unsplash.com/de/fotos/green-vegetable-beside-ceramic-bowl-kXQ3J7_2fpc"); */
-  background-color: lightgray;
-  background-size: cover;
-  z-index: 0;
+const StyledRecipeHeader = styled.div`
+  display: flex;
+  padding-right: 10px;
+  justify-content: space-between;
 `;
 
-const BackLink = styled.a`
-  position: relative;
-  border: solid 2px black;
-  margin-top: 20%;
+const BackLink = styled(Link)`
+  background-color: #fcfbf4;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-radius: 15px;
+  width: 10%;
+  height: 10%;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+`;
+
+const StyledRecipeBy = styled.p`
+  font-size: small;
+`;
+
+const StyledHerbie = styled.p`
+  font-size: x-large;
+`;
+
+const StyledHerbieBox = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
 `;
 
 const ContentContainer = styled.div`
-  position: relative;
-  margin-top: 100px;
+  margin-top: 3px;
 `;
 
 const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-export default function RecipeDetailsPage() {
+export default function RecipeDetailsPage({
+  onDeleteRecipe,
+  bookmarkedRecipesIDs,
+  onToggleBookmark,
+}) {
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -39,7 +58,6 @@ export default function RecipeDetailsPage() {
     error,
   } = useSWR(`/api/recipes/${id}`);
 
-  console.log(id);
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -55,13 +73,22 @@ export default function RecipeDetailsPage() {
 
   return (
     <>
-      <BackgroundContainer>
+      <StyledRecipeHeader>
         <BackLink href="/" onClick={handleBackClick}>
-          Back
+          back
         </BackLink>
-      </BackgroundContainer>
+        <StyledHerbieBox>
+          <StyledRecipeBy>Recipe by</StyledRecipeBy>
+          <StyledHerbie>herbie</StyledHerbie>
+        </StyledHerbieBox>
+      </StyledRecipeHeader>
       <ContentContainer>
-        <RecipeDetails currentRecipe={currentRecipe} />
+        <RecipeDetails
+          currentRecipe={currentRecipe}
+          onDeleteRecipe={onDeleteRecipe}
+          onToggleBookmark={onToggleBookmark}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        />
       </ContentContainer>
       <WhiteSpace />
     </>
