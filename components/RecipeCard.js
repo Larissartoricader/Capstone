@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
@@ -67,8 +67,10 @@ export default function RecipeCard({
           style={{ width: "100%" }}
           height={200}
           width={200}
-          objectFit="contain"
+          // objectFit="contain"
+          // object-fit= "contain"
           alt={recipe.title}
+          priority={false}
         ></Image>
       </StyledImageWrapper>
       <StyledBookmarkIcon>

@@ -169,7 +169,6 @@ function sleep(ms) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // 1. handle empty input
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
@@ -189,7 +188,6 @@ function sleep(ms) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-
     if (recipeToEdit) {
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
@@ -202,6 +200,7 @@ function sleep(ms) {
         mutate();
       }
     } else {
+      console.log("works");
       userRecipe.editable = true;
       const response = await fetch("/api/recipes", {
         method: "POST",
