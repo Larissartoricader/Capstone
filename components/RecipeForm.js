@@ -167,21 +167,16 @@ export default function RecipeForm({ recipeToEdit }) {
   }, []);
 
   //SUBMIT
-  const [prediction, setPrediction] = useState(null);
-  const [error, setError] = useState(null);
+
   const {
     data: recipes,
     error: fetchError,
     isLoading,
     mutate,
   } = useSWR("/api/recipes");
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // 1. handle empty input
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
@@ -201,7 +196,6 @@ export default function RecipeForm({ recipeToEdit }) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-
     if (recipeToEdit) {
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
@@ -210,6 +204,7 @@ export default function RecipeForm({ recipeToEdit }) {
         },
         body: JSON.stringify(userRecipe),
       });
+      console.log(response);
       if (response.ok) {
         mutate();
       }
@@ -226,7 +221,6 @@ export default function RecipeForm({ recipeToEdit }) {
         mutate();
       }
     }
-
     event.target.reset();
     router.push("/");
     toast.success("Recipe created successfully!", {});
@@ -384,7 +378,7 @@ export default function RecipeForm({ recipeToEdit }) {
             </ListItemSelectedValues>
           ))}
         </ul>
-        <button type="submit">Save</button>
+        <button>Save</button>
       </StyledForm>
       <WhiteSpace />
     </>
