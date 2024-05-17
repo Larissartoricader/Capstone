@@ -28,14 +28,14 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const recipeData = request.body;
-
-      if (!recipeData.editable) {
-        recipeData.editable = true;
-      }
-
+      const owner = session.user.email;
       const imageUrl = await generateImage(request.body.title);
-      recipeData.image = imageUrl;
-      await Recipe.create(recipeData);
+
+      await Recipe.create({
+        ...recipeData,
+        image: imageUrl,
+        owner,
+      });
 
       response.status(201).json({ status: "Recipe created." });
       return;
