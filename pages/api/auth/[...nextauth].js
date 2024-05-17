@@ -5,10 +5,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
+    process.env.VERCEL_ENV !== "preview" &&
+      GithubProvider({
+        clientId: process.env.GITHUB_ID,
+        clientSecret: process.env.GITHUB_SECRET,
+      }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
