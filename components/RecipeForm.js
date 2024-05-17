@@ -4,6 +4,11 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { filterArray } from "@/utils/filter-array";
 
+const FormHeadline = styled.h2`
+  text-align: center;
+  font-family: var(--headline-font);
+font-size: 200%;`
+
 const StyledForm = styled.form`
   border: var(--general-border);
  border-radius: var(--big-box-border-radius);
@@ -45,27 +50,25 @@ const ErrorMessage = styled.div`
   margin: 5px 0;
 `;
 
-const StyledHeadline = styled.h2`
-  text-align: center;
-`;
 
 const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-const BiggerFormField = styled.textarea`height: 10vh; margin: 0 0;font-size: var(--label-font-size); font-family: var(--label-font); border-radius: 12px;
+const BiggerFormField = styled.textarea`border: var(--general-border);height: 10vh; margin: 0 0;font-size: var(--label-font-size); font-family: var(--label-font); border-radius: 12px;
 `
 
 const InputFieldLabel = styled.label`padding: 15px 0 10px 0; margin: 0 0; font-size: var(--label-font-size); font-family: var(--label-font);`
 
 const InputField = styled.input`
+border: var(--general-border);
 padding: 2px 2px; 
 font-size: var(--label-font-size); font-family: var(--label-font); width: var(--input-field-width); border-radius: var(--small-box-border-radius);`
-
+const ButtonContainer = styled.div`display: flex; gap: 10px;`
 const SubmitButton = styled.button`background-color: #ffc107; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh;`
 const CancelButton = styled.button`background-color: #ff0000; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh;`
 
-const ButtonContainer = styled.div`display: flex; gap: 10px;`
+
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -234,9 +237,9 @@ export default function RecipeForm({ recipeToEdit }) {
     <>
      
       {recipeToEdit ? (
-        <h2>Edit your Recipe</h2>
+        <FormHeadline>Edit your Recipe</FormHeadline>
       ) : (
-        <StyledHeadline>Add your Recipe</StyledHeadline>
+        <FormHeadline>Add your Recipe</FormHeadline>
       )}
       <StyledForm onSubmit={handleSubmit}>
         <InputFieldLabel htmlFor="title">Title</InputFieldLabel>
