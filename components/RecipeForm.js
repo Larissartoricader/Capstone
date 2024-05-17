@@ -10,32 +10,68 @@ import { useSession } from "next-auth/react";
 const FormHeadline = styled.h2`
   text-align: center;
   font-family: var(--headline-font);
-font-size: 200%;`
+font-size: 280%; color: var(--font-color);`
 
 const StyledForm = styled.form`
   border: var(--general-border);
- border-radius: var(--big-box-border-radius);
-  font-size: 14px;
+  border-radius: var(--big-box-border-radius);
+  font-size: 140%; 
   display: flex;
   flex-direction: column;
-  margin: 5px;
-  padding: 0 10%;
-; background-color: var(--secondary-background-color);`
+  margin: 0 3%;
+  padding: 3% 10%;
+  color: var(--font-color);
+  background-color: var(--secondary-background-color);`
+
+// Others
+const ErrorMessage = styled.div`
+  color: red;
+  margin: 5px 0;
+`;
+
+const InputFieldLabel = styled.label`padding: 20px 0 10px 0; margin: 0 0; font-family: var(--general-font);`
+
+const RegularInputField = styled.input`
+border: var(--general-border);
+padding: 10px 10px; 
+font-size: var(--label-font-size); 
+font-family: var(--general-font); 
+width: 100%;
+border-radius: var( --small-box-border-radius);
+`
+const BiggerFormField = styled.textarea`border: var(--general-border);height: 10vh; width: 100%; margin: 0 0;font-size: var(--label-font-size); font-family: var(--general-font); padding: 10px 10px; border-radius: 12px;
+`
+// Small Input Fields and Drop Down
+const ContainerOfInputFieldAndDropDown = styled.div`
+`
+
+const IngredientsSymptomsInputField = styled.input`
+border: var(--general-border);
+padding: 10px 10px; 
+font-size: var(--label-font-size); 
+font-family: var(--general-font); 
+width: 100%;
+/* border-radius: ${props => props.symptomSuggestions || props.symptomsInput ? '50px 8px 0 0' : '8px'}; */
+`
 
 const FakeDropDown = styled.div`
-  width: var(--input-field-width);
-  border: solid black 1px;
+padding: 10px 10px; 
+  border: var(--general-border);
+  border-radius: 0 0 8px 8px;
   background-color: var(--box-background-color);
+  width: 100%;
+  z-index: 1;
 `;
+
 const DropDownOption = styled.button`
-  width: 85vw;
   background-color: var(--box-background-color);
   text-align: left;
   border: none;
   font-size: var(--label-font-size); font-family: var(--label-font);
-  width: var(--input-field-width);
+  width: 100%;
 `;
 
+// Selection 
 const ListItemSelectedValues = styled.li`
   display: flex;
   gap: 2vw;
@@ -48,43 +84,23 @@ const ListItemSelectedValues = styled.li`
 
 const DeleteSelectedButton = styled.button`background-color: var( --secondary-background-color);`
 
-const ErrorMessage = styled.div`
-  color: red;
-  margin: 5px 0;
-`;
 
+// Buttons
+const ButtonContainer = styled.div`display: flex; justify-content: space-around;`
+
+const SubmitButton = styled.button`background-color: #ffc107; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size); `
+
+const CancelButton = styled.button`background-color: #ff0000; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size); `
 
 const WhiteSpace = styled.div`
   height: 20vh;
 `;
-
-<<<<<<< HEAD
-const BiggerFormField = styled.textarea`border: var(--general-border);height: 10vh; margin: 0 0;font-size: var(--label-font-size); font-family: var(--label-font); border-radius: 12px;
-`
-
-const InputFieldLabel = styled.label`padding: 15px 0 10px 0; margin: 0 0; font-size: var(--label-font-size); font-family: var(--label-font);`
-
-const InputField = styled.input`
-border: var(--general-border);
-padding: 2px 2px; 
-font-size: var(--label-font-size); font-family: var(--label-font); width: var(--input-field-width); border-radius: var(--small-box-border-radius);`
-const ButtonContainer = styled.div`display: flex; gap: 10px;`
-const SubmitButton = styled.button`background-color: #ffc107; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh;`
-const CancelButton = styled.button`background-color: #ff0000; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh;`
-
-
-=======
-const BiggerFormField = styled.textarea`
-  height: 10vh;
-`;
->>>>>>> main
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
   const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [symptomsInput, setSymptomsInput] = useState("");
-  // "error" message if input field is empty
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
 
   const router = useRouter();
@@ -189,7 +205,7 @@ export default function RecipeForm({ recipeToEdit }) {
     };
   }, []);
 
-  //SUBMIT
+
 
   const {
     data: recipes,
@@ -271,9 +287,9 @@ export default function RecipeForm({ recipeToEdit }) {
       )}
       <StyledForm onSubmit={handleSubmit}>
         <InputFieldLabel htmlFor="title">Title</InputFieldLabel>
-        <InputField
+        <RegularInputField
           type="text"
-          placeholder="What's the recipe's name?"
+          placeholder="Your recipe's name"
           minLength="1"
           maxLength="50"
           id="title"
@@ -281,10 +297,14 @@ export default function RecipeForm({ recipeToEdit }) {
           required
           defaultValue={recipeToEdit?.title}
         />
+        {errorMessage.field === "ingredients" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
         <InputFieldLabel htmlFor="ingredients">Ingredients</InputFieldLabel>
-        <InputField
+        <ContainerOfInputFieldAndDropDown>
+        <IngredientsSymptomsInputField
           type="text"
-          placeholder="What ingredients are needed?"
+          placeholder="What is needed"
           minLength="1"
           maxLength="50"
           id="ingredients"
@@ -292,9 +312,6 @@ export default function RecipeForm({ recipeToEdit }) {
           onChange={handleIngredientsChange}
           value={ingredientsInput}
         />
-        {errorMessage.field === "ingredients" && (
-          <ErrorMessage>{errorMessage.message}</ErrorMessage>
-        )}
         {(ingredientSuggestions || ingredientsInput) && (
           <FakeDropDown ref={ingredientDropdownRef}>
             {ingredientSuggestions &&
@@ -317,6 +334,7 @@ export default function RecipeForm({ recipeToEdit }) {
             )}
           </FakeDropDown>
         )}
+        </ContainerOfInputFieldAndDropDown>
         <ul>
           {selectedIngredients.map((ingredient) => (
             <ListItemSelectedValues key={ingredient}>
@@ -333,7 +351,7 @@ export default function RecipeForm({ recipeToEdit }) {
         <InputFieldLabel htmlFor="preparation">Preparation</InputFieldLabel>
         <BiggerFormField
           type="text"
-          placeholder="e.g Add thyme to the water"
+          placeholder="How to make it"
           minLength="1"
           maxLength="150"
           required
@@ -344,7 +362,7 @@ export default function RecipeForm({ recipeToEdit }) {
         <InputFieldLabel htmlFor="usage">Usage</InputFieldLabel>
         <BiggerFormField
           type="text"
-          placeholder="How to use it?"
+          placeholder="How to use it"
           minLength="4"
           maxLength="300"
           required
@@ -353,17 +371,18 @@ export default function RecipeForm({ recipeToEdit }) {
           defaultValue={recipeToEdit?.usage}
         />
         <InputFieldLabel htmlFor="symptoms">Symptoms</InputFieldLabel>
-        <InputField
+        {errorMessage.field === "symptoms" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
+        <ContainerOfInputFieldAndDropDown>
+        <IngredientsSymptomsInputField
           type="text"
-          placeholder="min 2 Symptoms"
+          placeholder="What it is for"
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
           value={symptomsInput}
         />
-        {errorMessage.field === "symptoms" && (
-          <ErrorMessage>{errorMessage.message}</ErrorMessage>
-        )}
         {(symptomSuggestions || symptomsInput) && (
           <FakeDropDown ref={symptomDropdownRef}>
             {symptomSuggestions &&
@@ -386,6 +405,7 @@ export default function RecipeForm({ recipeToEdit }) {
             )}
           </FakeDropDown>
         )}
+        </ContainerOfInputFieldAndDropDown>
         <ul>
           {selectedSymptoms.map((symptom) => (
             <ListItemSelectedValues key={symptom}>
