@@ -200,6 +200,7 @@ function sleep(ms) {
       });
       if (response.ok) {
         mutate();
+        toast.success("Recipe edited successfully!", {});
       }
     } else {
       userRecipe.editable = true;
