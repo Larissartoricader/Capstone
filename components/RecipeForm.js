@@ -160,12 +160,12 @@ export default function RecipeForm({ recipeToEdit }) {
   }, []);
 
 //SUBMIT
-const [prediction, setPrediction] = useState(null);
-const [error, setError] = useState(null);
+// const [prediction, setPrediction] = useState(null);
+// const [error, setError] = useState(null);
 const { data: recipes, error: fetchError, isLoading, mutate } = useSWR("/api/recipes");
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
   async function handleSubmit(event) {
     event.preventDefault();
