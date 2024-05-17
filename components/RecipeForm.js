@@ -195,7 +195,6 @@ const { data: recipes, error: fetchError, isLoading, mutate } = useSWR("/api/rec
       console.log(response);
       if (response.ok) {
         mutate();
-        toast.success("Recipe edited successfully!", {});
       }
     } else {
       userRecipe.editable = true;
@@ -212,7 +211,7 @@ const { data: recipes, error: fetchError, isLoading, mutate } = useSWR("/api/rec
     }
     event.target.reset();
     router.push("/");
-    toast.success("Recipe created successfully!", {});
+    toast.success("Recipe saved successfully!", {});
   }
 
   if (isLoading) {
