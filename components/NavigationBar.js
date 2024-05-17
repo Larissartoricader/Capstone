@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -37,6 +38,8 @@ const StyledIcon = styled(FontAwesomeIcon)`
 export default function NavigationBar() {
   const router = useRouter();
 
+  const { data: session } = useSession();
+
   const isActive = (path) => {
     return router.pathname === path;
   };
@@ -46,12 +49,14 @@ export default function NavigationBar() {
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
         Home
       </StyledLink>
-      <StyledLink
-        onClick={() => router.push("/create")}
-        active={isActive("/create")}
-      >
-        <StyledIcon icon={faPlus} />
-      </StyledLink>
+      {session && (
+        <StyledLink
+          onClick={() => router.push("/create")}
+          active={isActive("/create")}
+        >
+          <StyledIcon icon={faPlus} />
+        </StyledLink>
+      )}
       <StyledLink
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}

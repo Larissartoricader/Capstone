@@ -1,9 +1,10 @@
-import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Layout from "@/components/Layout";
+import { SessionProvider } from "next-auth/react";
 
 
 
@@ -21,7 +22,7 @@ const fetcher = async (url) => {
 export default function App({ Component, pageProps }) {
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
     "bookmarkedRecipesIDs",
-    { defaultValue: [] },
+    { defaultValue: [] }
   );
 
   function checkIfRecipeIsBookmarked(id) {
@@ -34,7 +35,7 @@ export default function App({ Component, pageProps }) {
 
   function removeRecipeFromBookmarked(id) {
     const recipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
-      (item) => item !== id,
+      (item) => item !== id
     );
     setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
   }
@@ -47,18 +48,27 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <>
-      <GlobalStyle />
-      <ToastContainer />
+    <SessionProvider session={pageProps.session}>
       <SWRConfig value={{ fetcher }}>
-        <Component
-          {...pageProps}
-          onToggleBookmark={handleBookmarkedIcon}
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        />
+        <GlobalStyle />
+        <Layout>
+          <ToastContainer />
+          <Component
+            {...pageProps}
+            onToggleBookmark={handleBookmarkedIcon}
+            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          />
+        </Layout>
       </SWRConfig>
-      <NavigationBar />
-   
-    </>
+    </SessionProvider>
   );
+}
+
+function Auth({ children }) {
+  // required: true makes only 'loading' or 'authenticated' possible. Else the user is redirected to login page.
+  const { status } = useSession({ required: true });
+  if (status === "loading") {
+    return <div>Is loading...</div>;
+  }
+  return children;
 }
