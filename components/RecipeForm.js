@@ -373,14 +373,10 @@ const { data: recipes, error: fetchError, isLoading, mutate } = useSWR("/api/rec
             </ListItemSelectedValues>
           ))}
         </ul>
-<<<<<<< HEAD
         <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
         Cancel
       </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
         
-=======
-        <button>Save</button>
->>>>>>> main
       </StyledForm>
       <WhiteSpace />
     </>

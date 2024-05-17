@@ -7,17 +7,16 @@ const merienda = Merienda({
 });
 
 
-
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
     background-color: #c8ecb8;
-<<<<<<< HEAD
-   
+    font-family: 'Georgia';
   };
+
   :root{
-    --label-font-size: 130%;
+    --label-font-size: large; 
     --headline-font: ${merienda.style.fontFamily};
     --box-background-color: white;
     --input-field-width: 100%;
@@ -26,12 +25,6 @@ const GlobalStyle = createGlobalStyle`
     --secondary-background-color: #faf1d2;
     --general-border: 1px solid #ccc;
 }
-=======
-    font-family: Roboto, sans-serif;
-  }
->>>>>>> main
 `;
 
 export default GlobalStyle;
-
-// TODO was gehört hierher, was in styles.js ?
