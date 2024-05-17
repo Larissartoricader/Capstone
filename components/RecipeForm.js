@@ -58,10 +58,11 @@ export default function RecipeForm({ recipeToEdit }) {
   const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [symptomsInput, setSymptomsInput] = useState("");
+  // "error" message if input field is empty
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
 
   const router = useRouter();
-  const { data: recipes, error, isLoading, mutate } = useSWR("/api/recipes");
+  
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
@@ -137,6 +138,7 @@ export default function RecipeForm({ recipeToEdit }) {
     recipeToEdit && setSelectedSymptoms(recipeToEdit.symptoms);
   }, [recipeToEdit]);
 
+  
 
   const ingredientDropdownRef = useRef(null);
   const symptomDropdownRef = useRef(null);
@@ -157,10 +159,17 @@ export default function RecipeForm({ recipeToEdit }) {
     };
   }, []);
 
+//SUBMIT
+const [prediction, setPrediction] = useState(null);
+const [error, setError] = useState(null);
+const { data: recipes, error: fetchError, isLoading, mutate } = useSWR("/api/recipes");
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    // 1. handle empty input
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
@@ -180,6 +189,7 @@ export default function RecipeForm({ recipeToEdit }) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
+
     if (recipeToEdit) {
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
@@ -214,7 +224,7 @@ export default function RecipeForm({ recipeToEdit }) {
     return <h1>Loading...</h1>;
   }
 
-  if (error) {
+  if (fetchError) {
     return <h1>Oops! Something went wrong..</h1>;
   }
 
