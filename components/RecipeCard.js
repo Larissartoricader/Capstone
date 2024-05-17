@@ -55,49 +55,49 @@ const StyledLinkWrapper = styled.div`
 `;
 
 export default function RecipeCard({
-	bookmarkedRecipesIDs,
-	onToggleBookmark,
-	recipe,
+  bookmarkedRecipesIDs,
+  onToggleBookmark,
+  recipe,
 }) {
-	return (
-		<StyledArticle>
-			<StyledImageWrapper>
-				<Image
-					src="https://images.unsplash.com/photo-1564278453360-c65eda0a200e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-					style={{ width: "100%" }}
-					height={200}
-					width={200}
-					objectFit="contain"
-					alt="bottle of rum e.g. remedy"
-				></Image>
-			</StyledImageWrapper>
-			<StyledBookmarkIcon>
-				<BookmarkIcon
-					onToggleBookmark={onToggleBookmark}
-					bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-					recipe={recipe}
-				/>
-			</StyledBookmarkIcon>
-			<StyledCardWrapper>
-				<h2>{recipe.title}</h2>
-				<StyledListHeader>Symptoms:</StyledListHeader>
-				<StyledList>
-					{recipe.symptoms.map((symptom) => (
-						<StyledListItems key={symptom}>{symptom}</StyledListItems>
-					))}
-				</StyledList>
-				<StyledLinkWrapper>
-					<Link
-						style={{
-							color: "black",
-							textUnderlineOffset: "4px",
-						}}
-						href={`/${recipe._id}`}
-					>
-						Read More →
-					</Link>
-				</StyledLinkWrapper>
-			</StyledCardWrapper>
-		</StyledArticle>
-	);
+  return (
+    <StyledArticle>
+      <StyledImageWrapper>
+        <Image
+          src={recipe.image}
+          style={{ width: "100%" }}
+          height={200}
+          width={200}
+          objectFit="contain"
+          alt={recipe.title}
+        ></Image>
+      </StyledImageWrapper>
+      <StyledBookmarkIcon>
+        <BookmarkIcon
+          onToggleBookmark={onToggleBookmark}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          recipe={recipe}
+        />
+      </StyledBookmarkIcon>
+      <StyledCardWrapper>
+        <h2>{recipe.title}</h2>
+        <StyledListHeader>Symptoms:</StyledListHeader>
+        <StyledList>
+          {recipe.symptoms.map((symptom) => (
+            <StyledListItems key={symptom}>{symptom}</StyledListItems>
+          ))}
+        </StyledList>
+        <StyledLinkWrapper>
+          <Link
+            style={{
+              color: "black",
+              textUnderlineOffset: "4px",
+            }}
+            href={`/${recipe._id}`}
+          >
+            Read More →
+          </Link>
+        </StyledLinkWrapper>
+      </StyledCardWrapper>
+    </StyledArticle>
+  );
 }
