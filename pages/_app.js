@@ -1,9 +1,9 @@
-import NavigationBar from "@/components/NavigationBar";
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Layout from "@/components/Layout";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -19,7 +19,7 @@ const fetcher = async (url) => {
 export default function App({ Component, pageProps }) {
   const [bookmarkedRecipesIDs, setBookmarkedRecipesIDs] = useLocalStorageState(
     "bookmarkedRecipesIDs",
-    { defaultValue: [] },
+    { defaultValue: [] }
   );
 
   function checkIfRecipeIsBookmarked(id) {
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }) {
 
   function removeRecipeFromBookmarked(id) {
     const recipeIsBookmarkedWithoutCertainID = bookmarkedRecipesIDs.filter(
-      (item) => item !== id,
+      (item) => item !== id
     );
     setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
   }
@@ -46,17 +46,17 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <GlobalStyle />
-      <ToastContainer />
       <SWRConfig value={{ fetcher }}>
-        <Component
-          {...pageProps}
-          onToggleBookmark={handleBookmarkedIcon}
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        />
+        <GlobalStyle />
+        <Layout>
+          <ToastContainer />
+          <Component
+            {...pageProps}
+            onToggleBookmark={handleBookmarkedIcon}
+            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          />
+        </Layout>
       </SWRConfig>
-      <NavigationBar />
-   
     </>
   );
 }
