@@ -67,10 +67,8 @@ export default function RecipeCard({
           style={{ width: "100%" }}
           height={200}
           width={200}
-          // objectFit="contain"
-          // object-fit= "contain"
+          objectFit="contain"
           alt={recipe.title}
-          priority={false}
         ></Image>
       </StyledImageWrapper>
       <StyledBookmarkIcon>
