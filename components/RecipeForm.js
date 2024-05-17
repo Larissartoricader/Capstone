@@ -179,16 +179,11 @@ export default function RecipeForm({ recipeToEdit }) {
   }, []);
 
 //SUBMIT
-const [prediction, setPrediction] = useState(null);
-const [error, setError] = useState(null);
+
 const { data: recipes, error: fetchError, isLoading, mutate } = useSWR("/api/recipes");
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // 1. handle empty input
     if (selectedIngredients.length === 0) {
       setErrorMessage({
         field: "ingredients",
@@ -208,7 +203,6 @@ function sleep(ms) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-
     if (recipeToEdit) {
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
@@ -217,6 +211,7 @@ function sleep(ms) {
         },
         body: JSON.stringify(userRecipe),
       });
+      console.log(response);
       if (response.ok) {
         mutate();
       }
@@ -233,7 +228,6 @@ function sleep(ms) {
         mutate();
       }
     }
-
     event.target.reset();
     router.push("/");
     toast.success("Recipe created successfully!", {});
@@ -379,10 +373,14 @@ function sleep(ms) {
             </ListItemSelectedValues>
           ))}
         </ul>
+<<<<<<< HEAD
         <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
         Cancel
       </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
         
+=======
+        <button>Save</button>
+>>>>>>> main
       </StyledForm>
       <WhiteSpace />
     </>

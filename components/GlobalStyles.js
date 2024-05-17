@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #c8ecb8;
+<<<<<<< HEAD
    
   };
   :root{
@@ -25,6 +26,10 @@ const GlobalStyle = createGlobalStyle`
     --secondary-background-color: #faf1d2;
     --general-border: 1px solid #ccc;
 }
+=======
+    font-family: Roboto, sans-serif;
+  }
+>>>>>>> main
 `;
 
 export default GlobalStyle;
