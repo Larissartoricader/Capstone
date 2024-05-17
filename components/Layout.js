@@ -1,5 +1,6 @@
 import Head from "next/head.js";
 import NavigationBar from "./NavigationBar.js";
+import Login from "../components/Login.js";
 
 export default function Layout({ children }) {
   return (
@@ -7,7 +8,10 @@ export default function Layout({ children }) {
       <Head>
         <title>Herbie: Guru of Health</title>
       </Head>
-      <main>{children}</main>
+      <main>
+        <Login />
+        {children}
+      </main>
       <NavigationBar />
     </>
   );
