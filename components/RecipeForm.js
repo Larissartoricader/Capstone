@@ -51,7 +51,13 @@ padding: 10px 10px;
 font-size: var(--label-font-size); 
 font-family: var(--general-font); 
 width: 100%;
-/* border-radius: ${props => props.symptomSuggestions || props.symptomsInput ? '50px 8px 0 0' : '8px'}; */
+border-radius: ${props => (props.symptomSuggestions || props.symptomsInput) ? '8px 8px 0 0' : '8px'};
+
+/* border-radius: 50px 8px 0 0; */
+background-color: ${props => (
+  (props.symptomSuggestions && props.symptomSuggestions.length > 0) ||
+  (props.symptomsInput && props.symptomsInput.length > 0)
+) ? 'hotpink' : 'yellow'};
 `
 
 const FakeDropDown = styled.div`
@@ -108,20 +114,27 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
+   
     setIngredientSuggestions([]);
+    
+
+
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
         ingredient.toLowerCase().startsWith(userInput.toLowerCase())
       );
       return [...acc, ...matchingIngredients];
     }, []);
+
     const notYetSelectedIngredients = filterArray(
       suggestions,
       selectedIngredients
     );
-    setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
     setIngredientsInput(userInput);
     setErrorMessage("");
+    if (userInput.length < 1) {setIngredientSuggestions(""); return};
+    setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
+    
   };
 
   function handleSymptomsChange(event) {
@@ -190,12 +203,14 @@ export default function RecipeForm({ recipeToEdit }) {
         !ingredientDropdownRef.current.contains(event.target)
       ) {
         setIngredientSuggestions([]);
+        // setIngredientsInput("");
       }
       if (
         symptomDropdownRef.current &&
         !symptomDropdownRef.current.contains(event.target)
       ) {
         setSymptomSuggestions([]);
+        // setSymptomsInput("")
       }
     }
 
@@ -277,6 +292,9 @@ export default function RecipeForm({ recipeToEdit }) {
     return <h2>Access denied!</h2>;
   }
 
+  console.log("ingredientsInput", ingredientsInput);
+  console.log("ingredientsSuggestion", ingredientSuggestions);
+
   return (
     <>
      
@@ -313,7 +331,9 @@ export default function RecipeForm({ recipeToEdit }) {
           value={ingredientsInput}
         />
         {(ingredientSuggestions || ingredientsInput) && (
-          <FakeDropDown ref={ingredientDropdownRef}>
+          <FakeDropDown 
+          ref={ingredientDropdownRef}
+          >
             {ingredientSuggestions &&
               ingredientSuggestions.map((suggestion) => (
                 <DropDownOption
@@ -384,7 +404,9 @@ export default function RecipeForm({ recipeToEdit }) {
           value={symptomsInput}
         />
         {(symptomSuggestions || symptomsInput) && (
-          <FakeDropDown ref={symptomDropdownRef}>
+          <FakeDropDown 
+          ref={symptomDropdownRef}
+          >
             {symptomSuggestions &&
               symptomSuggestions.map((suggestion) => (
                 <DropDownOption
