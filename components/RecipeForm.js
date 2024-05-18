@@ -10,12 +10,12 @@ import { useSession } from "next-auth/react";
 const FormHeadline = styled.h2`
   text-align: center;
   font-family: var(--headline-font);
-font-size: 280%; color: var(--font-color);`
+font-size: 210%; color: var(--font-color);`
 
 const StyledForm = styled.form`
   border: var(--general-border);
   border-radius: var(--big-box-border-radius);
-  font-size: 140%; 
+  font-size: 100%; 
   display: flex;
   flex-direction: column;
   margin: 0 3%;
@@ -29,9 +29,9 @@ const ErrorMessage = styled.div`
   margin: 5px 0;
 `;
 
-const InputFieldLabel = styled.label`padding: 20px 0 10px 0; margin: 0 0; font-family: var(--general-font);`
+const InputFieldLabel = styled.label`padding: 20px 0 10px 0; margin: 0 0;`
 
-const RegularInputField = styled.input`
+const TitleInputField = styled.input`
 border: var(--general-border);
 padding: 10px 10px; 
 font-size: var(--label-font-size); 
@@ -287,7 +287,7 @@ export default function RecipeForm({ recipeToEdit }) {
       )}
       <StyledForm onSubmit={handleSubmit}>
         <InputFieldLabel htmlFor="title">Title</InputFieldLabel>
-        <RegularInputField
+        <TitleInputField
           type="text"
           placeholder="Your recipe's name"
           minLength="1"
