@@ -16,43 +16,56 @@ const StyledForm = styled.form`
   border: var(--general-border);
   border-radius: var(--big-box-border-radius);
   font-size: 100%; 
+font-family: var(--general-font);
+  color: var(--font-color);
+  background-color: var(--secondary-background-color);
   display: flex;
   flex-direction: column;
-  margin: 0 3%;
-  padding: 3% 10%;
-  color: var(--font-color);
-  background-color: var(--secondary-background-color);`
+  align-items: center;
+  margin: 0 auto;
+  width: 90%;
+  ` 
 
 // Others
 const ErrorMessage = styled.div`
   color: red;
   margin: 5px 0;
+  padding: 7px; 
+  width: 80%;
 `;
 
-const InputFieldLabel = styled.label`padding: 20px 0 10px 0; margin: 0 0;`
+const InputFieldLabel = styled.label`
+padding: 10px 10px;
+width: 80%;
+text-align: left;`
 
 const TitleInputField = styled.input`
 border: var(--general-border);
-padding: 10px 10px; 
-font-size: var(--label-font-size); 
-font-family: var(--general-font); 
-width: 100%;
 border-radius: var( --small-box-border-radius);
-`
-const BiggerFormField = styled.textarea`border: var(--general-border);height: 10vh; width: 100%; margin: 0 0;font-size: var(--label-font-size); font-family: var(--general-font); padding: 10px 10px; border-radius: 12px;
+font-size: var(--input-field-font-size); 
+font-family: var(--general-font); 
+padding: 10px; 
+width: 80%;`
+
+const BiggerFormField = styled.textarea`border: var(--general-border); border-radius: 12px; font-size: var(--input-field-font-size); font-family: var(--general-font); 
+height: 15vh;
+width: 80%; 
+margin: 10px 0;
+padding: 10px; 
 `
 // Small Input Fields and Drop Down
-const ContainerOfInputFieldAndDropDown = styled.div`
+const ContainerOfInputFieldAndDropDown = styled.div`width: 80%; 
+margin-right: 22px;
+position: relative;
 `
 
 const IngredientsSymptomsInputField = styled.input`
 border: var(--general-border);
-padding: 10px 10px; 
+padding: 10px; 
 font-size: var(--label-font-size); 
 font-family: var(--general-font); 
 width: 100%;
 border-radius: ${props => (props.symptomSuggestions || props.symptomsInput) ? '8px 8px 0 0' : '8px'};
-
 /* border-radius: 50px 8px 0 0; */
 background-color: ${props => (
   (props.symptomSuggestions && props.symptomSuggestions.length > 0) ||
@@ -61,16 +74,16 @@ background-color: ${props => (
 `
 
 const FakeDropDown = styled.div`
-padding: 10px 10px; 
+padding: 10px; 
   border: var(--general-border);
   border-radius: 0 0 8px 8px;
-  background-color: var(--box-background-color);
+  background-color: var(--secondary-background-color);
   width: 100%;
   z-index: 1;
 `;
 
 const DropDownOption = styled.button`
-  background-color: var(--box-background-color);
+  background-color: var(--secondary-background-color);
   text-align: left;
   border: none;
   font-size: var(--label-font-size); font-family: var(--label-font);
@@ -78,32 +91,41 @@ const DropDownOption = styled.button`
 `;
 
 // Selection 
-const ListItemSelectedValues = styled.li`
-  display: flex;
-  gap: 2vw;
+const Selection = styled.ul`
+display: flex; 
+flex-wrap: wrap;
+list-style: none; width: 80%;
+margin: 10px 0; padding: 0;
+`
+
+const SelectedValue = styled.li`
+display: inline-block;
+gap: 2%;
   border: solid grey 2px;
-  border-radius: 5px;
+  border-radius: var( --small-box-border-radius);
   width: auto;
-  padding: 0 2vw;
-  font-size: var(--label-font-size); font-family: var(--label-font);
+  padding: 0 2vw; margin: 0 0;
+  font-size: var(--input-field-font-size); font-family: var(--label-font);
 `;
 
-const DeleteSelectedButton = styled.button`background-color: var( --secondary-background-color);`
+const SelectedValueText = styled.p`display: inline-block; margin: 0; padding: 0;`
+
+const SelectedValueButton = styled.button`border: none; background-color: var( --secondary-background-color); display: inline-block;`
 
 
 // Buttons
-const ButtonContainer = styled.div`display: flex; justify-content: space-around; width: 100%; height: 100%; margin-bottom: 5%; padding: 0 0;`
+const ButtonContainer = styled.div`display: flex; justify-content: space-around; width: 80%; margin-bottom: 5%; padding: 0;`
 
 const SubmitButton = styled.button`background-color: #ffc107; 
-border: var(--general-border);border-radius: var(--small-box-border-radius); width: 40%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
+border: var(--general-border);border-radius: var(--small-box-border-radius); 
+width: 45%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  `
-
-const CancelButton = styled.button`background-color: #ff0000; 
-border: var(--general-border);border-radius: var(--small-box-border-radius); width: 50%; height: 100%; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
+  }`
+const CancelButton = styled.button`
+background-color: #ff0000; 
+/* color: white; */
+border: var(--general-border);border-radius: var(--small-box-border-radius); width: 45%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size); &:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -365,19 +387,19 @@ export default function RecipeForm({ recipeToEdit }) {
           </FakeDropDown>
         )}
         </ContainerOfInputFieldAndDropDown>
-        <ul>
+        <Selection>
           {selectedIngredients.map((ingredient) => (
-            <ListItemSelectedValues key={ingredient}>
-              <p>{ingredient}</p>
-              <DeleteSelectedButton
+            <SelectedValue key={ingredient}>
+              <SelectedValueText>{ingredient}</SelectedValueText>
+              <SelectedValueButton
                 type="button"
                 onClick={() => deleteSelectedIngredient(ingredient)}
               >
                 ✖️
-              </DeleteSelectedButton>
-            </ListItemSelectedValues>
+              </SelectedValueButton>
+            </SelectedValue>
           ))}
-        </ul>
+        </Selection>
         <InputFieldLabel htmlFor="preparation">Preparation</InputFieldLabel>
         <BiggerFormField
           type="text"
@@ -408,6 +430,8 @@ export default function RecipeForm({ recipeToEdit }) {
         <IngredientsSymptomsInputField
           type="text"
           placeholder="What it is for"
+          minLength="1"
+          maxLength="50"
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
@@ -438,19 +462,19 @@ export default function RecipeForm({ recipeToEdit }) {
           </FakeDropDown>
         )}
         </ContainerOfInputFieldAndDropDown>
-        <ul>
+        <Selection>
           {selectedSymptoms.map((symptom) => (
-            <ListItemSelectedValues key={symptom}>
-              <p>{symptom}</p>
-              <DeleteSelectedButton
+            <SelectedValue key={symptom}>
+              <SelectedValueText>{symptom}</SelectedValueText>
+              <SelectedValueButton
                 type="button"
                 onClick={() => deleteSelectedSymptom(symptom)}
               >
                 ✖️
-              </DeleteSelectedButton>
-            </ListItemSelectedValues>
+              </SelectedValueButton>
+            </SelectedValue>
           ))}
-        </ul>
+        </Selection>
         <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
         Cancel
       </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
