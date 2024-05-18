@@ -16,9 +16,9 @@ const StyledToast = styled.div`
 `;
 
 const RecipeArticle = styled.article`
-  background-color: #fcfbf4;
+  background-color: var( --secondary-background-color);
   margin-inline: 15px;
-  border-radius: 20px;
+  border-radius: var(--big-box-border-radius);
   position: relative;
 `;
 
@@ -57,7 +57,6 @@ const StyledItemsBox = styled.div`
 const StyledItemListTitle = styled.h3`
   margin-left: 20px;
   font-size: medium;
-  margin-left: 20px;
 `;
 
 const StyleItemsList = styled.div`

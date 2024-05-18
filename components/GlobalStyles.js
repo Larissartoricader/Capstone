@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     // colors
     --font-color: #013220;
     --box-background-color: white;
-    --secondary-background-color: #faf1d2;
+    --secondary-background-color: #fcfbf4;
    
     // borders
     --big-box-border-radius: 20px;

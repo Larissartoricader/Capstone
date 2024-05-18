@@ -92,11 +92,22 @@ const DeleteSelectedButton = styled.button`background-color: var( --secondary-ba
 
 
 // Buttons
-const ButtonContainer = styled.div`display: flex; justify-content: space-around;`
+const ButtonContainer = styled.div`display: flex; justify-content: space-around; width: 100%; height: 100%; margin-bottom: 5%; padding: 0 0;`
 
-const SubmitButton = styled.button`background-color: #ffc107; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size); `
+const SubmitButton = styled.button`background-color: #ffc107; 
+border: var(--general-border);border-radius: var(--small-box-border-radius); width: 40%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  `
 
-const CancelButton = styled.button`background-color: #ff0000; margin-bottom: 5%; border-radius: var(--small-box-border-radius); width: 40%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size); `
+const CancelButton = styled.button`background-color: #ff0000; 
+border: var(--general-border);border-radius: var(--small-box-border-radius); width: 50%; height: 100%; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  `
 
 const WhiteSpace = styled.div`
   height: 20vh;
@@ -297,7 +308,6 @@ export default function RecipeForm({ recipeToEdit }) {
 
   return (
     <>
-     
       {recipeToEdit ? (
         <FormHeadline>Edit your Recipe</FormHeadline>
       ) : (
