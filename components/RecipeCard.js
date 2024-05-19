@@ -96,7 +96,7 @@ const StyleItemsList = styled.div`
 const StyledItems = styled.li`
   background-color: #f1efe2;
   border-radius: 10px;
-  text-align: center;
+
   padding: 5px;
   font-size: medium;
 `;

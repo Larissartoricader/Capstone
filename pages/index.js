@@ -5,10 +5,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
 
-const StyledHeadline = styled.h1`
-  text-align: center;
-  font: Lora;
-`;
 const Button = styled.button`
   background-color: black;
   color: #fff;
@@ -46,8 +42,6 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const currentTip = recipes[currentTipIndex];
   return (
     <div>
-      <StyledHeadline>Recipes Overview</StyledHeadline>
-
       <FilteredRecipes
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
