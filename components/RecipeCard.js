@@ -4,54 +4,100 @@ import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
 import { useRouter } from "next/router";
 
-const StyledList = styled.ul`
-  list-style: none;
-  padding: 0;
+// Container
+const StyledArticle = styled.article`
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  height: 30vh;
 `;
 
-const StyledArticle = styled.article`
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  margin-left: 1vw;
-  box-sizing: border-box;
+const ReadMoreLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  display: block;
+  height: 100%;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+// Image-BOX
+const StyledBookmarkIcon = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+`;
+
+const StyledImageWrapper = styled.div`
+  border-radius: 0 20px 20px 0;
+  position: relative;
+  overflow: hidden;
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+// Text-Box
+const StyledContentWrapper = styled.div`
+  background-color: #fcfbf4;
+  border-radius: 20px 0 0 20px;
   position: relative;
 `;
 
-const StyledListHeader = styled.p`
+const StyledInfoBox = styled.div`
+  margin-left: 10px;
+`;
+
+const StyledHeader = styled.p`
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: large;
 `;
 
-const StyledListItems = styled.li`
-  margin-bottom: 0.5em;
-`;
-
-const StyledCardWrapper = styled.div`
+const AuthorBox = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 12px;
-`;
-
-const StyledImageWrapper = styled.div``;
-
-const StyledLink = styled.link`
-  text-decoration: none;
-  color: #333;
-  padding: 0.5rem 1rem;
-  background-color: #eee;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-`;
-
-const StyledBookmarkIcon = styled.div`
+  align-items: center;
+  gap: 3px;
   position: absolute;
-  top: -12px;
-  right: 0;
+  bottom: 1px;
+  left: 1px;
+  font-size: small;
+  margin-left: 10px;
 `;
-const StyledLinkWrapper = styled.div`
-  text-align: right;
-  width: 100%;
+
+const StyledRecipeBy = styled.p`
+  font-size: small;
+`;
+
+const StyledHerbie = styled.p`
+  font-size: medium;
+  font-style: italic;
+  font-weight: bold;
+`;
+
+const StyleItemsList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-left: 5px;
+`;
+
+const StyledItems = styled.li`
+  background-color: #f1efe2;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px;
+  font-size: medium;
 `;
 
 export default function RecipeCard({
@@ -61,43 +107,38 @@ export default function RecipeCard({
 }) {
   return (
     <StyledArticle>
+      <StyledContentWrapper>
+        <ReadMoreLink href={`/${recipe._id}`}>
+          <StyledInfoBox>
+            <StyledHeader>{recipe.title}</StyledHeader>
+            <StyleItemsList>
+              {recipe.symptoms.map((symptom) => (
+                <StyledItems key={symptom}>{symptom}</StyledItems>
+              ))}
+            </StyleItemsList>
+          </StyledInfoBox>
+          <AuthorBox>
+            <StyledRecipeBy>Recipe by</StyledRecipeBy>
+            <StyledHerbie>Herbie</StyledHerbie>
+          </AuthorBox>
+        </ReadMoreLink>
+      </StyledContentWrapper>
+
       <StyledImageWrapper>
-        <Image
+        <StyledImage
           src={recipe.image}
-          style={{ width: "100%" }}
-          height={200}
-          width={200}
-          objectFit="contain"
+          layout="fill"
+          objectFit="cover"
           alt={recipe.title}
-        ></Image>
+        ></StyledImage>
+        <StyledBookmarkIcon>
+          <BookmarkIcon
+            onToggleBookmark={onToggleBookmark}
+            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+            recipe={recipe}
+          />
+        </StyledBookmarkIcon>
       </StyledImageWrapper>
-      <StyledBookmarkIcon>
-        <BookmarkIcon
-          onToggleBookmark={onToggleBookmark}
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          recipe={recipe}
-        />
-      </StyledBookmarkIcon>
-      <StyledCardWrapper>
-        <h2>{recipe.title}</h2>
-        <StyledListHeader>Symptoms:</StyledListHeader>
-        <StyledList>
-          {recipe.symptoms.map((symptom) => (
-            <StyledListItems key={symptom}>{symptom}</StyledListItems>
-          ))}
-        </StyledList>
-        <StyledLinkWrapper>
-          <Link
-            style={{
-              color: "black",
-              textUnderlineOffset: "4px",
-            }}
-            href={`/${recipe._id}`}
-          >
-            Read More →
-          </Link>
-        </StyledLinkWrapper>
-      </StyledCardWrapper>
     </StyledArticle>
   );
 }
