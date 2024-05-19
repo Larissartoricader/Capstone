@@ -8,7 +8,13 @@ import { useRouter } from "next/router";
 const StyledArticle = styled.article`
   display: grid;
   grid-template-columns: 4fr 3fr;
-  height: 30vh;
+  height: 35vh;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const ReadMoreLink = styled(Link)`
@@ -16,11 +22,6 @@ const ReadMoreLink = styled(Link)`
   text-decoration: none;
   display: block;
   height: 100%;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
 `;
 
 // Image-BOX
@@ -67,7 +68,7 @@ const AuthorBox = styled.div`
   align-items: center;
   gap: 3px;
   position: absolute;
-  bottom: 1px;
+  bottom: -9px;
   left: 1px;
   font-size: small;
   margin-left: 10px;
@@ -88,8 +89,8 @@ const StyleItemsList = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 10px;
-  margin-left: 5px;
+  gap: 2px;
+  margin-left: 3px;
 `;
 
 const StyledItems = styled.li`

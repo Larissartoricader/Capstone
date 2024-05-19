@@ -7,6 +7,7 @@ const StyledList = styled.div`
   column-gap: 20px;
   row-gap: 40px;
   grid-template-columns: 1fr;
+  padding-inline: 10px;
 
   @media only screen and (min-width: 425px) {
     grid-template-columns: 1fr;
