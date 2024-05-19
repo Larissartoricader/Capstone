@@ -20,16 +20,16 @@ const GlobalStyle = createGlobalStyle`
     // fonts
     --headline-font: ${merienda.style.fontFamily};
     --general-font: 'Georgia';
-    --input-field-font-size: calc(100%) ;
+    --input-field-font-size: calc(100%);
     // colors
     --font-color: #013220;
     --box-background-color: white;
     --secondary-background-color: #fcfbf4;
-   
+ 
     // borders
     --big-box-border-radius: 20px;
     --small-box-border-radius: 8px;
-    --general-border: 1px solid #ccc;
+    --general-border: 2px solid #ccc;
     // others
     --input-field-width: 100%;
 }

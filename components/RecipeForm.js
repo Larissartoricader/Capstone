@@ -6,134 +6,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
-
-const FormHeadline = styled.h2`
-  text-align: center;
-  font-family: var(--headline-font);
-font-size: 210%; color: var(--font-color);`
-
-const StyledForm = styled.form`
-  border: var(--general-border);
-  border-radius: var(--big-box-border-radius);
-  font-size: 100%; 
-font-family: var(--general-font);
-  color: var(--font-color);
-  background-color: var(--secondary-background-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  width: 90%;
-  ` 
-
-// Others
-const ErrorMessage = styled.div`
-  color: red;
-  margin: 5px 0;
-  padding: 7px; 
-  width: 80%;
-`;
-
-const InputFieldLabel = styled.label`
-padding: 10px 10px;
-width: 80%;
-text-align: left;`
-
-const TitleInputField = styled.input`
-border: var(--general-border);
-border-radius: var( --small-box-border-radius);
-font-size: var(--input-field-font-size); 
-font-family: var(--general-font); 
-padding: 10px; 
-width: 80%;`
-
-const BiggerFormField = styled.textarea`border: var(--general-border); border-radius: 12px; font-size: var(--input-field-font-size); font-family: var(--general-font); 
-height: 15vh;
-width: 80%; 
-margin: 10px 0;
-padding: 10px; 
-`
-// Small Input Fields and Drop Down
-const ContainerOfInputFieldAndDropDown = styled.div`width: 80%; 
-margin-right: 22px;
-position: relative;
-`
-
-const IngredientsSymptomsInputField = styled.input`
-border: var(--general-border);
-padding: 10px; 
-font-size: var(--label-font-size); 
-font-family: var(--general-font); 
-width: 100%;
-border-radius: ${props => (props.symptomSuggestions || props.symptomsInput) ? '8px 8px 0 0' : '8px'};
-/* border-radius: 50px 8px 0 0; */
-background-color: ${props => (
-  (props.symptomSuggestions && props.symptomSuggestions.length > 0) ||
-  (props.symptomsInput && props.symptomsInput.length > 0)
-) ? 'hotpink' : 'yellow'};
-`
-
-const FakeDropDown = styled.div`
-padding: 10px; 
-  border: var(--general-border);
-  border-radius: 0 0 8px 8px;
-  background-color: var(--secondary-background-color);
-  width: 100%;
-  z-index: 1;
-`;
-
-const DropDownOption = styled.button`
-  background-color: var(--secondary-background-color);
-  text-align: left;
-  border: none;
-  font-size: var(--label-font-size); font-family: var(--label-font);
-  width: 100%;
-`;
-
-// Selection 
-const Selection = styled.ul`
-display: flex; 
-flex-wrap: wrap;
-list-style: none; width: 80%;
-margin: 10px 0; padding: 0;
-`
-
-const SelectedValue = styled.li`
-display: inline-block;
-gap: 2%;
-  border: solid grey 2px;
-  border-radius: var( --small-box-border-radius);
-  width: auto;
-  padding: 0 2vw; margin: 0 0;
-  font-size: var(--input-field-font-size); font-family: var(--label-font);
-`;
-
-const SelectedValueText = styled.p`display: inline-block; margin: 0; padding: 0;`
-
-const SelectedValueButton = styled.button`border: none; background-color: var( --secondary-background-color); display: inline-block;`
+import { FormHeadline, StyledForm, ErrorMessage, InputFieldLabel, TitleInputField, BiggerFormField, ContainerOfInputFieldAndDropDown, IngredientsSymptomsInputField, FakeDropDown, DropDownOption, Selection, SelectedValue, SelectedValueText, SelectedValueButton, ButtonContainer, SubmitButton, CancelButton, WhiteSpace } from "./RecipeForm.styles";
 
 
-// Buttons
-const ButtonContainer = styled.div`display: flex; justify-content: space-around; width: 80%; margin-bottom: 5%; padding: 0;`
-
-const SubmitButton = styled.button`background-color: #ffc107; 
-border: var(--general-border);border-radius: var(--small-box-border-radius); 
-width: 45%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }`
-const CancelButton = styled.button`
-background-color: #ff0000; 
-/* color: white; */
-border: var(--general-border);border-radius: var(--small-box-border-radius); width: 45%; height: 3vh; font-family: var(--general-font); font-size: var(--label-font-size); &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  `
-
-const WhiteSpace = styled.div`
-  height: 20vh;
-`;
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -336,7 +211,7 @@ export default function RecipeForm({ recipeToEdit }) {
         <FormHeadline>Add your Recipe</FormHeadline>
       )}
       <StyledForm onSubmit={handleSubmit}>
-        <InputFieldLabel htmlFor="title">Title</InputFieldLabel>
+        <InputFieldLabel htmlFor="title" style={{paddingTop: `25px`}}>Title</InputFieldLabel>
         <TitleInputField
           type="text"
           placeholder="Your recipe's name"
