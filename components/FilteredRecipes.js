@@ -63,14 +63,21 @@ const StyledSuggestionsList = styled.div`
 const StyledTextSuggestion = styled.p`
   color: black;
   font-size: medium;
+  display: block;
 `;
 
 //Selected Suggestion
 
-const StyledSelectedSuggestion = styled.p`
+const StyledSelectedSuggestionBox = styled.div`
   position: absolute;
   top: 70px;
   right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
+
+const StyledSelectedSuggestion = styled.p`
   background-color: #f1efe2;
   font-size: small;
   padding: 5px;
@@ -80,6 +87,7 @@ const StyledSelectedSuggestion = styled.p`
 
 const StyledCross = styled.span`
   color: green;
+  cursor: pointer;
 `;
 
 const ResetButton = styled.button`
@@ -191,17 +199,17 @@ export default function FilteredRecipes({
                 </StyledTextSuggestion>
               ))}
           </StyledSuggestionsList>
-          {selectedSymptoms.map((symptom, index) => (
-            <StyledSelectedSuggestion key={index}>
-              {symptom}{" "}
-              <StyledCross onClick={() => removeSelectedSymptom(index)}>
-                ✖️
-              </StyledCross>
-            </StyledSelectedSuggestion>
-          ))}
-          <div>
-            <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
-          </div>
+          <StyledSelectedSuggestionBox>
+            {selectedSymptoms.map((symptom, index) => (
+              <StyledSelectedSuggestion key={index}>
+                {symptom}{" "}
+                <StyledCross onClick={() => removeSelectedSymptom(index)}>
+                  ✖️
+                </StyledCross>
+              </StyledSelectedSuggestion>
+            ))}
+          </StyledSelectedSuggestionBox>
+          <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
         </StyledFilterForm>
       </SearchBox>
       <FilteredRecipesContainer>
