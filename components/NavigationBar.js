@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react";
+import { GoHome } from "react-icons/go";
+import { CiHeart } from "react-icons/ci";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -32,7 +34,15 @@ const StyledLink = styled.a`
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
-  font-size: 50px;
+  font-size: 30px;
+`;
+
+const StyledHomeIcone = styled(GoHome)`
+  font-size: 30px;
+`;
+
+const StyledHeartIcone = styled(CiHeart)`
+  font-size: 30px;
 `;
 
 export default function NavigationBar() {
@@ -47,7 +57,7 @@ export default function NavigationBar() {
   return (
     <StyledNav>
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
-        Home
+        <StyledHomeIcone />
       </StyledLink>
       {session && (
         <StyledLink
@@ -61,7 +71,7 @@ export default function NavigationBar() {
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}
       >
-        Bookmarks
+        <StyledHeartIcone />
       </StyledLink>
     </StyledNav>
   );

@@ -70,6 +70,7 @@ const StyledTextSuggestion = styled.p`
 
 const StyledSelectedSuggestionBox = styled.div`
   position: absolute;
+
   top: 70px;
   right: 20px;
   display: flex;
@@ -104,7 +105,7 @@ const ResetButton = styled.button`
 
 const FilteredRecipesContainer = styled.div`
   position: absolute;
-  top: 180px;
+  top: 200px;
 `;
 
 export default function FilteredRecipes({

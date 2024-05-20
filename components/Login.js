@@ -44,11 +44,11 @@ export default function BurgerMenuComponent() {
 
   return (
     <>
-      {session ? (
+      {/* {session ? (
         <SignedIn>Signed in as {session.user.email}</SignedIn>
       ) : (
         <SignedIn></SignedIn>
-      )}
+      )} */}
       <BurgerMenuButton onClick={() => setMenuOpen(!menuOpen)}>
         &#9776;
       </BurgerMenuButton>
