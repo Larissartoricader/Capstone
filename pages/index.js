@@ -47,10 +47,10 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onToggleBookmark={onToggleBookmark}
       />
-      <TipOfTheDayWrapper>
+      {/* <TipOfTheDayWrapper>
         <Button onClick={handleNextTip}>Get Another Tip</Button>
         <TipOfTheDay recipe={currentTip}></TipOfTheDay>
-      </TipOfTheDayWrapper>
+      </TipOfTheDayWrapper> */}
     </div>
   );
 }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import RecipeList from "./RecipeList";
 
+//Search
+
 const SearchBox = styled.div`
   margin-inline: 40px;
   margin: 5px;
@@ -17,6 +19,9 @@ const StyledFilterForm = styled.form`
 `;
 
 const StyledInput = styled.input`
+  position: absolute;
+  width: 70%;
+  right: 20px;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -28,15 +33,26 @@ const StyledInput = styled.input`
   }
   &::placeholder {
     color: #999;
+    font-size: 12px;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-size: cover;
+    pointer-events: none;
   }
 `;
 
+//Suggestion
 const StyledSuggestionsList = styled.div`
   background-color: white;
   border-radius: 10px;
   position: absolute;
   top: 50px;
-  left: 0;
+  right: 0;
   width: 80%;
   z-index: 1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -49,8 +65,17 @@ const StyledTextSuggestion = styled.p`
   font-size: medium;
 `;
 
+//Selected Suggestion
+
 const StyledSelectedSuggestion = styled.p`
-  color: red;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background-color: #f1efe2;
+  font-size: small;
+  padding: 5px;
+  border-radius: 10px;
+  display: block;
 `;
 
 const StyledCross = styled.span`
@@ -58,13 +83,20 @@ const StyledCross = styled.span`
 `;
 
 const ResetButton = styled.button`
-  background-color: yellow;
+  border: none;
+  background-color: #ffc107;
+  color: white;
   border-radius: 10px;
-  padding: 5px;
+  padding: 7px;
+  position: absolute;
+  right: 20px;
+  top: 50px;
 `;
+// Showed Filtered Recipes
 
-const StyledFilterInfo = styled.p`
-  font-size: 12px;
+const FilteredRecipesContainer = styled.div`
+  position: absolute;
+  top: 180px;
 `;
 
 export default function FilteredRecipes({
@@ -158,28 +190,27 @@ export default function FilteredRecipes({
                   {suggestion}
                 </StyledTextSuggestion>
               ))}
-            {selectedSymptoms.map((symptom, index) => (
-              <StyledSelectedSuggestion key={index}>
-                {symptom}{" "}
-                <StyledCross onClick={() => removeSelectedSymptom(index)}>
-                  ✖️
-                </StyledCross>
-              </StyledSelectedSuggestion>
-            ))}
           </StyledSuggestionsList>
+          {selectedSymptoms.map((symptom, index) => (
+            <StyledSelectedSuggestion key={index}>
+              {symptom}{" "}
+              <StyledCross onClick={() => removeSelectedSymptom(index)}>
+                ✖️
+              </StyledCross>
+            </StyledSelectedSuggestion>
+          ))}
           <div>
             <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
           </div>
         </StyledFilterForm>
       </SearchBox>
-      <div>
-        <h2>The Perfect Recipes for you</h2>
+      <FilteredRecipesContainer>
         <RecipeList
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
           recipes={filteredRecipes}
           onToggleBookmark={onToggleBookmark}
         />
-      </div>
+      </FilteredRecipesContainer>
     </>
   );
 }
