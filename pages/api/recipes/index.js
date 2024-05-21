@@ -1,35 +1,51 @@
 import dbConnect from "@/db/connect";
 import Recipe from "@/db/models/Recipe";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export default async function handler(request, response) {
-  try {
-    await dbConnect();
-    if (request.method === "GET") {
+  await dbConnect();
+  const session = await getServerSession(request, response, authOptions);
+
+  if (request.method === "GET") {
+    try {
       const recipes = await Recipe.find();
-      return response.status(200).json(recipes);
+      response.status(200).json(recipes);
+      return;
+    } catch (error) {
+      response.status(500).json({ error: "Internal Server Error!" });
+      return;
     }
-  } catch (error) {
-    return response.status(500).json({ error: "Internal Server Error!" });
+  }
+
+  if (!session) {
+    response.status(401).json({ error: "Access denied" });
+    return;
   }
 
   if (request.method === "POST") {
-    await dbConnect();
     try {
       const recipeData = request.body;
-      if (!recipeData.hasOwnProperty("editable")) {
-        recipeData.editable = true;
-      }
+      const owner = session.user.email;
       const imageUrl = await generateImage(request.body.title);
-      recipeData.image = imageUrl;
-      await Recipe.create(recipeData);
+
+      await Recipe.create({
+        ...recipeData,
+        image: imageUrl,
+        owner,
+      });
 
       response.status(201).json({ status: "Recipe created." });
+      return;
     } catch (error) {
       response.status(400).json({ error: error.message });
+      return;
     }
   }
+
+  response.status(405).json({ error: "Method not allowed." });
 }
 
 async function generateImage(prompt) {

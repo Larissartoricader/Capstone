@@ -7,6 +7,7 @@ import { BookmarkIcon } from "./BookmarkIcon";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSession } from "next-auth/react";
 
 const StyledToast = styled.div`
   background-color: #5cb85c;
@@ -149,6 +150,9 @@ export default function RecipeDetails({
   onToggleBookmark,
 }) {
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const isOwner = currentRecipe.owner === session?.user.email;
+
   const { title, image, ingredients, preparation, usage, symptoms } =
     currentRecipe;
 
@@ -189,8 +193,8 @@ export default function RecipeDetails({
       <StyledItemsBox>
         <StyledItemListTitle>Ingredients:</StyledItemListTitle>
         <StyleItemsList>
-          {ingredients.map((ingredient, _id) => (
-            <StyledItems key={_id}>{ingredient}</StyledItems>
+          {ingredients.map((ingredient) => (
+            <StyledItems key={ingredient}>{ingredient}</StyledItems>
           ))}
         </StyleItemsList>
       </StyledItemsBox>
@@ -215,21 +219,21 @@ export default function RecipeDetails({
       <StyledItemsBox>
         <StyledItemListTitle> Symptoms</StyledItemListTitle>
         <StyleItemsList>
-          {symptoms.map((symptoms, _id) => (
-            <StyledItems key={_id}>{symptoms}</StyledItems>
+          {symptoms.map((symptom) => (
+            <StyledItems key={symptom}>{symptoms}</StyledItems>
           ))}
         </StyleItemsList>
       </StyledItemsBox>
       <ButtonsBox>
-        {currentRecipe.editable && (
-          <Link href={`/edit/${currentRecipe._id}`}>
-            <EditButton type="button">Edit</EditButton>
-          </Link>
-        )}
-        {currentRecipe.editable && (
-          <DeleteButton onClick={handleDelete} type="button">
-            Delete
-          </DeleteButton>
+        {isOwner && (
+          <>
+            <Link href={`/edit/${currentRecipe._id}`}>
+              <EditButton type="button">Edit</EditButton>
+            </Link>
+            <DeleteButton onClick={handleDelete} type="button">
+              Delete
+            </DeleteButton>
+          </>
         )}
       </ButtonsBox>
     </RecipeArticle>
