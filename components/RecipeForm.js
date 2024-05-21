@@ -156,6 +156,7 @@ export default function RecipeForm({ recipeToEdit }) {
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
+
     if (recipeToEdit) {
       const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
         method: "PUT",
@@ -164,7 +165,6 @@ export default function RecipeForm({ recipeToEdit }) {
         },
         body: JSON.stringify(userRecipe),
       });
-      console.log(response);
       if (response.ok) {
         mutate();
         toast.success("Recipe edited successfully!", {});
