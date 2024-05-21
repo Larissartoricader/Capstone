@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const StyledCard = styled.div`
   display: flex;
+  background: white;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -20,18 +21,19 @@ const StyledCard = styled.div`
   }
 `;
 
-const Title = styled.h2`
-  font-size: 20px;
-  margin: 0;
-`;
-
 const TitleSmall = styled.h3`
   margin: 0;
 `;
 
-const TipOfTheDay = ({ recipe }) => {
+const CloseButton = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+`;
+const TipOfTheDay = ({ recipe, onClose }) => {
   return (
-    <StyledCard className="tip-of-the-day">
+    <StyledCard>
+      <CloseButton onClick={onClose}>X</CloseButton>
       <TitleSmall>{recipe.title}</TitleSmall>
       <Link
         style={{

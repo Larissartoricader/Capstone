@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
+import NiceModal from "@ebay/nice-modal-react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -47,17 +48,19 @@ export default function App({ Component, pageProps }) {
 
   return (
     <SessionProvider session={pageProps.session}>
-      <SWRConfig value={{ fetcher }}>
-        <GlobalStyle />
-        <Layout>
-          <ToastContainer />
-          <Component
-            {...pageProps}
-            onToggleBookmark={handleBookmarkedIcon}
-            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          />
-        </Layout>
-      </SWRConfig>
+      <NiceModal.Provider>
+        <SWRConfig value={{ fetcher }}>
+          <GlobalStyle />
+          <Layout>
+            <ToastContainer />
+            <Component
+              {...pageProps}
+              onToggleBookmark={handleBookmarkedIcon}
+              bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+            />
+          </Layout>
+        </SWRConfig>
+      </NiceModal.Provider>
     </SessionProvider>
   );
 }

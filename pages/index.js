@@ -6,54 +6,78 @@ import { useState } from "react";
 import useSWR from "swr";
 
 const StyledHeadline = styled.h1`
-    text-align: center;
-    font: Lora;
-  `;
-	const Button = styled.button`
-    background-color: black;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-  `;
-	const TipOfTheDayWrapper = styled.div`
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `;
+  text-align: center;
+  font: Lora;
+`;
+const Button = styled.button`
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
+const TipOfTheDayWrapper = styled.div`
+  position: fixed;
+  z-index: 1;
+  bottom: 100px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+`;
 
-export default function HomePage({
-	bookmarkedRecipesIDs,
-	onToggleBookmark,
-}) {
-	
-	const getRandomIndex = () => {
-		return Math.floor(Math.random() * recipes.length);
-	};
-	const [currentTipIndex, setCurrentTipIndex] = useState(0);
+const ButtonWrapper = styled.div`
+  margin-top: 10px;
+`;
+const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0.4;
+  z-index: 1;
+`;
+export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
+  const getRandomIndex = () => {
+    return Math.floor(Math.random() * recipes.length);
+  };
+  const [currentTipIndex, setCurrentTipIndex] = useState(0);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-	const handleNextTip = () => {
-		const newIndex = getRandomIndex();
-		setCurrentTipIndex(newIndex);
-	};
-	const { data: recipes, isLoading, error } = useSWR("/api/recipes");
+  const handleNextTip = () => {
+    const newIndex = getRandomIndex();
+    setCurrentTipIndex(newIndex);
+    setIsPopupOpen(true);
+  };
+  const { data: recipes, isLoading, error } = useSWR("/api/recipes");
 
-	if (isLoading) {
-		return <h1>Loading...</h1>;
-	}
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (error) {
     return <h1>Oops! Something went wrong..</h1>;
   }
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
   const currentTip = recipes[currentTipIndex];
   return (
     <div>
       <StyledHeadline>Recipes Overview</StyledHeadline>
+
+      {isPopupOpen ? <Backdrop onClick={closePopup} /> : null}
       <TipOfTheDayWrapper>
-        <Button onClick={handleNextTip}>Get Another Tip</Button>
-        <TipOfTheDay recipe={currentTip}></TipOfTheDay>
+        {isPopupOpen ? (
+          <TipOfTheDay recipe={currentTip} onClose={closePopup} />
+        ) : null}
+        <ButtonWrapper>
+          <Button onClick={handleNextTip}>
+            {isPopupOpen ? "Herbie's Next Tip" : "Herbie's Tip"}
+          </Button>
+        </ButtonWrapper>
       </TipOfTheDayWrapper>
       <FilteredRecipes
         recipes={recipes}
