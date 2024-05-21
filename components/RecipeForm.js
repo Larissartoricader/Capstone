@@ -220,6 +220,7 @@ export default function RecipeForm({ recipeToEdit }) {
         });
         if (response.ok) {
           mutate();
+          toast.success("Recipe edited successfully!", {});
         }
       } else {
         userRecipe.editable = true;
