@@ -15,6 +15,14 @@ const StyledArticle = styled.article`
     transform: scale(1.05);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
+
+  @media only screen and (min-width: 580px) {
+    height: 20vh;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    height: 30vh;
+  }
 `;
 
 const ReadMoreLink = styled(Link)`
@@ -129,8 +137,8 @@ export default function RecipeCard({
       <StyledImageWrapper>
         <StyledImage
           src={recipe.image}
-          layout="fill"
-          objectFit="cover"
+          height={200}
+          width={200}
           alt={recipe.title}
         ></StyledImage>
         <StyledBookmarkIcon>
