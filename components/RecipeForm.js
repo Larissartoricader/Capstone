@@ -27,14 +27,14 @@ export default function RecipeForm({ recipeToEdit }) {
 
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
-        ingredient.toLowerCase().startsWith(userInput.toLowerCase())
+        ingredient.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingIngredients];
     }, []);
 
     const notYetSelectedIngredients = filterArray(
       suggestions,
-      selectedIngredients
+      selectedIngredients,
     );
     setIngredientsInput(userInput);
     setErrorMessage("");
@@ -48,7 +48,7 @@ export default function RecipeForm({ recipeToEdit }) {
     setSymptomSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
-        symptom.toLowerCase().startsWith(userInput.toLowerCase())
+        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingSymptoms];
     }, []);
@@ -73,8 +73,8 @@ export default function RecipeForm({ recipeToEdit }) {
   function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
-        (ingredient) => ingredient !== ingredientToBeDeleted
-      )
+        (ingredient) => ingredient !== ingredientToBeDeleted,
+      ),
     );
   }
 
@@ -90,7 +90,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
-      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted),
     );
   }
 
@@ -198,8 +198,9 @@ export default function RecipeForm({ recipeToEdit }) {
     return <h2>Access denied!</h2>;
   }
 
-  console.log("ingredientsInput", ingredientsInput);
-  console.log("ingredientsSuggestion", ingredientSuggestions);
+  if (recipeToEdit && recipeToEdit.owner !== session.user.email) {
+    return <h2>Access denied!</h2>;
+  }
 
   return (
     <>
@@ -236,6 +237,7 @@ export default function RecipeForm({ recipeToEdit }) {
           value={ingredientsInput}
         />
         {(ingredientSuggestions || ingredientsInput) && (
+<<<<<<< HEAD
           <FakeDropDown 
           ref={ingredientDropdownRef}
           >
@@ -249,6 +251,18 @@ export default function RecipeForm({ recipeToEdit }) {
                   {suggestion}
                 </DropDownOption>
               ))}
+=======
+          <FakeDropDown ref={ingredientDropdownRef}>
+            {ingredientSuggestions?.map((suggestion) => (
+              <DropDownOption
+                key={suggestion}
+                type="button"
+                onClick={() => selectIngredient(suggestion)}
+              >
+                {suggestion}
+              </DropDownOption>
+            ))}
+>>>>>>> main
             {ingredientsInput && (
               <DropDownOption
                 type="button"
@@ -311,6 +325,7 @@ export default function RecipeForm({ recipeToEdit }) {
           value={symptomsInput}
         />
         {(symptomSuggestions || symptomsInput) && (
+<<<<<<< HEAD
           <FakeDropDown 
           ref={symptomDropdownRef}
           >
@@ -324,6 +339,18 @@ export default function RecipeForm({ recipeToEdit }) {
                   {suggestion}
                 </DropDownOption>
               ))}
+=======
+          <FakeDropDown ref={symptomDropdownRef}>
+            {symptomSuggestions?.map((suggestion) => (
+              <DropDownOption
+                key={suggestion}
+                type="button"
+                onClick={() => selectSymptom(suggestion)}
+              >
+                {suggestion}
+              </DropDownOption>
+            ))}
+>>>>>>> main
             {symptomsInput && (
               <DropDownOption
                 type="button"
@@ -347,11 +374,16 @@ export default function RecipeForm({ recipeToEdit }) {
               </SelectedValueButton>
             </SelectedValue>
           ))}
+<<<<<<< HEAD
         </Selection>
         <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
         Cancel
       </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
         
+=======
+        </ul>
+        <button type="submit">Save</button>
+>>>>>>> main
       </StyledForm>
       <WhiteSpace />
     </>

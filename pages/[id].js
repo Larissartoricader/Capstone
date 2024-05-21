@@ -56,7 +56,7 @@ export default function RecipeDetailsPage({
     data: currentRecipe,
     isLoading,
     error,
-  } = useSWR(`/api/recipes/${id}`);
+  } = useSWR(`/api/recipes/${id || ""}`);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
