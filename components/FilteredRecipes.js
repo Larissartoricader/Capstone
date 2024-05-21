@@ -4,10 +4,14 @@ import RecipeList from "./RecipeList";
 
 //Search
 
+const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-inline: 10px;
+  gap: 10px;
+`;
+
 const SearchBox = styled.div`
-  margin-inline: 40px;
-  margin: 5px;
-  padding: 5px;
   border-radius: 10px;
   position: relative;
 `;
@@ -15,16 +19,13 @@ const SearchBox = styled.div`
 const StyledFilterForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 `;
 
 const StyledInput = styled.input`
-  position: absolute;
-  width: 70%;
-  right: 20px;
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #ccc;
+  border: none;
   border-radius: 10px;
   outline: none;
   transition: border-color 0.3s;
@@ -51,8 +52,8 @@ const StyledSuggestionsList = styled.div`
   background-color: white;
   border-radius: 10px;
   position: absolute;
-  top: 50px;
-  right: 0;
+  top: 38px;
+  right: 2px;
   width: 80%;
   z-index: 1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -69,10 +70,6 @@ const StyledTextSuggestion = styled.p`
 //Selected Suggestion
 
 const StyledSelectedSuggestionBox = styled.div`
-  position: absolute;
-
-  top: 70px;
-  right: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -92,20 +89,12 @@ const StyledCross = styled.span`
 `;
 
 const ResetButton = styled.button`
+  max-width: 60px;
   border: none;
   background-color: #ffc107;
   color: white;
   border-radius: 10px;
-  padding: 7px;
-  position: absolute;
-  right: 20px;
-  top: 50px;
-`;
-// Showed Filtered Recipes
-
-const FilteredRecipesContainer = styled.div`
-  position: absolute;
-  top: 200px;
+  padding: 5px 10px;
 `;
 
 export default function FilteredRecipes({
@@ -174,7 +163,7 @@ export default function FilteredRecipes({
   }
 
   return (
-    <>
+    <SearchContainer>
       <SearchBox>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
           <label htmlFor="symptom"></label>
@@ -213,13 +202,12 @@ export default function FilteredRecipes({
           <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
         </StyledFilterForm>
       </SearchBox>
-      <FilteredRecipesContainer>
-        <RecipeList
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          recipes={filteredRecipes}
-          onToggleBookmark={onToggleBookmark}
-        />
-      </FilteredRecipesContainer>
-    </>
+
+      <RecipeList
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        recipes={filteredRecipes}
+        onToggleBookmark={onToggleBookmark}
+      />
+    </SearchContainer>
   );
 }

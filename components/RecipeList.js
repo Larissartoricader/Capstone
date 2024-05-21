@@ -4,14 +4,13 @@ import styled from "styled-components";
 const StyledList = styled.div`
   list-style: none;
   display: grid;
-  column-gap: 20px;
-  row-gap: 40px;
+  column-gap: 5px;
+  row-gap: 20px;
   grid-template-columns: 1fr;
-  padding-inline: 10px;
 
-  @media only screen and (min-width: 425px) {
+  /* @media only screen and (min-width: 425px) {
     grid-template-columns: 1fr;
-  }
+  } */
 
   @media only screen and (min-width: 580px) {
     grid-template-columns: 1fr 1fr;

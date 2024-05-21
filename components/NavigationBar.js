@@ -13,7 +13,7 @@ const StyledNav = styled.nav`
   align-items: center;
   bottom: 0;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   background: #ffffff;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -45,6 +45,17 @@ const StyledHeartIcone = styled(CiHeart)`
   font-size: 30px;
 `;
 
+const MenuTitle = styled.p`
+  font-size: 8px;
+`;
+
+const MenuIconeTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function NavigationBar() {
   const router = useRouter();
 
@@ -57,7 +68,10 @@ export default function NavigationBar() {
   return (
     <StyledNav>
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
-        <StyledHomeIcone />
+        <MenuIconeTitleBox>
+          <StyledHomeIcone />
+          <MenuTitle>HOME</MenuTitle>
+        </MenuIconeTitleBox>
       </StyledLink>
       {session && (
         <StyledLink
@@ -71,7 +85,10 @@ export default function NavigationBar() {
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}
       >
-        <StyledHeartIcone />
+        <MenuIconeTitleBox>
+          <StyledHeartIcone />
+          <MenuTitle>FAVORITES</MenuTitle>
+        </MenuIconeTitleBox>
       </StyledLink>
     </StyledNav>
   );
