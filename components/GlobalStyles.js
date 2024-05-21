@@ -12,15 +12,15 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #c8ecb8;
-    font-family: 'Georgia';
+    font-family: 'Arial';
   
   };
 
   :root{
     // fonts
     --headline-font: ${merienda.style.fontFamily};
-    --general-font: 'Georgia';
-    --input-field-font-size: calc(100%);
+    --general-font: 'Arial';
+ 
     // colors
     --font-color: #013220;
     --box-background-color: white;

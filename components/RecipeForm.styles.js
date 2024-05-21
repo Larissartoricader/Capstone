@@ -82,7 +82,8 @@ export const Selection = styled.ul`
 display: flex; 
 flex-wrap: wrap; gap: 5px;
 list-style: none; width: 80%;
-margin: 10px 0; padding: 0;`
+margin: 10px 0; 
+padding: 0;`
 
 export const SelectedValue = styled.li`
 display: inline-block;
@@ -104,7 +105,10 @@ export const SelectedValueButton = styled.button`border: none; display: inline-b
 export const ButtonContainer = styled.div`display: flex; justify-content: space-around; width: 80%; margin-bottom: 5%; 
 padding: 15px 0 10px 0;`
 
-export const SubmitButton = styled.button`background-color: #ffc107; color: white; border: none;
+export const SubmitButton = styled.button`
+background-color: #ffc107;
+/* background-color: #155A15; */
+color: white; border: none;
 
 border-radius: var(--small-box-border-radius); 
 width: 45%; height: 4vh; font-family: var(--general-font); font-size: var(--label-font-size);   &:hover {
@@ -113,6 +117,7 @@ width: 45%; height: 4vh; font-family: var(--general-font); font-size: var(--labe
   }`
 export const CancelButton = styled.button`
 background-color: #ff0000; 
+/* background-color: #800020; */
 color: white;
 border: none;
 border-radius: var(--small-box-border-radius); width: 45%; height: 4vh; font-family: var(--general-font); font-size: var(--label-font-size); &:hover {

@@ -53,9 +53,11 @@ export default function RecipeForm({ recipeToEdit }) {
       return [...acc, ...matchingSymptoms];
     }, []);
     const notYetSelectedSymptoms = filterArray(suggestions, selectedSymptoms);
-    setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
     setSymptomsInput(userInput);
     setErrorMessage("");
+    if (userInput.length < 1) {setSymptomSuggestions(""); return};
+    setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
+    
   }
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -109,14 +111,12 @@ export default function RecipeForm({ recipeToEdit }) {
         !ingredientDropdownRef.current.contains(event.target)
       ) {
         setIngredientSuggestions([]);
-        // setIngredientsInput("");
       }
       if (
         symptomDropdownRef.current &&
         !symptomDropdownRef.current.contains(event.target)
       ) {
         setSymptomSuggestions([]);
-        // setSymptomsInput("")
       }
     }
 
