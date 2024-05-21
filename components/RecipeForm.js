@@ -167,6 +167,7 @@ export default function RecipeForm({ recipeToEdit }) {
       console.log(response);
       if (response.ok) {
         mutate();
+        toast.success("Recipe edited successfully!", {});
       }
     } else {
       userRecipe.editable = true;
@@ -179,11 +180,11 @@ export default function RecipeForm({ recipeToEdit }) {
       });
       if (response.ok) {
         mutate();
+        toast.success("Recipe created successfully!", {});
       }
     }
     event.target.reset();
     router.push("/");
-    toast.success("Recipe created successfully!", {});
   }
 
   if (isLoading) {
