@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
   :root{
     // fonts
-    --headline-font: ${merienda.style.fontFamily};
+    --herbie-font: ${merienda.style.fontFamily};
     --general-font: 'Arial';
  
     // colors
@@ -28,10 +28,8 @@ const GlobalStyle = createGlobalStyle`
  
     // borders
     --big-box-border-radius: 20px;
-    --small-box-border-radius: 8px;
+    --small-box-border-radius: 10px;
     --general-border: 2px solid #ccc;
-    // others
-    --input-field-width: 100%;
 }
 `;
 
