@@ -29,6 +29,7 @@ export function BookmarkIcon({
   recipe,
   bookmarkedRecipesIDs,
 }) {
+  console.log(bookmarkedRecipesIDs);
   function handleClick() {
     onToggleBookmark(recipe);
   }

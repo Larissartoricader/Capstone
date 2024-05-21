@@ -173,6 +173,7 @@ export default function RecipeDetails({
     }
   };
 
+
   return (
     <RecipeArticle aria-label="Recipe Details">
       <StyledBookmarkIcon>

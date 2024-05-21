@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
     setBookmarkedRecipesIDs(recipeIsBookmarkedWithoutCertainID);
   }
 
-  function handleBookmarkedIcon(recipe) {
+  function handleToggleBookmark(recipe) {
     const id = recipe._id;
     checkIfRecipeIsBookmarked(id)
       ? removeRecipeFromBookmarked(id)
@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }) {
           <ToastContainer />
           <Component
             {...pageProps}
-            onToggleBookmark={handleBookmarkedIcon}
+            onToggleBookmark={handleToggleBookmark}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
           />
         </Layout>
