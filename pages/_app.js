@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
-import NiceModal from "@ebay/nice-modal-react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
