@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import RecipeList from "./RecipeList";
+import { uid } from "uid";
 
 //Search
 
@@ -180,9 +181,9 @@ export default function FilteredRecipes({
           />
           <StyledSuggestionsList>
             {userInput &&
-              symptomSuggestions.map((suggestion, _id) => (
+              symptomSuggestions.map((suggestion) => (
                 <StyledTextSuggestion
-                  key={_id}
+                  key={uid()}
                   onClick={() => handleSymptomSuggestionClick(suggestion)}
                 >
                   {suggestion}
@@ -190,10 +191,10 @@ export default function FilteredRecipes({
               ))}
           </StyledSuggestionsList>
           <StyledSelectedSuggestionBox>
-            {selectedSymptoms.map((symptom, index) => (
-              <StyledSelectedSuggestion key={index}>
+            {selectedSymptoms.map((symptom) => (
+              <StyledSelectedSuggestion key={uid()}>
                 {symptom}{" "}
-                <StyledCross onClick={() => removeSelectedSymptom(index)}>
+                <StyledCross onClick={() => removeSelectedSymptom(symptom)}>
                   ✖️
                 </StyledCross>
               </StyledSelectedSuggestion>

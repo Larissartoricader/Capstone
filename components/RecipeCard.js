@@ -33,7 +33,7 @@ const ReadMoreLink = styled(Link)`
 `;
 
 // Image-BOX
-const StyledBookmarkIcon = styled.div`
+const WrapperBookmarkIcon = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -141,12 +141,13 @@ export default function RecipeCard({
           width={200}
           alt={recipe.title}
         />
-        <StyledBookmarkIcon />
-        <BookmarkIcon
-          onToggleBookmark={onToggleBookmark}
-          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-          recipe={recipe}
-        />
+        <WrapperBookmarkIcon>
+          <BookmarkIcon
+            onToggleBookmark={onToggleBookmark}
+            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+            recipe={recipe}
+          />
+        </WrapperBookmarkIcon>
       </StyledImageWrapper>
     </StyledArticle>
   );
