@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 const StyledArticle = styled.article`
   display: grid;
   grid-template-columns: 4fr 3fr;
-  height: 40vh;
+  height: 25vh;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   &:hover {
@@ -17,7 +17,7 @@ const StyledArticle = styled.article`
   }
 
   @media only screen and (min-width: 580px) {
-    height: 20vh;
+    height: 30vh;
   }
 
   @media only screen and (min-width: 1200px) {

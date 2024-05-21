@@ -72,13 +72,13 @@ export default function RecipeForm({ recipeToEdit }) {
     setIngredientSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
-        ingredient.toLowerCase().startsWith(userInput.toLowerCase())
+        ingredient.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingIngredients];
     }, []);
     const notYetSelectedIngredients = filterArray(
       suggestions,
-      selectedIngredients
+      selectedIngredients,
     );
     setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
     setIngredientsInput(userInput);
@@ -90,7 +90,7 @@ export default function RecipeForm({ recipeToEdit }) {
     setSymptomSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
-        symptom.toLowerCase().startsWith(userInput.toLowerCase())
+        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
       );
       return [...acc, ...matchingSymptoms];
     }, []);
@@ -113,8 +113,8 @@ export default function RecipeForm({ recipeToEdit }) {
   function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
-        (ingredient) => ingredient !== ingredientToBeDeleted
-      )
+        (ingredient) => ingredient !== ingredientToBeDeleted,
+      ),
     );
   }
 
@@ -130,7 +130,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
-      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted),
     );
   }
 
@@ -238,6 +238,10 @@ export default function RecipeForm({ recipeToEdit }) {
     return <h2>Access denied!</h2>;
   }
 
+  if (recipeToEdit && recipeToEdit.owner !== session.user.email) {
+    return <h2>Access denied!</h2>;
+  }
+
   return (
     <>
       <button type="button" onClick={() => router.back()}>
@@ -276,16 +280,15 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {(ingredientSuggestions || ingredientsInput) && (
           <FakeDropDown ref={ingredientDropdownRef}>
-            {ingredientSuggestions &&
-              ingredientSuggestions.map((suggestion) => (
-                <DropDownOption
-                  key={suggestion}
-                  type="button"
-                  onClick={() => selectIngredient(suggestion)}
-                >
-                  {suggestion}
-                </DropDownOption>
-              ))}
+            {ingredientSuggestions?.map((suggestion) => (
+              <DropDownOption
+                key={suggestion}
+                type="button"
+                onClick={() => selectIngredient(suggestion)}
+              >
+                {suggestion}
+              </DropDownOption>
+            ))}
             {ingredientsInput && (
               <DropDownOption
                 type="button"
@@ -345,16 +348,15 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {(symptomSuggestions || symptomsInput) && (
           <FakeDropDown ref={symptomDropdownRef}>
-            {symptomSuggestions &&
-              symptomSuggestions.map((suggestion) => (
-                <DropDownOption
-                  key={suggestion}
-                  type="button"
-                  onClick={() => selectSymptom(suggestion)}
-                >
-                  {suggestion}
-                </DropDownOption>
-              ))}
+            {symptomSuggestions?.map((suggestion) => (
+              <DropDownOption
+                key={suggestion}
+                type="button"
+                onClick={() => selectSymptom(suggestion)}
+              >
+                {suggestion}
+              </DropDownOption>
+            ))}
             {symptomsInput && (
               <DropDownOption
                 type="button"
@@ -378,7 +380,7 @@ export default function RecipeForm({ recipeToEdit }) {
             </ListItemSelectedValues>
           ))}
         </ul>
-        <button>Save</button>
+        <button type="submit">Save</button>
       </StyledForm>
       <WhiteSpace />
     </>

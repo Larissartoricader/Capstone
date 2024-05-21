@@ -39,7 +39,7 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   if (error) {
     return <h1>Oops! Something went wrong..</h1>;
   }
-  const currentTip = recipes[currentTipIndex];
+
   return (
     <div>
       <FilteredRecipes
@@ -47,10 +47,12 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onToggleBookmark={onToggleBookmark}
       />
-      {/* <TipOfTheDayWrapper>
-        <Button onClick={handleNextTip}>Get Another Tip</Button>
-        <TipOfTheDay recipe={currentTip}></TipOfTheDay>
-      </TipOfTheDayWrapper> */}
+      {recipes.length > 0 && (
+        <TipOfTheDayWrapper>
+          <TipOfTheDay recipe={recipes[currentTipIndex]} />
+          <Button onClick={handleNextTip}>Get Another Tip</Button>
+        </TipOfTheDayWrapper>
+      )}
     </div>
   );
 }
