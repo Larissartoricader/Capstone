@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { toast } from "react-toastify";
@@ -7,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
 import { FormHeadline, StyledForm, ErrorMessage, InputFieldLabel, TitleInputField, BiggerFormField, ContainerOfInputFieldAndDropDown, IngredientsSymptomsInputField, FakeDropDown, DropDownOption, Selection, SelectedValue, SelectedValueText, SelectedValueButton, ButtonContainer, SubmitButton, CancelButton, WhiteSpace } from "./RecipeForm.styles";
-
 
 
 export default function RecipeForm({ recipeToEdit }) {
@@ -280,7 +278,7 @@ export default function RecipeForm({ recipeToEdit }) {
           type="text"
           placeholder="How to make it"
           minLength="1"
-          maxLength="150"
+          maxLength="300"
           required
           id="preparation"
           name="preparation"

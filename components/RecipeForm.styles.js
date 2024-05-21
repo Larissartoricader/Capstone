@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export const FormHeadline = styled.h2`
   text-align: center;
   font-family: var(--headline-font);
@@ -55,28 +57,23 @@ padding: 10px;
 font-size: var(--label-font-size); 
 font-family: var(--general-font); 
 width: 100%;
-border-radius: ${props => (props.symptomSuggestions || props.symptomsInput) ? '8px 8px 0 0' : '8px'};
-/* border-radius: 50px 8px 0 0; */
-/* background-color: ${props => (
-  (props.symptomSuggestions && props.symptomSuggestions.length > 0) ||
-  (props.symptomsInput && props.symptomsInput.length > 0)
-) ? 'hotpink' : 'yellow'}; */
-`
+border-radius: 8px;`
 
 export const FakeDropDown = styled.div`
 padding: 10px; 
   border: var(--general-border);
   border-radius: 0 0 8px 8px;
-  background-color: var(--secondary-background-color);
+  background-color: var(--box-background-color);
   width: 100%;
   z-index: 1;
 `;
 
 export const DropDownOption = styled.button`
-  background-color: var(--secondary-background-color);
+  background-color: var(--box-background-color);
   text-align: left;
   border: none;
-  font-size: var(--label-font-size); font-family: var(--label-font);
+  font-size: var(--label-font-size); 
+  font-family: var(--label-font);
   width: 100%;
 `;
 
