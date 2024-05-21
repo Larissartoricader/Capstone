@@ -140,14 +140,13 @@ export default function RecipeCard({
           height={200}
           width={200}
           alt={recipe.title}
-        ></StyledImage>
-        <StyledBookmarkIcon>
-          <BookmarkIcon
-            onToggleBookmark={onToggleBookmark}
-            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-            recipe={recipe}
-          />
-        </StyledBookmarkIcon>
+        />
+        <StyledBookmarkIcon />
+        <BookmarkIcon
+          onToggleBookmark={onToggleBookmark}
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          recipe={recipe}
+        />
       </StyledImageWrapper>
     </StyledArticle>
   );

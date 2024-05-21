@@ -41,7 +41,7 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   }
 
   return (
-    <div>
+    <>
       <FilteredRecipes
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
@@ -53,6 +53,6 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
           <Button onClick={handleNextTip}>Get Another Tip</Button>
         </TipOfTheDayWrapper>
       )}
-    </div>
+    </>
   );
 }

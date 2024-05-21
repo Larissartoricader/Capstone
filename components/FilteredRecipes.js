@@ -75,7 +75,7 @@ const StyledSelectedSuggestionBox = styled.div`
   gap: 10px;
 `;
 
-const StyledSelectedSuggestion = styled.p`
+const StyledSelectedSuggestion = styled.button`
   background-color: #f1efe2;
   font-size: small;
   padding: 5px;
@@ -83,9 +83,10 @@ const StyledSelectedSuggestion = styled.p`
   display: block;
 `;
 
-const StyledCross = styled.span`
+const StyledCross = styled.button`
   color: green;
   cursor: pointer;
+  border: none;
 `;
 
 const ResetButton = styled.button`
@@ -166,7 +167,6 @@ export default function FilteredRecipes({
     <SearchContainer>
       <SearchBox>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
-          <label htmlFor="symptom"></label>
           <StyledInput
             placeholder="Type your symptom and select from the list"
             type="text"
@@ -180,9 +180,9 @@ export default function FilteredRecipes({
           />
           <StyledSuggestionsList>
             {userInput &&
-              symptomSuggestions.map((suggestion, index) => (
+              symptomSuggestions.map((suggestion, _id) => (
                 <StyledTextSuggestion
-                  key={index}
+                  key={_id}
                   onClick={() => handleSymptomSuggestionClick(suggestion)}
                 >
                   {suggestion}

@@ -49,7 +49,7 @@ const MenuTitle = styled.p`
   font-size: 8px;
 `;
 
-const MenuIconeTitleBox = styled.div`
+const MenuIconTitleBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,10 +68,10 @@ export default function NavigationBar() {
   return (
     <StyledNav>
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
-        <MenuIconeTitleBox>
+        <MenuIconTitleBox>
           <StyledHomeIcone />
           <MenuTitle>HOME</MenuTitle>
-        </MenuIconeTitleBox>
+        </MenuIconTitleBox>
       </StyledLink>
       {session && (
         <StyledLink
@@ -85,10 +85,10 @@ export default function NavigationBar() {
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}
       >
-        <MenuIconeTitleBox>
+        <MenuIconTitleBox>
           <StyledHeartIcone />
           <MenuTitle>FAVORITES</MenuTitle>
-        </MenuIconeTitleBox>
+        </MenuIconTitleBox>
       </StyledLink>
     </StyledNav>
   );
