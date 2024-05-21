@@ -178,8 +178,6 @@ export default function RecipeForm({ recipeToEdit }) {
     };
   }, []);
 
-  //SUBMIT
-
   const {
     data: recipes,
     error: fetchError,
