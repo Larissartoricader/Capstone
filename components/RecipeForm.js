@@ -59,10 +59,7 @@ const BiggerFormField = styled.textarea`
 
 const LoadingSpinner = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,7 +220,6 @@ export default function RecipeForm({ recipeToEdit }) {
           },
           body: JSON.stringify(userRecipe),
         });
-        console.log(response);
         if (response.ok) {
           mutate();
         }
