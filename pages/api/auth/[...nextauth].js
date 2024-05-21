@@ -25,9 +25,9 @@ export const authOptions = {
             name: "Neuer Fisch",
             email: "test@example.com",
           };
-        } else {
-          return null;
         }
+
+        return null;
       },
     }),
 

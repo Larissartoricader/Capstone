@@ -9,11 +9,9 @@ const RecipeSchema = new Schema({
   usage: { type: String, required: true },
   symptoms: [{ type: String, required: true }],
   image: { type: String },
-  editable: { type: Boolean, required: false },
+  owner: { type: String, required: true },
 });
 
-const Recipe =
-  mongoose.models.initial_recipes ||
-  mongoose.model("initial_recipes", RecipeSchema, "initial_recipes");
+const Recipe = mongoose.models.Recipe || mongoose.model("Recipe", RecipeSchema);
 
 export default Recipe;

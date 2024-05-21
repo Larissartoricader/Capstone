@@ -234,6 +234,7 @@ export default function RecipeForm({ recipeToEdit }) {
         });
         if (response.ok) {
           mutate();
+          toast.success("Recipe created successfully!", {});
         }
       }
       event.target.reset();
@@ -242,7 +243,6 @@ export default function RecipeForm({ recipeToEdit }) {
       console.error("Failed to submit", error);
     } finally {
       setShowLoading(false);
-      toast.success("Recipe created successfully!", {});
     }
   }
 
@@ -255,6 +255,10 @@ export default function RecipeForm({ recipeToEdit }) {
   }
 
   if (status !== "authenticated") {
+    return <h2>Access denied!</h2>;
+  }
+
+  if (recipeToEdit && recipeToEdit.owner !== session.user.email) {
     return <h2>Access denied!</h2>;
   }
 
@@ -306,16 +310,15 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {(ingredientSuggestions || ingredientsInput) && (
           <FakeDropDown ref={ingredientDropdownRef}>
-            {ingredientSuggestions &&
-              ingredientSuggestions.map((suggestion) => (
-                <DropDownOption
-                  key={suggestion}
-                  type="button"
-                  onClick={() => selectIngredient(suggestion)}
-                >
-                  {suggestion}
-                </DropDownOption>
-              ))}
+            {ingredientSuggestions?.map((suggestion) => (
+              <DropDownOption
+                key={suggestion}
+                type="button"
+                onClick={() => selectIngredient(suggestion)}
+              >
+                {suggestion}
+              </DropDownOption>
+            ))}
             {ingredientsInput && (
               <DropDownOption
                 type="button"
@@ -375,16 +378,15 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         {(symptomSuggestions || symptomsInput) && (
           <FakeDropDown ref={symptomDropdownRef}>
-            {symptomSuggestions &&
-              symptomSuggestions.map((suggestion) => (
-                <DropDownOption
-                  key={suggestion}
-                  type="button"
-                  onClick={() => selectSymptom(suggestion)}
-                >
-                  {suggestion}
-                </DropDownOption>
-              ))}
+            {symptomSuggestions?.map((suggestion) => (
+              <DropDownOption
+                key={suggestion}
+                type="button"
+                onClick={() => selectSymptom(suggestion)}
+              >
+                {suggestion}
+              </DropDownOption>
+            ))}
             {symptomsInput && (
               <DropDownOption
                 type="button"
@@ -408,7 +410,7 @@ export default function RecipeForm({ recipeToEdit }) {
             </ListItemSelectedValues>
           ))}
         </ul>
-        <button>Save</button>
+        <button type="submit">Save</button>
       </StyledForm>
       <WhiteSpace />
     </>
