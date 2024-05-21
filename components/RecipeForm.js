@@ -237,7 +237,6 @@ export default function RecipeForm({ recipeToEdit }) {
           value={ingredientsInput}
         />
         {(ingredientSuggestions || ingredientsInput) && (
-<<<<<<< HEAD
           <FakeDropDown 
           ref={ingredientDropdownRef}
           >
@@ -251,18 +250,6 @@ export default function RecipeForm({ recipeToEdit }) {
                   {suggestion}
                 </DropDownOption>
               ))}
-=======
-          <FakeDropDown ref={ingredientDropdownRef}>
-            {ingredientSuggestions?.map((suggestion) => (
-              <DropDownOption
-                key={suggestion}
-                type="button"
-                onClick={() => selectIngredient(suggestion)}
-              >
-                {suggestion}
-              </DropDownOption>
-            ))}
->>>>>>> main
             {ingredientsInput && (
               <DropDownOption
                 type="button"
@@ -325,7 +312,6 @@ export default function RecipeForm({ recipeToEdit }) {
           value={symptomsInput}
         />
         {(symptomSuggestions || symptomsInput) && (
-<<<<<<< HEAD
           <FakeDropDown 
           ref={symptomDropdownRef}
           >
@@ -339,18 +325,6 @@ export default function RecipeForm({ recipeToEdit }) {
                   {suggestion}
                 </DropDownOption>
               ))}
-=======
-          <FakeDropDown ref={symptomDropdownRef}>
-            {symptomSuggestions?.map((suggestion) => (
-              <DropDownOption
-                key={suggestion}
-                type="button"
-                onClick={() => selectSymptom(suggestion)}
-              >
-                {suggestion}
-              </DropDownOption>
-            ))}
->>>>>>> main
             {symptomsInput && (
               <DropDownOption
                 type="button"
@@ -374,16 +348,10 @@ export default function RecipeForm({ recipeToEdit }) {
               </SelectedValueButton>
             </SelectedValue>
           ))}
-<<<<<<< HEAD
         </Selection>
         <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
         Cancel
       </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
-        
-=======
-        </ul>
-        <button type="submit">Save</button>
->>>>>>> main
       </StyledForm>
       <WhiteSpace />
     </>
