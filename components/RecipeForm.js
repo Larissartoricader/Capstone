@@ -5,7 +5,26 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
-import { FormHeadline, StyledForm, ErrorMessage, InputFieldLabel, TitleInputField, BiggerFormField, ContainerOfInputFieldAndDropDown, IngredientsSymptomsInputField, FakeDropDown, DropDownOption, Selection, SelectedValue, SelectedValueText, SelectedValueButton, ButtonContainer, SubmitButton, CancelButton, WhiteSpace } from "./RecipeForm.styles";
+import {
+  FormHeadline,
+  StyledForm,
+  ErrorMessage,
+  InputFieldLabel,
+  TitleInputField,
+  BiggerFormField,
+  ContainerOfInputFieldAndDropDown,
+  IngredientsSymptomsInputField,
+  FakeDropDown,
+  DropDownOption,
+  Selection,
+  SelectedValue,
+  SelectedValueText,
+  SelectedValueButton,
+  ButtonContainer,
+  SubmitButton,
+  CancelButton,
+  WhiteSpace,
+} from "./RecipeForm.styles";
 import { Circles } from "react-loader-spinner";
 import styled from "styled-components";
 
@@ -32,10 +51,8 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
-   
-    setIngredientSuggestions([]);
-    
 
+    setIngredientSuggestions([]);
 
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
@@ -50,10 +67,12 @@ export default function RecipeForm({ recipeToEdit }) {
     );
     setIngredientsInput(userInput);
     setErrorMessage("");
-    if (userInput.length < 1) {setIngredientSuggestions(""); return};
+    if (userInput.length < 1) {
+      setIngredientSuggestions("");
+      return;
+    }
     setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
-    
-  };
+  }
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
@@ -67,9 +86,11 @@ export default function RecipeForm({ recipeToEdit }) {
     const notYetSelectedSymptoms = filterArray(suggestions, selectedSymptoms);
     setSymptomsInput(userInput);
     setErrorMessage("");
-    if (userInput.length < 1) {setSymptomSuggestions(""); return};
+    if (userInput.length < 1) {
+      setSymptomSuggestions("");
+      return;
+    }
     setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
-    
   }
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -137,8 +158,6 @@ export default function RecipeForm({ recipeToEdit }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-
 
   const {
     data: recipes,
@@ -241,7 +260,9 @@ export default function RecipeForm({ recipeToEdit }) {
         </LoadingSpinner>
       )}
       <StyledForm onSubmit={handleSubmit}>
-        <InputFieldLabel htmlFor="title" style={{paddingTop: `25px`}}>Title</InputFieldLabel>
+        <InputFieldLabel htmlFor="title" style={{ paddingTop: "25px" }}>
+          Title
+        </InputFieldLabel>
         <TitleInputField
           type="text"
           placeholder="Your recipe's name"
@@ -257,40 +278,38 @@ export default function RecipeForm({ recipeToEdit }) {
         )}
         <InputFieldLabel htmlFor="ingredients">Ingredients</InputFieldLabel>
         <ContainerOfInputFieldAndDropDown>
-        <IngredientsSymptomsInputField
-          type="text"
-          placeholder="What is needed"
-          minLength="1"
-          maxLength="50"
-          id="ingredients"
-          name="ingredients"
-          onChange={handleIngredientsChange}
-          value={ingredientsInput}
-        />
-        {(ingredientSuggestions || ingredientsInput) && (
-          <FakeDropDown 
-          ref={ingredientDropdownRef}
-          >
-            {ingredientSuggestions &&
-              ingredientSuggestions.map((suggestion) => (
+          <IngredientsSymptomsInputField
+            type="text"
+            placeholder="What is needed"
+            minLength="1"
+            maxLength="50"
+            id="ingredients"
+            name="ingredients"
+            onChange={handleIngredientsChange}
+            value={ingredientsInput}
+          />
+          {(ingredientSuggestions || ingredientsInput) && (
+            <FakeDropDown ref={ingredientDropdownRef}>
+              {ingredientSuggestions &&
+                ingredientSuggestions.map((suggestion) => (
+                  <DropDownOption
+                    key={suggestion}
+                    type="button"
+                    onClick={() => selectIngredient(suggestion)}
+                  >
+                    {suggestion}
+                  </DropDownOption>
+                ))}
+              {ingredientsInput && (
                 <DropDownOption
-                  key={suggestion}
                   type="button"
-                  onClick={() => selectIngredient(suggestion)}
+                  onClick={() => selectIngredient(ingredientsInput)}
                 >
-                  {suggestion}
+                  {ingredientsInput}
                 </DropDownOption>
-              ))}
-            {ingredientsInput && (
-              <DropDownOption
-                type="button"
-                onClick={() => selectIngredient(ingredientsInput)}
-              >
-                {ingredientsInput}
-              </DropDownOption>
-            )}
-          </FakeDropDown>
-        )}
+              )}
+            </FakeDropDown>
+          )}
         </ContainerOfInputFieldAndDropDown>
         <Selection>
           {selectedIngredients.map((ingredient) => (
@@ -332,40 +351,38 @@ export default function RecipeForm({ recipeToEdit }) {
           <ErrorMessage>{errorMessage.message}</ErrorMessage>
         )}
         <ContainerOfInputFieldAndDropDown>
-        <IngredientsSymptomsInputField
-          type="text"
-          placeholder="What it is for"
-          minLength="1"
-          maxLength="50"
-          id="symptoms"
-          name="symptoms"
-          onChange={handleSymptomsChange}
-          value={symptomsInput}
-        />
-        {(symptomSuggestions || symptomsInput) && (
-          <FakeDropDown 
-          ref={symptomDropdownRef}
-          >
-            {symptomSuggestions &&
-              symptomSuggestions.map((suggestion) => (
+          <IngredientsSymptomsInputField
+            type="text"
+            placeholder="What it is for"
+            minLength="1"
+            maxLength="50"
+            id="symptoms"
+            name="symptoms"
+            onChange={handleSymptomsChange}
+            value={symptomsInput}
+          />
+          {(symptomSuggestions || symptomsInput) && (
+            <FakeDropDown ref={symptomDropdownRef}>
+              {symptomSuggestions &&
+                symptomSuggestions.map((suggestion) => (
+                  <DropDownOption
+                    key={suggestion}
+                    type="button"
+                    onClick={() => selectSymptom(suggestion)}
+                  >
+                    {suggestion}
+                  </DropDownOption>
+                ))}
+              {symptomsInput && (
                 <DropDownOption
-                  key={suggestion}
                   type="button"
-                  onClick={() => selectSymptom(suggestion)}
+                  onClick={() => selectSymptom(symptomsInput)}
                 >
-                  {suggestion}
+                  {symptomsInput}
                 </DropDownOption>
-              ))}
-            {symptomsInput && (
-              <DropDownOption
-                type="button"
-                onClick={() => selectSymptom(symptomsInput)}
-              >
-                {symptomsInput}
-              </DropDownOption>
-            )}
-          </FakeDropDown>
-        )}
+              )}
+            </FakeDropDown>
+          )}
         </ContainerOfInputFieldAndDropDown>
         <Selection>
           {selectedSymptoms.map((symptom) => (
@@ -380,9 +397,13 @@ export default function RecipeForm({ recipeToEdit }) {
             </SelectedValue>
           ))}
         </Selection>
-        <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
-        Cancel
-      </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
+        <ButtonContainer>
+          {" "}
+          <CancelButton type="button" onClick={() => router.back()}>
+            Cancel
+          </CancelButton>
+          <SubmitButton type="submit">Save</SubmitButton>
+        </ButtonContainer>
       </StyledForm>
       <WhiteSpace />
     </>
