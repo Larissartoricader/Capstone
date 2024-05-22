@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FiLogOut, FiLogIn } from "react-icons/fi";
 
 const LoginButton = styled.button`
+width: 25%;
+display: flex; justify-content: space-evenly;
 color: white; background-color: var(--primary-button-and-header-color);
 border: none; font-family: var(--general-font); font-size: 100%;`
 
@@ -11,13 +13,13 @@ export default function Login() {
   if (session) {
     return (
       <>
-        <LoginButton onClick={() => signOut()}>Logout<FiLogOut /></LoginButton>
+        <LoginButton onClick={() => signOut()}><FiLogOut />Logout</LoginButton>
       </>
     );
   }
   return (
     <>
-      <LoginButton onClick={() => signIn()}>Login<FiLogIn/></LoginButton>
+      <LoginButton onClick={() => signIn()}><FiLogIn/>Login</LoginButton>
     </>
   );
 }
