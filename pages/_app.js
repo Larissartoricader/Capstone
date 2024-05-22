@@ -47,25 +47,22 @@ export default function App({ Component, pageProps }) {
 
   return (
     <SessionProvider session={pageProps.session}>
-      <NiceModal.Provider>
-        <SWRConfig value={{ fetcher }}>
-          <GlobalStyle />
-          <Layout>
-            <ToastContainer />
-            <Component
-              {...pageProps}
-              onToggleBookmark={handleBookmarkedIcon}
-              bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-            />
-          </Layout>
-        </SWRConfig>
-      </NiceModal.Provider>
+      <SWRConfig value={{ fetcher }}>
+        <GlobalStyle />
+        <Layout>
+          <ToastContainer />
+          <Component
+            {...pageProps}
+            onToggleBookmark={handleBookmarkedIcon}
+            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          />
+        </Layout>
+      </SWRConfig>
     </SessionProvider>
   );
 }
 
 function Auth({ children }) {
-  // required: true makes only 'loading' or 'authenticated' possible. Else the user is redirected to login page.
   const { status } = useSession({ required: true });
   if (status === "loading") {
     return <div>Is loading...</div>;

@@ -5,10 +5,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
 
-const StyledHeadline = styled.h1`
-  text-align: center;
-  font: Lora;
-`;
 const Button = styled.button`
   background-color: black;
   color: #fff;
@@ -38,6 +34,7 @@ const Backdrop = styled.div`
   opacity: 0.4;
   z-index: 1;
 `;
+
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
     return Math.floor(Math.random() * recipes.length);
@@ -66,8 +63,6 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const currentTip = recipes[currentTipIndex];
   return (
     <div>
-      <StyledHeadline>Recipes Overview</StyledHeadline>
-
       {isPopupOpen ? <Backdrop onClick={closePopup} /> : null}
       <TipOfTheDayWrapper>
         {isPopupOpen ? (

@@ -13,7 +13,7 @@ const StyledHeadline = styled.h1`
 
 export default function BookmarkPage({
   bookmarkedRecipesIDs,
-  onHandleBookmarkedIcon,
+  onToggleBookmark,
 }) {
   const { data: recipes, isLoading, error } = useSWR("/api/recipes");
 
@@ -35,7 +35,7 @@ export default function BookmarkPage({
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         recipes={bookmarkedRecipes}
-        onHandleBookmarkedIcon={onHandleBookmarkedIcon}
+        onToggleBookmark={onToggleBookmark}
       />
       <WhiteSpace />
     </>
