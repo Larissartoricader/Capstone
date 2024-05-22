@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
+import { Circles } from "react-loader-spinner";
 
 const StyledForm = styled.form`
   border: 1px solid #ccc;
@@ -56,13 +57,23 @@ const BiggerFormField = styled.textarea`
   height: 10vh;
 `;
 
+const LoadingSpinner = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+`;
+
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
   const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [symptomsInput, setSymptomsInput] = useState("");
-  // "error" message if input field is empty
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
+  const [showLoading, setShowLoading] = useState(false);
 
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -72,13 +83,13 @@ export default function RecipeForm({ recipeToEdit }) {
     setIngredientSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
-        ingredient.toLowerCase().startsWith(userInput.toLowerCase()),
+        ingredient.toLowerCase().startsWith(userInput.toLowerCase())
       );
       return [...acc, ...matchingIngredients];
     }, []);
     const notYetSelectedIngredients = filterArray(
       suggestions,
-      selectedIngredients,
+      selectedIngredients
     );
     setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
     setIngredientsInput(userInput);
@@ -90,7 +101,7 @@ export default function RecipeForm({ recipeToEdit }) {
     setSymptomSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
-        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
+        symptom.toLowerCase().startsWith(userInput.toLowerCase())
       );
       return [...acc, ...matchingSymptoms];
     }, []);
@@ -113,8 +124,8 @@ export default function RecipeForm({ recipeToEdit }) {
   function deleteSelectedIngredient(ingredientToBeDeleted) {
     setSelectedIngredients(
       selectedIngredients.filter(
-        (ingredient) => ingredient !== ingredientToBeDeleted,
-      ),
+        (ingredient) => ingredient !== ingredientToBeDeleted
+      )
     );
   }
 
@@ -130,7 +141,7 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function deleteSelectedSymptom(symptomToBeDeleted) {
     setSelectedSymptoms(
-      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted),
+      selectedSymptoms.filter((symptom) => symptom !== symptomToBeDeleted)
     );
   }
 
@@ -166,8 +177,6 @@ export default function RecipeForm({ recipeToEdit }) {
     };
   }, []);
 
-  //SUBMIT
-
   const {
     data: recipes,
     error: fetchError,
@@ -192,38 +201,47 @@ export default function RecipeForm({ recipeToEdit }) {
       return;
     }
     setErrorMessage({ field: "", message: "" });
+
+    setShowLoading(true);
+
     const formData = new FormData(event.target);
     const userRecipe = Object.fromEntries(formData);
     userRecipe.ingredients = [...selectedIngredients];
     userRecipe.symptoms = [...selectedSymptoms];
-    if (recipeToEdit) {
-      const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userRecipe),
-      });
-      console.log(response);
-      if (response.ok) {
-        mutate();
+    try {
+      if (recipeToEdit) {
+        const response = await fetch(`/api/recipes/${recipeToEdit._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userRecipe),
+        });
+        if (response.ok) {
+          mutate();
+          toast.success("Recipe edited successfully!", {});
+        }
+      } else {
+        userRecipe.editable = true;
+        const response = await fetch("/api/recipes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userRecipe),
+        });
+        if (response.ok) {
+          mutate();
+          toast.success("Recipe created successfully!", {});
+        }
       }
-    } else {
-      userRecipe.editable = true;
-      const response = await fetch("/api/recipes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userRecipe),
-      });
-      if (response.ok) {
-        mutate();
-      }
+      event.target.reset();
+      router.push("/");
+    } catch (error) {
+      console.error("Failed to submit", error);
+    } finally {
+      setShowLoading(false);
     }
-    event.target.reset();
-    router.push("/");
-    toast.success("Recipe created successfully!", {});
   }
 
   if (isLoading) {
@@ -251,6 +269,16 @@ export default function RecipeForm({ recipeToEdit }) {
         <h2>Edit your Recipe</h2>
       ) : (
         <StyledHeadline>Add your Recipe</StyledHeadline>
+      )}
+      {showLoading && (
+        <LoadingSpinner>
+          <Circles
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="circles-loading"
+          />
+        </LoadingSpinner>
       )}
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
