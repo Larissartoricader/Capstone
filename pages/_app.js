@@ -6,6 +6,8 @@ import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
 
+
+
 const fetcher = async (url) => {
   const res = await fetch(url);
   if (!res.ok) {

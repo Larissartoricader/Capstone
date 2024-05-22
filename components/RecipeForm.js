@@ -1,61 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
+import { FormHeadline, StyledForm, ErrorMessage, InputFieldLabel, TitleInputField, BiggerFormField, ContainerOfInputFieldAndDropDown, IngredientsSymptomsInputField, FakeDropDown, DropDownOption, Selection, SelectedValue, SelectedValueText, SelectedValueButton, ButtonContainer, SubmitButton, CancelButton, WhiteSpace } from "./RecipeForm.styles";
 import { Circles } from "react-loader-spinner";
-
-const StyledForm = styled.form`
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-  padding: 25px;
-`;
-
-const FakeDropDown = styled.div`
-  width: 85vw;
-  border: solid black 1px;
-`;
-const DropDownOption = styled.button`
-  width: 85vw;
-  background-color: white;
-  text-align: left;
-  border: none;
-`;
-
-const ListItemSelectedValues = styled.li`
-  display: flex;
-  gap: 2vw;
-  border: solid grey 2px;
-  border-radius: 5px;
-  width: auto;
-  padding: 0 2vw;
-`;
-
-const ErrorMessage = styled.div`
-  color: red;
-  margin: 5px 0;
-`;
-
-const StyledHeadline = styled.h2`
-  text-align: center;
-`;
-
-const WhiteSpace = styled.div`
-  height: 20vh;
-`;
-
-const BiggerFormField = styled.textarea`
-  height: 10vh;
-`;
+import styled from "styled-components";
 
 const LoadingSpinner = styled.div`
   position: fixed;
@@ -72,7 +24,6 @@ export default function RecipeForm({ recipeToEdit }) {
   const [symptomSuggestions, setSymptomSuggestions] = useState();
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [symptomsInput, setSymptomsInput] = useState("");
-  // "error" message if input field is empty
   const [errorMessage, setErrorMessage] = useState({ field: "", message: "" });
   const [showLoading, setShowLoading] = useState(false);
 
@@ -81,21 +32,28 @@ export default function RecipeForm({ recipeToEdit }) {
 
   function handleIngredientsChange(event) {
     const userInput = event.target.value;
+   
     setIngredientSuggestions([]);
+    
+
+
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingIngredients = recipe.ingredients.filter((ingredient) =>
         ingredient.toLowerCase().startsWith(userInput.toLowerCase())
       );
       return [...acc, ...matchingIngredients];
     }, []);
+
     const notYetSelectedIngredients = filterArray(
       suggestions,
       selectedIngredients
     );
-    setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
     setIngredientsInput(userInput);
     setErrorMessage("");
-  }
+    if (userInput.length < 1) {setIngredientSuggestions(""); return};
+    setIngredientSuggestions(Array.from(new Set(notYetSelectedIngredients)));
+    
+  };
 
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
@@ -107,9 +65,11 @@ export default function RecipeForm({ recipeToEdit }) {
       return [...acc, ...matchingSymptoms];
     }, []);
     const notYetSelectedSymptoms = filterArray(suggestions, selectedSymptoms);
-    setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
     setSymptomsInput(userInput);
     setErrorMessage("");
+    if (userInput.length < 1) {setSymptomSuggestions(""); return};
+    setSymptomSuggestions(Array.from(new Set(notYetSelectedSymptoms)));
+    
   }
 
   const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -178,6 +138,8 @@ export default function RecipeForm({ recipeToEdit }) {
     };
   }, []);
 
+
+
   const {
     data: recipes,
     error: fetchError,
@@ -220,6 +182,7 @@ export default function RecipeForm({ recipeToEdit }) {
         });
         if (response.ok) {
           mutate();
+          toast.success("Recipe edited successfully!", {});
         }
       } else {
         userRecipe.editable = true;
@@ -262,13 +225,10 @@ export default function RecipeForm({ recipeToEdit }) {
 
   return (
     <>
-      <button type="button" onClick={() => router.back()}>
-        Cancel
-      </button>
       {recipeToEdit ? (
-        <h2>Edit your Recipe</h2>
+        <FormHeadline>Edit your Recipe</FormHeadline>
       ) : (
-        <StyledHeadline>Add your Recipe</StyledHeadline>
+        <FormHeadline>Add your Recipe</FormHeadline>
       )}
       {showLoading && (
         <LoadingSpinner>
@@ -281,10 +241,10 @@ export default function RecipeForm({ recipeToEdit }) {
         </LoadingSpinner>
       )}
       <StyledForm onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
-        <input
+        <InputFieldLabel htmlFor="title" style={{paddingTop: `25px`}}>Title</InputFieldLabel>
+        <TitleInputField
           type="text"
-          placeholder="What's the recipe's name?"
+          placeholder="Your recipe's name"
           minLength="1"
           maxLength="50"
           id="title"
@@ -292,10 +252,14 @@ export default function RecipeForm({ recipeToEdit }) {
           required
           defaultValue={recipeToEdit?.title}
         />
-        <label htmlFor="ingredients">Ingredients</label>
-        <input
+        {errorMessage.field === "ingredients" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
+        <InputFieldLabel htmlFor="ingredients">Ingredients</InputFieldLabel>
+        <ContainerOfInputFieldAndDropDown>
+        <IngredientsSymptomsInputField
           type="text"
-          placeholder="What ingredients are needed?"
+          placeholder="What is needed"
           minLength="1"
           maxLength="50"
           id="ingredients"
@@ -303,20 +267,20 @@ export default function RecipeForm({ recipeToEdit }) {
           onChange={handleIngredientsChange}
           value={ingredientsInput}
         />
-        {errorMessage.field === "ingredients" && (
-          <ErrorMessage>{errorMessage.message}</ErrorMessage>
-        )}
         {(ingredientSuggestions || ingredientsInput) && (
-          <FakeDropDown ref={ingredientDropdownRef}>
-            {ingredientSuggestions?.map((suggestion) => (
-              <DropDownOption
-                key={suggestion}
-                type="button"
-                onClick={() => selectIngredient(suggestion)}
-              >
-                {suggestion}
-              </DropDownOption>
-            ))}
+          <FakeDropDown 
+          ref={ingredientDropdownRef}
+          >
+            {ingredientSuggestions &&
+              ingredientSuggestions.map((suggestion) => (
+                <DropDownOption
+                  key={suggestion}
+                  type="button"
+                  onClick={() => selectIngredient(suggestion)}
+                >
+                  {suggestion}
+                </DropDownOption>
+              ))}
             {ingredientsInput && (
               <DropDownOption
                 type="button"
@@ -327,34 +291,35 @@ export default function RecipeForm({ recipeToEdit }) {
             )}
           </FakeDropDown>
         )}
-        <ul>
+        </ContainerOfInputFieldAndDropDown>
+        <Selection>
           {selectedIngredients.map((ingredient) => (
-            <ListItemSelectedValues key={ingredient}>
-              <p>{ingredient}</p>
-              <button
+            <SelectedValue key={ingredient}>
+              <SelectedValueText>{ingredient}</SelectedValueText>
+              <SelectedValueButton
                 type="button"
                 onClick={() => deleteSelectedIngredient(ingredient)}
               >
-                ❌
-              </button>
-            </ListItemSelectedValues>
+                ✖️
+              </SelectedValueButton>
+            </SelectedValue>
           ))}
-        </ul>
-        <label htmlFor="preparation">Preparation</label>
+        </Selection>
+        <InputFieldLabel htmlFor="preparation">Preparation</InputFieldLabel>
         <BiggerFormField
           type="text"
-          placeholder="e.g Add thyme to the water"
+          placeholder="How to make it"
           minLength="1"
-          maxLength="150"
+          maxLength="300"
           required
           id="preparation"
           name="preparation"
           defaultValue={recipeToEdit?.preparation}
         />
-        <label htmlFor="usage">Usage</label>
+        <InputFieldLabel htmlFor="usage">Usage</InputFieldLabel>
         <BiggerFormField
           type="text"
-          placeholder="How to use it?"
+          placeholder="How to use it"
           minLength="4"
           maxLength="300"
           required
@@ -362,29 +327,35 @@ export default function RecipeForm({ recipeToEdit }) {
           name="usage"
           defaultValue={recipeToEdit?.usage}
         />
-        <label htmlFor="symptoms">Symptoms</label>
-        <input
+        <InputFieldLabel htmlFor="symptoms">Symptoms</InputFieldLabel>
+        {errorMessage.field === "symptoms" && (
+          <ErrorMessage>{errorMessage.message}</ErrorMessage>
+        )}
+        <ContainerOfInputFieldAndDropDown>
+        <IngredientsSymptomsInputField
           type="text"
-          placeholder="min 2 Symptoms"
+          placeholder="What it is for"
+          minLength="1"
+          maxLength="50"
           id="symptoms"
           name="symptoms"
           onChange={handleSymptomsChange}
           value={symptomsInput}
         />
-        {errorMessage.field === "symptoms" && (
-          <ErrorMessage>{errorMessage.message}</ErrorMessage>
-        )}
         {(symptomSuggestions || symptomsInput) && (
-          <FakeDropDown ref={symptomDropdownRef}>
-            {symptomSuggestions?.map((suggestion) => (
-              <DropDownOption
-                key={suggestion}
-                type="button"
-                onClick={() => selectSymptom(suggestion)}
-              >
-                {suggestion}
-              </DropDownOption>
-            ))}
+          <FakeDropDown 
+          ref={symptomDropdownRef}
+          >
+            {symptomSuggestions &&
+              symptomSuggestions.map((suggestion) => (
+                <DropDownOption
+                  key={suggestion}
+                  type="button"
+                  onClick={() => selectSymptom(suggestion)}
+                >
+                  {suggestion}
+                </DropDownOption>
+              ))}
             {symptomsInput && (
               <DropDownOption
                 type="button"
@@ -395,20 +366,23 @@ export default function RecipeForm({ recipeToEdit }) {
             )}
           </FakeDropDown>
         )}
-        <ul>
+        </ContainerOfInputFieldAndDropDown>
+        <Selection>
           {selectedSymptoms.map((symptom) => (
-            <ListItemSelectedValues key={symptom}>
-              <p>{symptom}</p>
-              <button
+            <SelectedValue key={symptom}>
+              <SelectedValueText>{symptom}</SelectedValueText>
+              <SelectedValueButton
                 type="button"
                 onClick={() => deleteSelectedSymptom(symptom)}
               >
-                ❌
-              </button>
-            </ListItemSelectedValues>
+                ✖️
+              </SelectedValueButton>
+            </SelectedValue>
           ))}
-        </ul>
-        <button type="submit">Save</button>
+        </Selection>
+        <ButtonContainer> <CancelButton type="button" onClick={() => router.back()}>
+        Cancel
+      </CancelButton><SubmitButton type="submit">Save</SubmitButton></ButtonContainer>
       </StyledForm>
       <WhiteSpace />
     </>
