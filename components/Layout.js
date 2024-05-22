@@ -1,6 +1,5 @@
 import Head from "next/head.js";
 import NavigationBar from "./NavigationBar.js";
-import Login from "../components/Login.js";
 import { Header } from "./Header.js";
 
 export default function Layout({ children }) {
@@ -11,7 +10,6 @@ export default function Layout({ children }) {
       </Head>
       <Header></Header>
       <main>
-        <Login />
         {children}
       </main>
       <NavigationBar />
