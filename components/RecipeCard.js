@@ -18,7 +18,7 @@ const StyledArticle = styled.article`
   }
 
   @media only screen and (min-width: 580px) {
-    height: 25vh;
+    height: 30vh;
   }
 
   @media only screen and (min-width: 1200px) {
@@ -115,6 +115,7 @@ export default function RecipeCard({
   onToggleBookmark,
   recipe,
 }) {
+  const { data: session } = useSession();
   return (
     <StyledArticle>
       <StyledContentWrapper>
@@ -129,7 +130,11 @@ export default function RecipeCard({
           </StyledInfoBox>
           <AuthorBox>
             <StyledRecipeBy>Recipe by</StyledRecipeBy>
-            <StyledHerbie>Herbie</StyledHerbie>
+            {recipe.owner && session ? (
+              <StyledHerbie>{session.user.name}</StyledHerbie>
+            ) : (
+              <StyledHerbie>Herbie</StyledHerbie>
+            )}
           </AuthorBox>
         </ReadMoreLink>
       </StyledContentWrapper>
