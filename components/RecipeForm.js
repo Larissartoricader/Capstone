@@ -7,7 +7,7 @@ import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
 import { FormHeadline, StyledForm, ErrorMessage, InputFieldLabel, TitleInputField, BiggerFormField, ContainerOfInputFieldAndDropDown, IngredientsSymptomsInputField, FakeDropDown, DropDownOption, Selection, SelectedValue, SelectedValueText, SelectedValueButton, ButtonContainer, SubmitButton, CancelButton, WhiteSpace } from "./RecipeForm.styles";
 import { Circles } from "react-loader-spinner";
-
+import styled from "styled-components";
 
 const LoadingSpinner = styled.div`
   position: fixed;
