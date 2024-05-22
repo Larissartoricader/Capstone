@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { FiLogOut, FiLogIn } from "react-icons/fi";
 
 const LoginButton = styled.button`
-width: 25%;
-display: flex; justify-content: space-evenly;
+width: 50%;
+display: flex; 
+gap: 7px;
 color: white; background-color: var(--primary-button-and-header-color);
-border: none; font-family: var(--general-font); font-size: 100%;`
+border: none; font-family: var(--general-font); font-size: 120%;
+padding-left: 3%;`
 
 export default function Login() {
   const { data: session } = useSession();
