@@ -197,7 +197,7 @@ export default function FilteredRecipes({
           </StyledSuggestionsList>
           <StyledSelectedSuggestionBox>
             {selectedSymptoms.map((symptom) => (
-              <StyledSelectedSuggestion key={uid()}>
+              <StyledSelectedSuggestion key={symptom}>
                 {symptom}{" "}
                 <StyledCross onClick={() => removeSelectedSymptom(symptom)}>
                   ✖️
