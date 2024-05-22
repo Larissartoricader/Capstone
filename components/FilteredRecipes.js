@@ -99,6 +99,11 @@ const ResetButton = styled.button`
   padding: 5px 10px;
 `;
 
+const FilterHeadline = styled.h1`
+  font-family: var(--headline-font);
+  font-size: 200%;
+`;
+
 export default function FilteredRecipes({
   recipes,
   bookmarkedRecipesIDs,
