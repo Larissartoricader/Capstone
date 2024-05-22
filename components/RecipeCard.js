@@ -3,6 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 // Container
 const StyledArticle = styled.article`
