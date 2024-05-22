@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import RecipeList from "./RecipeList";
-import { uid } from "uid";
 
 //Search
 
@@ -76,7 +75,7 @@ const StyledSelectedSuggestionBox = styled.div`
   gap: 10px;
 `;
 
-const StyledSelectedSuggestion = styled.button`
+const StyledSelectedSuggestion = styled.div`
   background-color: #f1efe2;
   font-size: small;
   padding: 5px;
@@ -188,7 +187,7 @@ export default function FilteredRecipes({
             {userInput &&
               symptomSuggestions.map((suggestion) => (
                 <StyledTextSuggestion
-                  key={uid()}
+                  key={suggestion}
                   onClick={() => handleSymptomSuggestionClick(suggestion)}
                 >
                   {suggestion}

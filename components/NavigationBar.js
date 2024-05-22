@@ -37,11 +37,11 @@ const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 30px;
 `;
 
-const StyledHomeIcone = styled(GoHome)`
+const StyledHomeIcon = styled(GoHome)`
   font-size: 30px;
 `;
 
-const StyledHeartIcone = styled(CiHeart)`
+const StyledHeartIcon = styled(CiHeart)`
   font-size: 30px;
 `;
 
@@ -69,7 +69,7 @@ export default function NavigationBar() {
     <StyledNav>
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
         <MenuIconTitleBox>
-          <StyledHomeIcone />
+          <StyledHomeIcon />
           <MenuTitle>HOME</MenuTitle>
         </MenuIconTitleBox>
       </StyledLink>
@@ -86,7 +86,7 @@ export default function NavigationBar() {
         active={isActive("/bookmarks")}
       >
         <MenuIconTitleBox>
-          <StyledHeartIcone />
+          <StyledHeartIcon />
           <MenuTitle>FAVORITES</MenuTitle>
         </MenuIconTitleBox>
       </StyledLink>
