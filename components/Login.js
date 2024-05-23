@@ -18,7 +18,7 @@ export default function Login() {
         <LoginButton onClick={() => signOut()}><FiLogOut />Logout</LoginButton>
       </>
     );
-  }
+  };
   return (
     <>
       <LoginButton onClick={() => signIn()}><FiLogIn/>Login</LoginButton>

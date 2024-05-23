@@ -1,19 +1,23 @@
 import RecipeCard from "./RecipeCard";
 import styled from "styled-components";
 
-const StyledList = styled.ul`
+const StyledList = styled.div`
   list-style: none;
   display: grid;
-  column-gap: 20px;
-  row-gap: 40px;
+  column-gap: 30px;
+  row-gap: 20px;
   grid-template-columns: 1fr;
-  padding: 0 28px;
+  padding-inline: 10px;
 
-  @media only screen and (min-width: 425px) {
+  /* @media only screen and (min-width: 425px) {
+    grid-template-columns: 1fr;
+  } */
+
+  @media only screen and (min-width: 580px) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;
