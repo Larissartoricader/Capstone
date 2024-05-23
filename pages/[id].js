@@ -30,11 +30,12 @@ const StyledRecipeBy = styled.p`
 
 const StyledHerbie = styled.p`
   font-size: x-large;
+  font-family: var(--herbie-font);
 `;
 
 const StyledHerbieBox = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 3px;
   align-items: center;
 `;
 
@@ -80,7 +81,11 @@ export default function RecipeDetailsPage({
         </BackLink>
         <StyledHerbieBox>
           <StyledRecipeBy>Recipe by</StyledRecipeBy>
-          <StyledHerbie>Herbie</StyledHerbie>
+          {currentRecipe.owner ? (
+            <p>{currentRecipe.author}</p>
+          ) : (
+            <StyledHerbie>herbie</StyledHerbie>
+          )}
         </StyledHerbieBox>
       </StyledRecipeHeader>
       <ContentContainer>
