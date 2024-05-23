@@ -13,10 +13,8 @@ const StyledList = styled.div`
   @media only screen and (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-   // versuch ////
-position: absolute; /* Absolut positioniert */
-  top: 100px;;
-  left: 0;
+  top: 100px;
+  left: 5%;
 `;
 
 const WhiteSpaceBottom = styled.div`

@@ -2,34 +2,29 @@ import styled from "styled-components";
 
 // 1. Ebene
 export const Wrapper = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
   gap: 1rem;
-  width: 95%;
+  /* width: 80%; */
   padding-inline: 2.5%;
-  // versuch ////
-gap: 1rem;
+// versuch 2//
+display: grid;
+  grid-template-rows: auto 1fr;
   width: 95%;
-  padding-inline: 2.5%;
-position: relative;
 `;
 
 // 2. Ebene
 export const SearchBox = styled.div`
+left: 5%;
 width: 100%;
 max-width: 500px;
 display: flex;
 align-items: top;
-gap: 5px;
-border-radius: var(--small-box-border-radius);
-display: flex; flex-direction: column; gap: 1rem;
+flex-direction: row;
+gap: 1rem;
 text-align: left;
-z-index: 2;
- // versuch ////
-position: absolute; /* Absolut positioniert */
-  top: 0;
-  left: 0;
+border-radius: var(--small-box-border-radius);
 `;
 
 // 3. Ebene
@@ -87,9 +82,8 @@ padding-inline: 10px;
   right: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 200px;
-  overflow-y: auto;
-overflow: auto;
-  `
+  overflow-y: auto;`
+  
 // 4. Ebene
 export const DropDownOption = styled.button`
 padding-block: 5px;
@@ -110,7 +104,7 @@ export const Selection = styled.div`
   gap: 10px;
 `;
 
-export const StyledSelectedSuggestion = styled.div`
+export const SelectedSuggestion = styled.div`
   background-color: var( --selected-value-color);
   font-size: small;
   padding: 5px;
@@ -118,9 +112,9 @@ export const StyledSelectedSuggestion = styled.div`
   display: block;
 `;
 
-export const StyledCross = styled.button`
+export const SelectedSuggestionCross = styled.button`
 background-color: var(--selected-value-color);
-  cursor: pointer;
-  border: none;
-`;
+  /* cursor: pointer; */
+  border: none;`;
 
+  export const SelectedSuggestionText = styled.p``;

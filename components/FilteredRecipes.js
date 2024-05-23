@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchSectionAndRecipeListWrapper, SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, Selection, StyledCross, ResetButton, Wrapper, StyledSelectedSuggestion } from "./FilteredRecipes.styles";
+import { SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, Selection, ResetButton, Wrapper, SelectedSuggestion, SelectedSuggestionText, SelectedSuggestionCross } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -99,12 +99,16 @@ export default function FilteredRecipes({
         </SearchBox>
         <Selection>
             {selectedSymptoms.map((symptom) => (
-              <StyledSelectedSuggestion key={symptom}>
+              <SelectedSuggestion key={symptom}>
+                <SelectedSuggestionText>
+
+               
                 {symptom}{" "}
-                <StyledCross onClick={() => removeSelectedSymptom(symptom)}>
+                </SelectedSuggestionText>
+                <SelectedSuggestionCross onClick={() => removeSelectedSymptom(symptom)}>
                   ✖️
-                </StyledCross>
-              </StyledSelectedSuggestion>
+                </SelectedSuggestionCross>
+              </SelectedSuggestion>
             ))}
           </Selection>
      
