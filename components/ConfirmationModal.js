@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Herbie from "@/assets/Herbie.png";
+import Image from "next/image";
 
 const Dialog = styled.dialog`
   padding: 1.7rem 0;
@@ -52,12 +54,20 @@ const Button = styled.button`
   }
 `;
 
+const StyledHerbie = styled(Image)`
+  position: absolute;
+  top: 40px;
+  right: 15px;
+  z-index: -1;
+`;
+
 export const ConfirmationModal = ({ modalInfo, modalRef }) => {
   const { message, textButtonClose, textButtonConfirm, onClose, onConfirm } =
     modalInfo;
 
   return (
     <Dialog ref={modalRef}>
+      <StyledHerbie src={Herbie} alt={"Herbie"} width={75} height={100} />
       <DialogMessage>{message}</DialogMessage>
       <ButtonWrap>
         <Button type="button" onClick={onClose}>
