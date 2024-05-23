@@ -1,10 +1,12 @@
 import styled from "styled-components";
-
+import Image from "next/image";
+import Herbie from "@/assets/Herbie.png";
 import Link from "next/link";
 
 const StyledCard = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   background: #fcfbf4;
   flex-direction: column;
   gap: 10px;
@@ -41,33 +43,33 @@ const CloseButton = styled.button`
   right: 8px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`
-  display: flex;
-  justify-content: center;
+  display: block;
+  text-align: center;
   font-size: 14px;
   padding: 10px;
+  color: var(--primary-button-and-header-color);
 `;
 
-const TitleBig = styled.h2``;
+const StyledHerbie = styled(Image)`
+  position: absolute;
+  top: -100px;
+  right: 20px;
+  z-index: -1;
+`;
 
 const TipOfTheDay = ({ recipe, onClose }) => {
   return (
     <StyledCard>
-      <TitleBig>Herbies Random Tip</TitleBig>
+      <StyledHerbie src={Herbie} alt={"Herbie"} width={75} height={100} />
       <CloseButton onClick={onClose}>X</CloseButton>
+      <h2>Herbies Random Tip</h2>
       <TitleSmall>
         {recipe.title}
-        <StyledLink
-          style={{
-            color: "black",
-            textUnderlineOffset: "4px",
-          }}
-          href={`/${recipe._id}`}
-        >
-          Read More →
-        </StyledLink>
+        <StyledLink href={`/${recipe._id}`}>Read More →</StyledLink>
       </TitleSmall>
     </StyledCard>
   );
