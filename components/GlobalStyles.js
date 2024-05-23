@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   };
 
   :root{
-    // fonts
+  
     --herbie-font: ${merienda.style.fontFamily};
     --general-font: 'Arial';
  

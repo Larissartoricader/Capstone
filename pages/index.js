@@ -4,10 +4,14 @@ import TipOfTheDay from "@/components/TipOfTheDay";
 import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
+import Image from "next/image";
+import ClickButton from "@/assets/ClickButton.png";
+import ReloadButton from "@/assets/ReloadButton.png";
+import React from "react";
 
 const Button = styled.button`
-  background-color: black;
-  color: #fff;
+  background: transparent;
+
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -17,14 +21,10 @@ const TipOfTheDayWrapper = styled.div`
   position: fixed;
   z-index: 1;
   bottom: 100px;
-  left: 50px;
   display: flex;
   flex-direction: column;
 `;
 
-const ButtonWrapper = styled.div`
-  margin-top: 10px;
-`;
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -68,11 +68,14 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
         {isPopupOpen ? (
           <TipOfTheDay recipe={currentTip} onClose={closePopup} />
         ) : null}
-        <ButtonWrapper>
-          <Button onClick={handleNextTip}>
-            {isPopupOpen ? "Herbie's Next Tip" : "Herbie's Tip"}
-          </Button>
-        </ButtonWrapper>
+        <Button onClick={handleNextTip}>
+          <Image
+            src={isPopupOpen ? ReloadButton : ClickButton}
+            alt={isPopupOpen ? "Click further" : "Click me"}
+            width={60}
+            height={60}
+          ></Image>
+        </Button>
       </TipOfTheDayWrapper>
       <FilteredRecipes
         recipes={recipes}
