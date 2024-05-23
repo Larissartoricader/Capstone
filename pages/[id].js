@@ -81,7 +81,7 @@ export default function RecipeDetailsPage({
         </BackLink>
         <StyledHerbieBox>
           <StyledRecipeBy>Recipe by</StyledRecipeBy>
-          {currentRecipe.owner ? (
+          {currentRecipe.author ? (
             <p>{currentRecipe.author}</p>
           ) : (
             <StyledHerbie>herbie</StyledHerbie>
