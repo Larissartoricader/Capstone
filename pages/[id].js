@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import Link from "next/link";
 import { GoStarFill } from "react-icons/go";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
 
 const StyledRecipeHeader = styled.div`
   display: flex;
@@ -64,6 +65,9 @@ export default function RecipeDetailsPage({
   onDeleteRecipe,
   bookmarkedRecipesIDs,
   onToggleBookmark,
+  modalInfo,
+  openModal,
+  modalRef,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -105,11 +109,13 @@ export default function RecipeDetailsPage({
         </StyledHerbieBox>
       </StyledRecipeHeader>
       <ContentContainer>
+        <ConfirmationModal modalRef={modalRef} modalInfo={modalInfo} />
         <RecipeDetails
           currentRecipe={currentRecipe}
           onDeleteRecipe={onDeleteRecipe}
           onToggleBookmark={onToggleBookmark}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          showDeleteModal={openModal}
         />
       </ContentContainer>
       <WhiteSpace />
