@@ -173,7 +173,7 @@ export default function FilteredRecipes({
       <SearchBox>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
           <StyledInput
-            placeholder="Type your symptom and select from the list"
+            placeholder="🔍 Type your symptom and select from the list  "
             type="text"
             id="symptom"
             name="inputfield"
