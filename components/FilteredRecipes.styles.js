@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 1. Ebene
 export const SearchSectionAndRecipeListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -7,13 +8,14 @@ export const SearchSectionAndRecipeListWrapper = styled.div`
   gap: 1rem;
   width: 95%;
   padding-inline: 2.5%;
+  // versuch ////
+gap: 1rem;
+  width: 95%;
+  padding-inline: 2.5%;
+position: relative;
 `;
 
-export const SearchBoxAndSelectionWrapper = styled.div`
-width: 100%;  
-display: flex; flex-direction: column; gap: 1rem;
-text-align: left;`;
-
+// 2. Ebene
 
 export const SearchBox = styled.div`
 width: 100%;
@@ -21,17 +23,20 @@ max-width: 500px;
 display: flex;
 align-items: top;
 gap: 5px;
-border-radius: var(--small-box-border-radius);`;
+border-radius: var(--small-box-border-radius);
+width: 100%;  
+display: flex; flex-direction: column; gap: 1rem;
+text-align: left;
+z-index: 2;
+ // versuch ////
+position: absolute; /* Absolut positioniert */
+  top: 0;
+  left: 0;
+`;
 
 export const SearchfieldAndDropDown = styled.div`
 width: 80%; 
-margin-right: 22px;`
-// styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 5px;
-// `;
-
+margin-right: 22px;`;
 
 export const Searchfield = styled.input`
 width: 100%;
@@ -82,20 +87,19 @@ padding-inline: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 200px;
   overflow-y: auto;
-  z-index: 2;
+overflow: auto;
   `
 
-export const StyledTextSuggestion = styled.p`
-  color: var(--font-color);
+export const DropDownOption = styled.button`
+padding-block: 5px;
+color: var(--font-color);
   font-size: medium;
   display: block;
-`;
-
-export const DropDownOption = styled.button`
   background-color: var(--box-background-color);
   text-align: left;
   border: none;
   width: 100%;
+  z-index: 2;
 `;
 
 export const Selection = styled.div`
@@ -113,7 +117,7 @@ export const StyledSelectedSuggestion = styled.div`
 `;
 
 export const StyledCross = styled.button`
-background-color: var( --symptom-color);
+background-color: var(--selected-value-color);
   cursor: pointer;
   border: none;
 `;

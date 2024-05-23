@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchSectionAndRecipeListWrapper, SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, SearchBoxAndSelectionWrapper } from "./FilteredRecipes.styles";
+import { SearchSectionAndRecipeListWrapper, SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, Selection, StyledCross, ResetButton, SearchBoxAndSelectionWrapper, StyledSelectedSuggestion } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -70,7 +70,7 @@ export default function FilteredRecipes({
 
   return (
     <SearchSectionAndRecipeListWrapper>
-      <SearchBoxAndSelectionWrapper>
+    
       <SearchBox>
         <SearchfieldAndDropDown onSubmit={handleSearchSubmit}>
           <Searchfield
@@ -86,12 +86,12 @@ export default function FilteredRecipes({
           />
            {userInput &&<FakeDropDown>
              { symptomSuggestions.map((suggestion) => (
-                <StyledTextSuggestion
+                <DropDownOption
                   key={suggestion}
                   onClick={() => handleSymptomSuggestionClick(suggestion)}
                 >
                   {suggestion}
-                </StyledTextSuggestion>
+                </DropDownOption>
               ))}
           </FakeDropDown>}
 
@@ -100,15 +100,15 @@ export default function FilteredRecipes({
         </SearchBox>
         <Selection>
             {selectedSymptoms.map((symptom) => (
-              <DropDownOption key={symptom}>
+              <StyledSelectedSuggestion key={symptom}>
                 {symptom}{" "}
                 <StyledCross onClick={() => removeSelectedSymptom(symptom)}>
                   ✖️
                 </StyledCross>
-              </DropDownOption>
+              </StyledSelectedSuggestion>
             ))}
           </Selection>
-      </SearchBoxAndSelectionWrapper>
+     
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         recipes={filteredRecipes}
