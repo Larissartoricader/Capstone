@@ -10,20 +10,14 @@ import ReloadButton from "@/assets/ReloadButton.png";
 import React from "react";
 
 const Button = styled.button`
-<<<<<<< HEAD
   background: transparent;
 
-=======
-  background-color: black;
-  color: #fff;
->>>>>>> main
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
 `;
 const TipOfTheDayWrapper = styled.div`
-<<<<<<< HEAD
   position: fixed;
   z-index: 1;
   bottom: 100px;
@@ -39,12 +33,6 @@ const Backdrop = styled.div`
   background: black;
   opacity: 0.4;
   z-index: 1;
-=======
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
->>>>>>> main
 `;
 
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
