@@ -210,7 +210,7 @@ export default function RecipeDetails({
         <StyledItemListTitle> Symptoms</StyledItemListTitle>
         <StyleItemsList>
           {symptoms.map((symptom) => (
-            <StyledItems key={symptom}>{symptoms}</StyledItems>
+            <StyledItems key={symptom}>{symptom}</StyledItems>
           ))}
         </StyleItemsList>
       </StyledItemsBox>
