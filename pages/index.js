@@ -5,26 +5,20 @@ import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
 
-
-const StyledHeadline = styled.h1`
-    text-align: center;
-    font-family: var(--headline-font);
-    font-size: 300%;
-  `;
 const Button = styled.button`
-    background-color: black;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-  `;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
 const TipOfTheDayWrapper = styled.div`
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
@@ -47,18 +41,18 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   }
 
   return (
-    <div>
+    <>
+      <FilteredRecipes
+        recipes={recipes}
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        onToggleBookmark={onToggleBookmark}
+      />
       {recipes.length > 0 && (
         <TipOfTheDayWrapper>
           <TipOfTheDay recipe={recipes[currentTipIndex]} />
           <Button onClick={handleNextTip}>Get Another Tip</Button>
         </TipOfTheDayWrapper>
       )}
-      <FilteredRecipes
-        recipes={recipes}
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        onToggleBookmark={onToggleBookmark}
-      />
-    </div>
+    </>
   );
 }

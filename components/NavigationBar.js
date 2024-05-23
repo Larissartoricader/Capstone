@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react";
+import { GoHome } from "react-icons/go";
+import { CiHeart } from "react-icons/ci";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -11,7 +13,7 @@ const StyledNav = styled.nav`
   align-items: center;
   bottom: 0;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   background: #ffffff;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -32,7 +34,26 @@ const StyledLink = styled.a`
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
-  font-size: 50px;
+  font-size: 30px;
+`;
+
+const StyledHomeIcon = styled(GoHome)`
+  font-size: 30px;
+`;
+
+const StyledHeartIcon = styled(CiHeart)`
+  font-size: 30px;
+`;
+
+const MenuTitle = styled.p`
+  font-size: 8px;
+`;
+
+const MenuIconTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function NavigationBar() {
@@ -47,7 +68,10 @@ export default function NavigationBar() {
   return (
     <StyledNav>
       <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
-        Home
+        <MenuIconTitleBox>
+          <StyledHomeIcon />
+          <MenuTitle>HOME</MenuTitle>
+        </MenuIconTitleBox>
       </StyledLink>
       {session && (
         <StyledLink
@@ -61,7 +85,10 @@ export default function NavigationBar() {
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}
       >
-        Bookmarks
+        <MenuIconTitleBox>
+          <StyledHeartIcon />
+          <MenuTitle>FAVORITES</MenuTitle>
+        </MenuIconTitleBox>
       </StyledLink>
     </StyledNav>
   );

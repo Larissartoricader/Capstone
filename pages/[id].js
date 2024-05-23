@@ -3,6 +3,7 @@ import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
 import useSWR from "swr";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const StyledRecipeHeader = styled.div`
   display: flex;
@@ -79,7 +80,7 @@ export default function RecipeDetailsPage({
         </BackLink>
         <StyledHerbieBox>
           <StyledRecipeBy>Recipe by</StyledRecipeBy>
-          <StyledHerbie>herbie</StyledHerbie>
+          <StyledHerbie>Herbie</StyledHerbie>
         </StyledHerbieBox>
       </StyledRecipeHeader>
       <ContentContainer>

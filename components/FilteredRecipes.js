@@ -2,26 +2,106 @@ import { useState } from "react";
 import styled from "styled-components";
 import RecipeList from "./RecipeList";
 
+//Search
+
+const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-inline: 10px;
+  gap: 10px;
+`;
+
 const SearchBox = styled.div`
-  margin-inline: 40px;
-  background-color: lightgrey;
-  margin: 5px;
-  padding: 5px;
   border-radius: 10px;
+  position: relative;
 `;
 
 const StyledFilterForm = styled.form`
   display: flex;
   flex-direction: column;
+  gap: 5px;
+`;
+
+const StyledInput = styled.input`
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s;
+  &:focus {
+    border-color: #8fc379;
+  }
+  &::placeholder {
+    color: #999;
+    font-size: 12px;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-size: cover;
+    pointer-events: none;
+  }
+`;
+
+//Suggestion
+const StyledSuggestionsList = styled.div`
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 38px;
+  right: 2px;
+  width: 80%;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+`;
+
+const StyledTextSuggestion = styled.p`
+  color: black;
+  font-size: medium;
+  display: block;
+`;
+
+//Selected Suggestion
+
+const StyledSelectedSuggestionBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 `;
 
-const StyledFilterInfo = styled.p`
-  font-size: 12px;
+const StyledSelectedSuggestion = styled.div`
+  background-color: #f1efe2;
+  font-size: small;
+  padding: 5px;
+  border-radius: 10px;
+  display: block;
 `;
 
-const FilterHeadline = styled.h1`font-family: var(--headline-font);
-font-size: 200%;`
+const StyledCross = styled.button`
+  color: green;
+  cursor: pointer;
+  border: none;
+`;
+
+const ResetButton = styled.button`
+  max-width: 60px;
+  border: none;
+  background-color: #ffc107;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+`;
+
+const FilterHeadline = styled.h1`
+  font-family: var(--headline-font);
+  font-size: 200%;
+`;
 
 export default function FilteredRecipes({
   recipes,
@@ -31,19 +111,19 @@ export default function FilteredRecipes({
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [symptomSuggestions, setSymptomSuggestions] = useState([]);
 
-
   function handleSymptomsChange(event) {
     const userInput = event.target.value;
     setSymptomSuggestions([]);
     const suggestions = recipes.reduce((acc, recipe) => {
       const matchingSymptoms = recipe.symptoms.filter((symptom) =>
-        symptom.toLowerCase().startsWith(userInput.toLowerCase()),
+        symptom.toLowerCase().startsWith(userInput.toLowerCase())
       );
       return [...acc, ...matchingSymptoms];
     }, []);
-   const notYetSelectedSuggestions = suggestions.filter((suggestion) => !selectedSymptoms.includes(suggestion));
-   setSymptomSuggestions(Array.from(new Set(notYetSelectedSuggestions)));
-    
+    const notYetSelectedSuggestions = suggestions.filter(
+      (suggestion) => !selectedSymptoms.includes(suggestion)
+    );
+    setSymptomSuggestions(Array.from(new Set(notYetSelectedSuggestions)));
   }
 
   function handleSymptomSuggestionClick(suggestion) {
@@ -67,7 +147,7 @@ export default function FilteredRecipes({
     let filteredRecipes = [...recipes];
     if (selectedSymptoms.length > 0) {
       filteredRecipes = filteredRecipes.filter((recipe) =>
-        selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom)),
+        selectedSymptoms.every((symptom) => recipe.symptoms.includes(symptom))
       );
     }
     return filteredRecipes;
@@ -78,11 +158,9 @@ export default function FilteredRecipes({
   function handleSearchSubmit(event) {
     event.preventDefault();
     event.target.reset();
-
   }
 
-const [userInput, setUserInput] = useState("");
-
+  const [userInput, setUserInput] = useState("");
 
   function handleResetSubmit(event) {
     event.preventDefault();
@@ -91,52 +169,50 @@ const [userInput, setUserInput] = useState("");
   }
 
   return (
-    <>
+    <SearchContainer>
       <SearchBox>
-        <FilterHeadline>Search Recipes</FilterHeadline>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
-          <label htmlFor="symptom">Select a symptom</label>
-          <input
-            placeholder="Type your symptom and select from the list"
+          <StyledInput
+            placeholder="🔍 Type your symptom and select from the list  "
             type="text"
             id="symptom"
             name="inputfield"
             onChange={(event) => {
               handleSymptomsChange(event);
               setUserInput(event.target.value);
-          }}
-          value={userInput}
+            }}
+            value={userInput}
           />
-           <div>
-            {selectedSymptoms.map((symptom, index) => (
-              <p key={index}>
+          <StyledSuggestionsList>
+            {userInput &&
+              symptomSuggestions.map((suggestion) => (
+                <StyledTextSuggestion
+                  key={suggestion}
+                  onClick={() => handleSymptomSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </StyledTextSuggestion>
+              ))}
+          </StyledSuggestionsList>
+          <StyledSelectedSuggestionBox>
+            {selectedSymptoms.map((symptom) => (
+              <StyledSelectedSuggestion key={symptom}>
                 {symptom}{" "}
-                <span onClick={() => removeSelectedSymptom(index)}>✖️</span>
-              </p>
+                <StyledCross onClick={() => removeSelectedSymptom(symptom)}>
+                  ✖️
+                </StyledCross>
+              </StyledSelectedSuggestion>
             ))}
-            {userInput && symptomSuggestions.map((suggestion, index) => (
-              <p
-                key={index}
-                onClick={() => handleSymptomSuggestionClick(suggestion)}
-              >
-                {suggestion}
-              </p>
-            ))}
-          </div>
-          <div>
-          
-            <button onClick={handleResetSubmit}>Reset</button>
-          </div>
+          </StyledSelectedSuggestionBox>
+          <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
         </StyledFilterForm>
       </SearchBox>
-        <div>
-          <h2>The Perfect Recipes for you</h2>
-          <RecipeList
-            bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-            recipes={filteredRecipes}
-            onToggleBookmark={onToggleBookmark}
-          />
-        </div>
-    </>
+
+      <RecipeList
+        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+        recipes={filteredRecipes}
+        onToggleBookmark={onToggleBookmark}
+      />
+    </SearchContainer>
   );
 }
