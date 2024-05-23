@@ -62,7 +62,6 @@ export default function App({ Component, pageProps }) {
 }
 
 function Auth({ children }) {
-  // required: true makes only 'loading' or 'authenticated' possible. Else the user is redirected to login page.
   const { status } = useSession({ required: true });
   if (status === "loading") {
     return <div>Is loading...</div>;
