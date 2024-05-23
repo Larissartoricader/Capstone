@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { GoStarFill } from "react-icons/go";
 

@@ -6,8 +6,6 @@ import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
 
-
-
 const fetcher = async (url) => {
   const res = await fetch(url);
   if (!res.ok) {
@@ -65,7 +63,6 @@ export default function App({ Component, pageProps }) {
 }
 
 function Auth({ children }) {
-  // required: true makes only 'loading' or 'authenticated' possible. Else the user is redirected to login page.
   const { status } = useSession({ required: true });
   if (status === "loading") {
     return <div>Is loading...</div>;
