@@ -1,4 +1,16 @@
 import styled from "styled-components";
+import { Circles } from "react-loader-spinner";
+
+export const LoadingSpinner = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+`;
+
 
 export const FormHeadline = styled.h2`
   text-align: center;
