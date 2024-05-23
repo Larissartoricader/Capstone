@@ -24,7 +24,7 @@ import {
   ButtonContainer,
   SubmitButton,
   CancelButton,
-  WhiteSpace,
+  WhiteSpaceBottom,
 } from "./RecipeForm.styles";
 import { Circles } from "react-loader-spinner";
 
@@ -395,7 +395,7 @@ export default function RecipeForm({ recipeToEdit }) {
           <SubmitButton type="submit">Save</SubmitButton>
         </ButtonContainer>
       </StyledForm>
-      <WhiteSpace />
+      <WhiteSpaceBottom />
     </>
   );
 }

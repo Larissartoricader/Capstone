@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Circles } from "react-loader-spinner";
 
 export const LoadingSpinner = styled.div`
   position: fixed;
@@ -10,7 +9,6 @@ export const LoadingSpinner = styled.div`
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 999;
 `;
-
 
 export const FormHeadline = styled.h2`
   text-align: center;
@@ -146,6 +144,6 @@ font-family: var(--general-font); font-size: var(--label-font-size); font-weight
   }
   `
 
-export const WhiteSpace = styled.div`
+export const WhiteSpaceBottom = styled.div`
   height: 20vh;
 `;

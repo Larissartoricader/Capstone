@@ -12,14 +12,12 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     background-color: var(--primary-background-color);
     font-family: var(--general-font);
-  
   }
 
   :root{
   
     --herbie-font: ${merienda.style.fontFamily};
     --general-font: 'Arial';
- 
    
     --font-color: #013220;
     --box-background-color: white;

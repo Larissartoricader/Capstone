@@ -98,7 +98,6 @@ export default function FilteredRecipes({
         </SearchfieldAndDropDown>
         <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
         </SearchBox>
-
         <Selection>
             {selectedSymptoms.map((symptom) => (
               <DropDownOption key={symptom}>

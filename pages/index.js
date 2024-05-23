@@ -35,7 +35,7 @@ const Backdrop = styled.div`
   z-index: 1;
 `;
 
-const WhiteSpace = styled.div`height: 90px;`
+
 
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
@@ -65,7 +65,6 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const currentTip = recipes[currentTipIndex];
   return (
     <>
-    <WhiteSpace/>
       {isPopupOpen ? <Backdrop onClick={closePopup} /> : null}
       <TipOfTheDayWrapper>
         {isPopupOpen ? (
