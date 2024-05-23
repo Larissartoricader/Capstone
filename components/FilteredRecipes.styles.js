@@ -4,17 +4,19 @@ export const SearchSectionAndRecipeListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  /* padding-inline: 10px; */
-  /* gap: 10px; */
+  gap: 1rem;
+  width: 95%;
+  padding-inline: 2.5%;
 `;
 
 export const SearchBoxAndSelectionWrapper = styled.div`width: 100%;  padding-left: 10px;
-display: flex; flex-direction: column; gap: 1rem;`;
+display: flex; flex-direction: column; gap: 1rem;
+text-align: left;`;
 
 
 export const SearchBox = styled.div`
 width: 95%;
+max-width: 500px;
 display: flex;
 align-items: center;
 gap: 5px;

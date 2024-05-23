@@ -2,22 +2,15 @@ import RecipeCard from "./RecipeCard";
 import styled from "styled-components";
 
 const StyledList = styled.div`
-/* width: 95%; */
   list-style: none;
   display: grid;
   column-gap: 30px;
   row-gap: 20px;
   grid-template-columns: 1fr;
-  padding-inline: 10px;
-
-  /* @media only screen and (min-width: 425px) {
-    grid-template-columns: 1fr;
-  } */
-
+  /* padding-inline: 10px; */
   @media only screen and (min-width: 580px) {
     grid-template-columns: 1fr 1fr;
   }
-
   @media only screen and (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
