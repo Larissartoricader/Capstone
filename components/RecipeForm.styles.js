@@ -80,8 +80,6 @@ export const DropDownOption = styled.button`
   background-color: var(--box-background-color);
   text-align: left;
   border: none;
-  font-size: var(--label-font-size); 
-  font-family: var(--label-font);
   width: 100%;
 `;
 

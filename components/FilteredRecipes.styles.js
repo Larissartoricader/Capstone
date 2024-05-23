@@ -77,12 +77,12 @@ padding-inline: 10px;
   border-radius: 0 0 8px 8px;
   background-color: var(--box-background-color);
   width: 100%;
-  z-index: 1;
-  /* top: 38px;
-  right: 2px; */
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  top: 38px;
+  right: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 200px;
-  overflow-y: auto; */
+  overflow-y: auto;
+  z-index: 2;
   `
 
 export const StyledTextSuggestion = styled.p`
@@ -95,8 +95,6 @@ export const DropDownOption = styled.button`
   background-color: var(--box-background-color);
   text-align: left;
   border: none;
-  font-size: var(--label-font-size); 
-  font-family: var(--label-font);
   width: 100%;
 `;
 
