@@ -223,7 +223,7 @@ export default function RecipeDetails({
         </StyleItemsList>
       </StyledItemsBox>
       <ButtonsBox>
-        {isOwner && (
+        {status === "authenticated" && isOwner && (
           <>
             <Link href={`/edit/${currentRecipe._id}`}>
               <EditButton type="button">Edit</EditButton>

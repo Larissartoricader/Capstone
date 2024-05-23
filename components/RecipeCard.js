@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { BookmarkIcon } from "./BookmarkIcon";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { GoStarFill } from "react-icons/go";
 
 // Container
 const StyledArticle = styled.article`
@@ -89,8 +89,9 @@ const StyledRecipeBy = styled.p`
 
 const StyledHerbie = styled.p`
   font-size: medium;
-  font-style: italic;
+
   font-weight: bold;
+  font-family: var(--herbie-font);
 `;
 
 const StyleItemsList = styled.div`
@@ -107,6 +108,19 @@ const StyledItems = styled.li`
   border-radius: 10px;
   padding: 5px;
   font-size: medium;
+`;
+
+const StyledStar = styled(GoStarFill)`
+  color: #ffa62f;
+  font-size: 20px;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+`;
+
+const HerbieStarBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
 `;
 
 export default function RecipeCard({
@@ -130,9 +144,12 @@ export default function RecipeCard({
           <AuthorBox>
             <StyledRecipeBy>Recipe by</StyledRecipeBy>
             {recipe.owner ? (
-              <StyledHerbie>{recipe.author}</StyledHerbie>
+              <p>{recipe.author}</p>
             ) : (
-              <StyledHerbie>Herbie</StyledHerbie>
+              <HerbieStarBox>
+                <StyledHerbie>Herbie</StyledHerbie>
+                <StyledStar />
+              </HerbieStarBox>
             )}
           </AuthorBox>
         </ReadMoreLink>
