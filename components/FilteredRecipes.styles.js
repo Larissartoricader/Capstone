@@ -9,20 +9,22 @@ export const SearchSectionAndRecipeListWrapper = styled.div`
   padding-inline: 2.5%;
 `;
 
-export const SearchBoxAndSelectionWrapper = styled.div`width: 100%;  padding-left: 10px;
+export const SearchBoxAndSelectionWrapper = styled.div`
+width: 100%;  
 display: flex; flex-direction: column; gap: 1rem;
 text-align: left;`;
 
 
 export const SearchBox = styled.div`
-width: 95%;
+width: 100%;
 max-width: 500px;
 display: flex;
 align-items: center;
 gap: 5px;
 border-radius: var(--small-box-border-radius);`;
 
-export const SearchfieldAndDropDown = styled.div`width: 80%; 
+export const SearchfieldAndDropDown = styled.div`
+width: 80%; 
 margin-right: 22px;`
 // styled.form`
 //   display: flex;
@@ -34,7 +36,7 @@ margin-right: 22px;`
 export const Searchfield = styled.input`
 width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   border: none;
   border-radius: var(--small-box-border-radius);
   outline: none;
@@ -60,6 +62,7 @@ width: 100%;
 export const ResetButton = styled.button`
   max-width: 60px;
   padding: 10px;
+  margin-right: 0;
   border: none;
   background-color: var(--primary-button-and-header-color);
   color: white;
