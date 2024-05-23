@@ -17,7 +17,7 @@ const StyledToast = styled.div`
 `;
 
 const RecipeArticle = styled.article`
-  background-color: var( --secondary-background-color);
+  background-color: var(--secondary-background-color);
   margin-inline: 15px;
   border-radius: var(--big-box-border-radius);
   position: relative;
@@ -218,7 +218,7 @@ export default function RecipeDetails({
         <StyledItemListTitle> Symptoms</StyledItemListTitle>
         <StyleItemsList>
           {symptoms.map((symptom) => (
-            <StyledItems key={symptom}>{symptoms}</StyledItems>
+            <StyledItems key={symptom}>{symptom}</StyledItems>
           ))}
         </StyleItemsList>
       </StyledItemsBox>

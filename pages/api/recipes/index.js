@@ -29,12 +29,15 @@ export default async function handler(request, response) {
     try {
       const recipeData = request.body;
       const owner = session.user.email;
+      const author = session.user.name;
+
       const imageUrl = await generateImage(request.body.title);
 
       await Recipe.create({
         ...recipeData,
         image: imageUrl,
         owner,
+        author,
       });
 
       response.status(201).json({ status: "Recipe created." });
