@@ -56,8 +56,8 @@ const Button = styled.button`
 
 const StyledHerbie = styled(Image)`
   position: absolute;
-  top: 40px;
-  right: 15px;
+  top: 50px;
+  right: 5px;
   z-index: -1;
 `;
 
