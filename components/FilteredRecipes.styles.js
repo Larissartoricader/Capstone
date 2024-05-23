@@ -11,10 +11,11 @@ export const SearchBoxAndSelectionWrapper = styled.div`
 display: flex; flex-direction: column; gap: 1rem;`;
 
 
-
 export const SearchBox = styled.div`
+width: 100%;
 display: flex;
-align-items: center;;
+
+align-items: center;
 border-radius: var(--small-box-border-radius);
   /* position: relative; */
 `;
@@ -25,7 +26,7 @@ export const StyledFilterForm = styled.form`
   gap: 5px;
 `;
 
-export const StyledInput = styled.input`
+export const Searchfield = styled.input`
   padding: 10px;
   font-size: 16px;
   border: none;
@@ -77,7 +78,7 @@ export const Selection = styled.div`
 `;
 
 export const StyledSelectedSuggestion = styled.div`
-  background-color: var( --symptom-color);
+  background-color: var( --selected-value-color);
   font-size: small;
   padding: 5px;
   border-radius: var(--small-box-border-radius);

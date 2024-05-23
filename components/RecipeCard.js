@@ -103,9 +103,8 @@ const StyleItemsList = styled.div`
 `;
 
 const StyledItems = styled.li`
-  background-color: var( --symptom-color);
+  background-color: var(--selected-value-color);
   border-radius: 10px;
-
   padding: 5px;
   font-size: medium;
 `;

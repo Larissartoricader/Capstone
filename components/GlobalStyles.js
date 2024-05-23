@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     --secondary-background-color: #fcfbf4;
     --primary-button-and-header-color: #014F32;
     --secondary-button-color: #FFC107;
-    --symptom-color: #f1efe2;
+    --selected-value-color: #f1efe2;
  
     --big-box-border-radius: 20px;
     --small-box-border-radius: 10px;

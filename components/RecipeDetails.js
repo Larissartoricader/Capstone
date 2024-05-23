@@ -69,8 +69,8 @@ const StyleItemsList = styled.div`
 `;
 
 const StyledItems = styled.li`
-  background-color: #f1efe2;
-  border-radius: 10px;
+  background-color: var( --selected-value-color);
+  border-radius: var( --small-box-border-radius);
   text-align: center;
   padding: 5px;
 `;

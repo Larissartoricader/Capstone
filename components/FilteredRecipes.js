@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchSectionAndRecipeListWrapper, SearchBox, StyledFilterForm, StyledInput, StyledSuggestionsList, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, SearchBoxAndSelectionWrapper } from "./FilteredRecipes.styles";
+import { SearchSectionAndRecipeListWrapper, SearchBox, StyledFilterForm, Searchfield, StyledSuggestionsList, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, SearchBoxAndSelectionWrapper } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -73,7 +73,7 @@ export default function FilteredRecipes({
       <SearchBoxAndSelectionWrapper>
       <SearchBox>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
-          <StyledInput
+          <Searchfield
             placeholder="Type your symptom and select from the list 🔍"
             type="text"
             id="symptom"
