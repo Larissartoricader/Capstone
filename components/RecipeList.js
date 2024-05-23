@@ -13,9 +13,13 @@ const StyledList = styled.div`
   @media only screen and (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
+   // versuch ////
+position: absolute; /* Absolut positioniert */
+  top: 100px;;
+  left: 0;
 `;
 
-const WhiteSpace = styled.div`
+const WhiteSpaceBottom = styled.div`
   height: 20vh;
 `;
 
@@ -37,7 +41,7 @@ export default function RecipeList({
           </li>
         ))}
       </StyledList>
-      <WhiteSpace />
+      <WhiteSpaceBottom />
     </>
   );
 }

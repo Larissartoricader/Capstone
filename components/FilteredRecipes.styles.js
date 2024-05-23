@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // 1. Ebene
-export const SearchSectionAndRecipeListWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +16,6 @@ position: relative;
 `;
 
 // 2. Ebene
-
 export const SearchBox = styled.div`
 width: 100%;
 max-width: 500px;
@@ -24,7 +23,6 @@ display: flex;
 align-items: top;
 gap: 5px;
 border-radius: var(--small-box-border-radius);
-width: 100%;  
 display: flex; flex-direction: column; gap: 1rem;
 text-align: left;
 z-index: 2;
@@ -34,10 +32,12 @@ position: absolute; /* Absolut positioniert */
   left: 0;
 `;
 
+// 3. Ebene
 export const SearchfieldAndDropDown = styled.div`
 width: 80%; 
 margin-right: 22px;`;
 
+// 4. Ebene
 export const Searchfield = styled.input`
 width: 100%;
 height: 20px;
@@ -65,6 +65,7 @@ height: 20px;
   }
 `;
 
+// 3. Ebene
 export const ResetButton = styled.button`
   max-width: 60px;
   height: 40px;
@@ -75,7 +76,7 @@ export const ResetButton = styled.button`
   color: white;
   border-radius: var(--small-box-border-radius);`;
 
-
+// 3. Ebene
 export const FakeDropDown = styled.div`
 padding-inline: 10px; 
   border: var(--general-border);
@@ -89,7 +90,7 @@ padding-inline: 10px;
   overflow-y: auto;
 overflow: auto;
   `
-
+// 4. Ebene
 export const DropDownOption = styled.button`
 padding-block: 5px;
 color: var(--font-color);
@@ -102,6 +103,7 @@ color: var(--font-color);
   z-index: 2;
 `;
 
+// 2. Ebene
 export const Selection = styled.div`
   display: flex;
   flex-wrap: wrap;

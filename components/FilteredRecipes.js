@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchSectionAndRecipeListWrapper, SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, Selection, StyledCross, ResetButton, SearchBoxAndSelectionWrapper, StyledSelectedSuggestion } from "./FilteredRecipes.styles";
+import { SearchSectionAndRecipeListWrapper, SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, Selection, StyledCross, ResetButton, Wrapper, StyledSelectedSuggestion } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -69,8 +69,7 @@ export default function FilteredRecipes({
   }
 
   return (
-    <SearchSectionAndRecipeListWrapper>
-    
+    <Wrapper>
       <SearchBox>
         <SearchfieldAndDropDown onSubmit={handleSearchSubmit}>
           <Searchfield
@@ -114,6 +113,6 @@ export default function FilteredRecipes({
         recipes={filteredRecipes}
         onToggleBookmark={onToggleBookmark}
       />
-    </SearchSectionAndRecipeListWrapper>
+    </Wrapper>
   );
 }
