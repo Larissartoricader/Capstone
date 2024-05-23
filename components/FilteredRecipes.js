@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchContainer, SearchBox, StyledFilterForm, StyledInput, StyledSuggestionsList, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, FilterHeadline } from "./FilteredRecipes.styles";
+import { SearchSectionAndRecipeListWrapper, SearchBox, StyledFilterForm, StyledInput, StyledSuggestionsList, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, SearchBoxAndSelectionWrapper } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -69,11 +69,12 @@ export default function FilteredRecipes({
   }
 
   return (
-    <SearchContainer>
+    <SearchSectionAndRecipeListWrapper>
+      <SearchBoxAndSelectionWrapper>
       <SearchBox>
         <StyledFilterForm onSubmit={handleSearchSubmit}>
           <StyledInput
-            placeholder="🔍 Type your symptom and select from the list  "
+            placeholder="Type your symptom and select from the list 🔍"
             type="text"
             id="symptom"
             name="inputfield"
@@ -94,10 +95,11 @@ export default function FilteredRecipes({
                 </StyledTextSuggestion>
               ))}
           </StyledSuggestionsList>
-          
-          
+
         </StyledFilterForm>
         <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
+        </SearchBox>
+
         <Selection>
             {selectedSymptoms.map((symptom) => (
               <StyledSelectedSuggestion key={symptom}>
@@ -108,13 +110,12 @@ export default function FilteredRecipes({
               </StyledSelectedSuggestion>
             ))}
           </Selection>
-      </SearchBox>
-
+      </SearchBoxAndSelectionWrapper>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         recipes={filteredRecipes}
         onToggleBookmark={onToggleBookmark}
       />
-    </SearchContainer>
+    </SearchSectionAndRecipeListWrapper>
   );
 }

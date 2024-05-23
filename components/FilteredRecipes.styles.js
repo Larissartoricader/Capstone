@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
-//Search
-
-export const SearchContainer = styled.div`
+export const SearchSectionAndRecipeListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-inline: 10px;
   gap: 10px;
 `;
+
+export const SearchBoxAndSelectionWrapper = styled.div`
+display: flex; flex-direction: column; gap: 1rem;`;
+
+
 
 export const SearchBox = styled.div`
 display: flex;
@@ -47,7 +50,7 @@ export const StyledInput = styled.input`
   }
 `;
 
-//Suggestion
+
 export const StyledSuggestionsList = styled.div`
   background-color: white;
   border-radius: var(--small-box-border-radius);
@@ -66,8 +69,6 @@ export const StyledTextSuggestion = styled.p`
   font-size: medium;
   display: block;
 `;
-
-//Selected Suggestion
 
 export const Selection = styled.div`
   display: flex;
@@ -97,8 +98,3 @@ export const ResetButton = styled.button`
   border-radius: var(--small-box-border-radius);
   padding: 5px 10px;
 `;
-
-// export const FilterHeadline = styled.h1`
-//   font-family: var(--general-font);
-//   font-size: 200%;
-// `;
