@@ -61,7 +61,7 @@ export const ResetButton = styled.button`
   max-width: 60px;
   padding: 10px;
   border: none;
-  background-color: var( --secondary-button-color);
+  background-color: var(--primary-button-and-header-color);
   color: white;
   border-radius: var(--small-box-border-radius);`;
 
