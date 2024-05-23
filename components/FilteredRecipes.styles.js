@@ -18,9 +18,8 @@ text-align: left;`;
 export const SearchBox = styled.div`
 width: 100%;
 max-width: 500px;
-/* height: 40px; */
 display: flex;
-align-items: center;
+align-items: top;
 gap: 5px;
 border-radius: var(--small-box-border-radius);`;
 
@@ -36,6 +35,7 @@ margin-right: 22px;`
 
 export const Searchfield = styled.input`
 width: 100%;
+height: 20px;
   padding: 10px;
   font-size: 16px;
   border: none;
@@ -62,6 +62,7 @@ width: 100%;
 
 export const ResetButton = styled.button`
   max-width: 60px;
+  height: 40px;
   padding: 10px;
   margin-right: 0;
   border: none;

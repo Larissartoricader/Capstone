@@ -3,7 +3,6 @@ import NavigationBar from "./NavigationBar.js";
 import { Header } from "./Header.js";
 import styled from "styled-components";
 
-
 const WhiteSpaceTop = styled.div`height: 90px;`
 
 export default function Layout({ children }) {
