@@ -103,7 +103,7 @@ const StyleItemsList = styled.div`
 `;
 
 const StyledItems = styled.li`
-  background-color: #f1efe2;
+  background-color: var( --symptom-color);
   border-radius: 10px;
 
   padding: 5px;

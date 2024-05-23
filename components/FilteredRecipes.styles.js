@@ -11,6 +11,7 @@ export const SearchContainer = styled.div`
 
 export const SearchBox = styled.div`
 display: flex;
+align-items: center;;
 border-radius: var(--small-box-border-radius);
   /* position: relative; */
 `;
@@ -68,14 +69,14 @@ export const StyledTextSuggestion = styled.p`
 
 //Selected Suggestion
 
-export const StyledSelectedSuggestionBox = styled.div`
+export const Selection = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 `;
 
 export const StyledSelectedSuggestion = styled.div`
-  background-color: #f1efe2;
+  background-color: var( --symptom-color);
   font-size: small;
   padding: 5px;
   border-radius: var(--small-box-border-radius);
@@ -83,7 +84,7 @@ export const StyledSelectedSuggestion = styled.div`
 `;
 
 export const StyledCross = styled.button`
-  color: green;
+background-color: var( --symptom-color);
   cursor: pointer;
   border: none;
 `;
@@ -97,7 +98,7 @@ export const ResetButton = styled.button`
   padding: 5px 10px;
 `;
 
-export const FilterHeadline = styled.h1`
-  font-family: var(--general-font);
-  font-size: 200%;
-`;
+// export const FilterHeadline = styled.h1`
+//   font-family: var(--general-font);
+//   font-size: 200%;
+// `;

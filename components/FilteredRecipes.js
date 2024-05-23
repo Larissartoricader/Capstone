@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchContainer, SearchBox, StyledFilterForm, StyledInput, StyledSuggestionsList, StyledTextSuggestion, StyledSelectedSuggestionBox, StyledSelectedSuggestion, StyledCross, ResetButton, FilterHeadline } from "./FilteredRecipes.styles";
+import { SearchContainer, SearchBox, StyledFilterForm, StyledInput, StyledSuggestionsList, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, FilterHeadline } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -94,7 +94,11 @@ export default function FilteredRecipes({
                 </StyledTextSuggestion>
               ))}
           </StyledSuggestionsList>
-          <StyledSelectedSuggestionBox>
+          
+          
+        </StyledFilterForm>
+        <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
+        <Selection>
             {selectedSymptoms.map((symptom) => (
               <StyledSelectedSuggestion key={symptom}>
                 {symptom}{" "}
@@ -103,10 +107,7 @@ export default function FilteredRecipes({
                 </StyledCross>
               </StyledSelectedSuggestion>
             ))}
-          </StyledSelectedSuggestionBox>
-          
-        </StyledFilterForm>
-        <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
+          </Selection>
       </SearchBox>
 
       <RecipeList
