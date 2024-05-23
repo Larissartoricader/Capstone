@@ -29,7 +29,7 @@ export default async function handler(request, response) {
     try {
       const recipeData = request.body;
       const owner = session.user.email;
-      const author = session.user.username;
+      const author = session.user.name;
 
       const imageUrl = await generateImage(request.body.title);
 

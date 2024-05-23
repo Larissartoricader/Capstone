@@ -130,8 +130,8 @@ export default function RecipeCard({
           </StyledInfoBox>
           <AuthorBox>
             <StyledRecipeBy>Recipe by</StyledRecipeBy>
-            {recipe.owner && session ? (
-              <StyledHerbie>{session.user.name}</StyledHerbie>
+            {recipe.owner ? (
+              <StyledHerbie>{recipe.author}</StyledHerbie>
             ) : (
               <StyledHerbie>Herbie</StyledHerbie>
             )}
