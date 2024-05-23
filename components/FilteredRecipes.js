@@ -104,8 +104,9 @@ export default function FilteredRecipes({
               </StyledSelectedSuggestion>
             ))}
           </StyledSelectedSuggestionBox>
-          <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
+          
         </StyledFilterForm>
+        <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
       </SearchBox>
 
       <RecipeList

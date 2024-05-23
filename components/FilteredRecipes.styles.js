@@ -1,6 +1,6 @@
-//Search
-
 import styled from "styled-components";
+
+//Search
 
 export const SearchContainer = styled.div`
   display: flex;
@@ -10,8 +10,9 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchBox = styled.div`
-  border-radius: 10px;
-  position: relative;
+display: flex;
+border-radius: var(--small-box-border-radius);
+  /* position: relative; */
 `;
 
 export const StyledFilterForm = styled.form`
@@ -24,7 +25,7 @@ export const StyledInput = styled.input`
   padding: 10px;
   font-size: 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--small-box-border-radius);
   outline: none;
   transition: border-color 0.3s;
   &:focus {
@@ -48,7 +49,7 @@ export const StyledInput = styled.input`
 //Suggestion
 export const StyledSuggestionsList = styled.div`
   background-color: white;
-  border-radius: 10px;
+  border-radius: var(--small-box-border-radius);
   position: absolute;
   top: 38px;
   right: 2px;
@@ -60,7 +61,7 @@ export const StyledSuggestionsList = styled.div`
 `;
 
 export const StyledTextSuggestion = styled.p`
-  color: black;
+  color: var(--font-color);
   font-size: medium;
   display: block;
 `;
@@ -77,7 +78,7 @@ export const StyledSelectedSuggestion = styled.div`
   background-color: #f1efe2;
   font-size: small;
   padding: 5px;
-  border-radius: 10px;
+  border-radius: var(--small-box-border-radius);
   display: block;
 `;
 
@@ -90,13 +91,13 @@ export const StyledCross = styled.button`
 export const ResetButton = styled.button`
   max-width: 60px;
   border: none;
-  background-color: #ffc107;
+  background-color: var( --secondary-button-color);
   color: white;
-  border-radius: 10px;
+  border-radius: var(--small-box-border-radius);
   padding: 5px 10px;
 `;
 
 export const FilterHeadline = styled.h1`
-  font-family: var(--headline-font);
+  font-family: var(--general-font);
   font-size: 200%;
 `;
