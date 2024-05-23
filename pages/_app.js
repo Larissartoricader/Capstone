@@ -4,7 +4,6 @@ import useLocalStorageState from "use-local-storage-state";
 import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
-import "../scss/main.scss";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -50,7 +49,7 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher }}>
         <GlobalStyle />
         <Layout>
-          <ToastContainer />
+          <ToastContainer theme="dark" />
           <Component
             {...pageProps}
             onToggleBookmark={handleBookmarkedIcon}
