@@ -8,7 +8,7 @@ export default function Layout({ children }) {
       <Head>
         <title>Herbie: Guru of Health</title>
       </Head>
-      <Header></Header>
+      <Header/>
       <main>
         {children}
       </main>
