@@ -20,6 +20,8 @@ const TipOfTheDayWrapper = styled.div`
   align-items: center;
 `;
 
+const WhiteSpace = styled.div`height: 90px;`
+
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
     return Math.floor(Math.random() * recipes.length);
@@ -42,6 +44,7 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
 
   return (
     <>
+    <WhiteSpace/>
       <FilteredRecipes
         recipes={recipes}
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
