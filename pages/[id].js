@@ -3,7 +3,7 @@ import RecipeDetails from "@/components/RecipeDetails";
 import styled from "styled-components";
 import useSWR from "swr";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { GoStarFill } from "react-icons/go";
 
 const StyledRecipeHeader = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const StyledRecipeBy = styled.p`
 `;
 
 const StyledHerbie = styled.p`
-  font-size: x-large;
+  font-size: large;
   font-family: var(--herbie-font);
 `;
 
@@ -37,6 +37,19 @@ const StyledHerbieBox = styled.div`
   display: flex;
   gap: 3px;
   align-items: center;
+`;
+
+const StyledStar = styled(GoStarFill)`
+  color: #ffa62f;
+  font-size: 20px;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+`;
+
+const HerbieStarBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
 `;
 
 const ContentContainer = styled.div`
@@ -84,7 +97,10 @@ export default function RecipeDetailsPage({
           {currentRecipe.author ? (
             <p>{currentRecipe.author}</p>
           ) : (
-            <StyledHerbie>herbie</StyledHerbie>
+            <HerbieStarBox>
+              <StyledHerbie>herbie</StyledHerbie>
+              <StyledStar />
+            </HerbieStarBox>
           )}
         </StyledHerbieBox>
       </StyledRecipeHeader>
