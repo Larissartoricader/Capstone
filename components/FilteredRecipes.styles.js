@@ -71,7 +71,7 @@ export const ResetButton = styled.button`
 
 
 export const FakeDropDown = styled.div`
-padding: 10px; 
+padding-inline: 10px; 
   border: var(--general-border);
   border-radius: 0 0 8px 8px;
   background-color: var(--box-background-color);
