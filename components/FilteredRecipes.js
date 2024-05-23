@@ -74,7 +74,7 @@ export default function FilteredRecipes({
       <SearchBox>
         <SearchfieldAndDropDown onSubmit={handleSearchSubmit}>
           <Searchfield
-            placeholder="Type your symptom and select from the list 🔍"
+            placeholder="Search for symptoms"
             type="text"
             id="symptom"
             name="inputfield"

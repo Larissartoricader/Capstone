@@ -18,6 +18,7 @@ text-align: left;`;
 export const SearchBox = styled.div`
 width: 100%;
 max-width: 500px;
+/* height: 40px; */
 display: flex;
 align-items: center;
 gap: 5px;
@@ -36,7 +37,7 @@ margin-right: 22px;`
 export const Searchfield = styled.input`
 width: 100%;
   padding: 10px;
-  font-size: 1rem;
+  font-size: 16px;
   border: none;
   border-radius: var(--small-box-border-radius);
   outline: none;
@@ -46,7 +47,7 @@ width: 100%;
   }
   &::placeholder {
     color: #999;
-    font-size: 12px;
+    font-size: 16px;
   }
   &::before {
     content: "";
