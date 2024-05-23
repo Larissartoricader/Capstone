@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RecipeList from "./RecipeList";
-import { SearchSectionAndRecipeListWrapper, SearchBox, StyledFilterForm, Searchfield, StyledSuggestionsList, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, SearchBoxAndSelectionWrapper } from "./FilteredRecipes.styles";
+import { SearchSectionAndRecipeListWrapper, SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, StyledTextSuggestion, Selection, StyledSelectedSuggestion, StyledCross, ResetButton, SearchBoxAndSelectionWrapper } from "./FilteredRecipes.styles";
 
 
 export default function FilteredRecipes({
@@ -72,7 +72,7 @@ export default function FilteredRecipes({
     <SearchSectionAndRecipeListWrapper>
       <SearchBoxAndSelectionWrapper>
       <SearchBox>
-        <StyledFilterForm onSubmit={handleSearchSubmit}>
+        <SearchfieldAndDropDown onSubmit={handleSearchSubmit}>
           <Searchfield
             placeholder="Type your symptom and select from the list 🔍"
             type="text"
@@ -84,9 +84,8 @@ export default function FilteredRecipes({
             }}
             value={userInput}
           />
-          <StyledSuggestionsList>
-            {userInput &&
-              symptomSuggestions.map((suggestion) => (
+           {userInput &&<FakeDropDown>
+             { symptomSuggestions.map((suggestion) => (
                 <StyledTextSuggestion
                   key={suggestion}
                   onClick={() => handleSymptomSuggestionClick(suggestion)}
@@ -94,20 +93,20 @@ export default function FilteredRecipes({
                   {suggestion}
                 </StyledTextSuggestion>
               ))}
-          </StyledSuggestionsList>
+          </FakeDropDown>}
 
-        </StyledFilterForm>
+        </SearchfieldAndDropDown>
         <ResetButton onClick={handleResetSubmit}>Reset</ResetButton>
         </SearchBox>
 
         <Selection>
             {selectedSymptoms.map((symptom) => (
-              <StyledSelectedSuggestion key={symptom}>
+              <DropDownOption key={symptom}>
                 {symptom}{" "}
                 <StyledCross onClick={() => removeSelectedSymptom(symptom)}>
                   ✖️
                 </StyledCross>
-              </StyledSelectedSuggestion>
+              </DropDownOption>
             ))}
           </Selection>
       </SearchBoxAndSelectionWrapper>

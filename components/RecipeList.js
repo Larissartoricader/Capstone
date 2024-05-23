@@ -2,6 +2,7 @@ import RecipeCard from "./RecipeCard";
 import styled from "styled-components";
 
 const StyledList = styled.div`
+/* width: 95%; */
   list-style: none;
   display: grid;
   column-gap: 30px;

@@ -3,30 +3,34 @@ import styled from "styled-components";
 export const SearchSectionAndRecipeListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-inline: 10px;
-  gap: 10px;
+  align-items: center;
+  width: 100%;
+  /* padding-inline: 10px; */
+  /* gap: 10px; */
 `;
 
-export const SearchBoxAndSelectionWrapper = styled.div`
+export const SearchBoxAndSelectionWrapper = styled.div`width: 100%;  padding-left: 10px;
 display: flex; flex-direction: column; gap: 1rem;`;
 
 
 export const SearchBox = styled.div`
-width: 100%;
+width: 95%;
 display: flex;
-
 align-items: center;
-border-radius: var(--small-box-border-radius);
-  /* position: relative; */
-`;
+gap: 5px;
+border-radius: var(--small-box-border-radius);`;
 
-export const StyledFilterForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
+export const SearchfieldAndDropDown = styled.div`width: 80%; 
+margin-right: 22px;`
+// styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px;
+// `;
+
 
 export const Searchfield = styled.input`
+width: 100%;
   padding: 10px;
   font-size: 16px;
   border: none;
@@ -51,24 +55,42 @@ export const Searchfield = styled.input`
   }
 `;
 
+export const ResetButton = styled.button`
+  max-width: 60px;
+  padding: 10px;
+  border: none;
+  background-color: var( --secondary-button-color);
+  color: white;
+  border-radius: var(--small-box-border-radius);`;
 
-export const StyledSuggestionsList = styled.div`
-  background-color: white;
-  border-radius: var(--small-box-border-radius);
-  position: absolute;
-  top: 38px;
-  right: 2px;
-  width: 80%;
+
+export const FakeDropDown = styled.div`
+padding: 10px; 
+  border: var(--general-border);
+  border-radius: 0 0 8px 8px;
+  background-color: var(--box-background-color);
+  width: 100%;
   z-index: 1;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* top: 38px;
+  right: 2px; */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 200px;
-  overflow-y: auto;
-`;
+  overflow-y: auto; */
+  `
 
 export const StyledTextSuggestion = styled.p`
   color: var(--font-color);
   font-size: medium;
   display: block;
+`;
+
+export const DropDownOption = styled.button`
+  background-color: var(--box-background-color);
+  text-align: left;
+  border: none;
+  font-size: var(--label-font-size); 
+  font-family: var(--label-font);
+  width: 100%;
 `;
 
 export const Selection = styled.div`
@@ -91,11 +113,3 @@ background-color: var( --symptom-color);
   border: none;
 `;
 
-export const ResetButton = styled.button`
-  max-width: 60px;
-  border: none;
-  background-color: var( --secondary-button-color);
-  color: white;
-  border-radius: var(--small-box-border-radius);
-  padding: 5px 10px;
-`;
