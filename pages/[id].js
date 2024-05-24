@@ -9,6 +9,7 @@ const StyledRecipeHeader = styled.div`
   display: flex;
   padding-right: 10px;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const BackLink = styled(Link)`
@@ -89,9 +90,11 @@ export default function RecipeDetailsPage({
   return (
     <>
       <StyledRecipeHeader>
+
         <BackLink href="/" onClick={handleBackClick}>
           back
         </BackLink>
+
         <StyledHerbieBox>
           <StyledRecipeBy>Recipe by</StyledRecipeBy>
           {currentRecipe.author ? (
@@ -103,7 +106,9 @@ export default function RecipeDetailsPage({
             </HerbieStarBox>
           )}
         </StyledHerbieBox>
+
       </StyledRecipeHeader>
+
       <ContentContainer>
         <RecipeDetails
           currentRecipe={currentRecipe}

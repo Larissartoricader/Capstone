@@ -101,8 +101,6 @@ export default function FilteredRecipes({
             {selectedSymptoms.map((symptom) => (
               <SelectedSuggestion key={symptom}>
                 <SelectedSuggestionText>
-
-               
                 {symptom}{" "}
                 </SelectedSuggestionText>
                 <SelectedSuggestionCross onClick={() => removeSelectedSymptom(symptom)}>
@@ -111,7 +109,6 @@ export default function FilteredRecipes({
               </SelectedSuggestion>
             ))}
           </Selection>
-     
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         recipes={filteredRecipes}
