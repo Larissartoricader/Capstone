@@ -64,12 +64,7 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   return (
     <div>
       {isPopupOpen ? (
-        <Backdrop
-          onClick={closePopup}
-          role="button"
-          aria-label="Close tip popup"
-          tabIndex="0"
-        />
+        <Backdrop onClick={closePopup} role="button" tabIndex="0" />
       ) : null}
       <TipOfTheDayWrapper>
         {isPopupOpen ? (
