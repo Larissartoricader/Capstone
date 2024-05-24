@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { GoStarFill } from "react-icons/go";
 
-export  const StyledRecipeHeader = styled.div`
+export const StyledRecipeHeader = styled.div`
  display: flex;
   padding-right: 10px;
   justify-content: space-between;

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import RecipeDetails from "@/components/RecipeDetails";
 import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
- } from "styled-components";
+ } from "@/components/RecipeDetailsPage.styles";
 import useSWR from "swr";
 import Link from "next/link";
 import { GoStarFill } from "react-icons/go";
@@ -37,11 +37,9 @@ export default function RecipeDetailsPage({
   return (
     <>
       <StyledRecipeHeader>
-
         <BackLink href="/" onClick={handleBackClick}>
           back
         </BackLink>
-
         <StyledHerbieBox>
           <StyledRecipeBy>Recipe by</StyledRecipeBy>
           {currentRecipe.author ? (
