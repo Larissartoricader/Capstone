@@ -6,15 +6,7 @@ import Image from "next/image";
 import { BookmarkIcon } from "./BookmarkIcon";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
-
-const StyledToast = styled.div`
-  background-color: #5cb85c;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-`;
 
 const RecipeArticle = styled.article`
   background-color: var(--secondary-background-color);
