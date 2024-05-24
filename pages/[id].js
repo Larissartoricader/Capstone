@@ -3,8 +3,7 @@ import RecipeDetails from "@/components/RecipeDetails";
 import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
  } from "@/components/RecipeDetailsPage.styles";
 import useSWR from "swr";
-import Link from "next/link";
-import { GoStarFill } from "react-icons/go";
+
 
 
 
