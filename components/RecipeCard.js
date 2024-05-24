@@ -64,6 +64,7 @@ const StyledContentWrapper = styled.div`
 
 const StyledInfoBox = styled.div`
   margin-left: 10px;
+  color: var(--font-color);
 `;
 
 const StyledHeader = styled.p`
@@ -89,7 +90,7 @@ const StyledRecipeBy = styled.p`
 
 const StyledHerbie = styled.p`
   font-size: medium;
-
+  color: var(--font-color);
   font-weight: bold;
   font-family: var(--herbie-font);
 `;

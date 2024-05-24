@@ -71,16 +71,13 @@ export const ResetButton = styled.button`
 
 // 3. Ebene
 export const FakeDropDown = styled.div`
-padding-inline: 10px; 
   border: var(--general-border);
   border-radius: 0 0 8px 8px;
   background-color: var(--box-background-color);
+  padding-inline: 8px; 
   width: 100%;
-  top: 38px;
-  right: 2px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-height: 200px;
-  overflow-y: auto;`
+  overflow-y: auto;
+  `
   
 // 4. Ebene
 export const DropDownOption = styled.button`
@@ -92,7 +89,6 @@ color: var(--font-color);
   text-align: left;
   border: none;
   width: 100%;
-  z-index: 2;
 `;
 
 // 2. Ebene
