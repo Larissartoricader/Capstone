@@ -120,7 +120,7 @@ padding: 30px 0 20px 0;
 `
 
 export const SubmitButton = styled.button`
-background-color: #ffc107;
+background-color: var(--primary-button-and-header-color);
 color: white; border: none;
 border-radius: var(--small-box-border-radius); 
 height: 6vh;
@@ -131,8 +131,8 @@ font-weight: bold;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }`
 export const CancelButton = styled.button`
-background-color: #ff0000; 
-color: white;
+background-color: var(--secondary-button-color);
+color: black;
 border: none;
 border-radius: var(--small-box-border-radius); 
 height: 6vh;

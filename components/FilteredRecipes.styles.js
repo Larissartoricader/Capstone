@@ -2,11 +2,7 @@ import styled from "styled-components";
 
 // 1. Ebene
 export const Wrapper = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   gap: 1rem;
-  /* width: 80%; */
   padding-inline: 2.5%;
 display: grid;
   grid-template-rows: auto 1fr;
