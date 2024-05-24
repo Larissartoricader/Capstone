@@ -14,6 +14,7 @@ export const RecipeArticle = styled.article`
   margin-inline: 15px;
   border-radius: var(--big-box-border-radius);
   position: relative;
+  color: var(--font-color);
 `;
 
 export const StyledRecipeDetailPicture = styled.div`
@@ -74,7 +75,7 @@ export const CollapsibleContainer = styled.div`
 
 export const CollapsibleButton = styled.div`
   background-color: #dedbdb;
-  color: black;
+  color: var(--font-color);
   cursor: pointer;
   padding: 2px;
   margin: 5px;
@@ -120,7 +121,7 @@ export const StyledButton = styled.button`
 `;
 
 export const EditButton = styled(StyledButton)`
-  background-color: #ffc107;
+  background-color: var( --secondary-button-color);
 `;
 
 export const DeleteButton = styled(StyledButton)`

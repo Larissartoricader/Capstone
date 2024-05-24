@@ -16,13 +16,14 @@ export const BackLink = styled(Link)`
   border-radius: 15px;
   width: 10%;
   height: 10%;
-  color: black;
+  color: var(--font-color);
   text-align: center;
   font-weight: bold;
 `;
 
 export const StyledRecipeBy = styled.p`
   font-size: small;
+  color: var(--font-color);
 `;
 
 export const StyledHerbie = styled.p`
