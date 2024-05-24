@@ -12,7 +12,9 @@ const StyledRecipeHeader = styled.div`
   justify-content: space-between;
 `;
 
-const BackLink = styled(Link)`
+const BackLink = styled(Link).attrs({
+  alt: "Back to recipes",
+})`
   background-color: #fcfbf4;
   padding: 10px;
   margin-top: 20px;
