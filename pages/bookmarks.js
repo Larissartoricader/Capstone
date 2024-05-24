@@ -7,10 +7,6 @@ const WhiteSpace = styled.div`
   height: 20vh;
 `;
 
-const StyledHeadline = styled.h1`
-  text-align: center;
-`;
-
 export default function BookmarkPage({
   bookmarkedRecipesIDs,
   onToggleBookmark,
@@ -31,7 +27,6 @@ export default function BookmarkPage({
 
   return (
     <>
-      <StyledHeadline>Bookmark Page</StyledHeadline>
       <RecipeList
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         recipes={bookmarkedRecipes}
