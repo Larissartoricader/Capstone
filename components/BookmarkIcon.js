@@ -14,6 +14,11 @@ const StyledBookmarkIcon = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 1.5em;
+
+  & > svg {
+    alt: ${({ isBookmarked }) =>
+      isBookmarked ? "Bookmarked" : "Not Bookmarked"};
+  }
 `;
 
 const StyledFilledHeart = styled(FaHeart)`
@@ -36,7 +41,10 @@ export function BookmarkIcon({
   const isBookmarked = bookmarkedRecipesIDs.includes(recipe._id);
 
   return (
-    <StyledBookmarkIcon onClick={handleClick}>
+    <StyledBookmarkIcon
+      onClick={handleClick}
+      aria-label={isBookmarked ? "Remove Bookmark" : "Add Bookmark"}
+    >
       {isBookmarked ? <StyledFilledHeart /> : <StyledUnfilledHeart />}
     </StyledBookmarkIcon>
   );
