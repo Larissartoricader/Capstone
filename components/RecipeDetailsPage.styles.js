@@ -12,7 +12,6 @@ export const StyledRecipeHeader = styled.div`
 export const BackLink = styled(Link)`
   background-color: #fcfbf4;
   padding: 10px;
-  margin-top: 20px;
   margin-left: 20px;
   border-radius: 15px;
   width: 10%;

@@ -5,8 +5,6 @@ import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbi
 import useSWR from "swr";
 
 
-
-
 export default function RecipeDetailsPage({
   onDeleteRecipe,
   bookmarkedRecipesIDs,
