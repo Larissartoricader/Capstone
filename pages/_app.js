@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
+import { useRef, useState } from "react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -44,6 +45,34 @@ export default function App({ Component, pageProps }) {
       ? removeRecipeFromBookmarked(id)
       : addRecipeToBookmarked(id);
   }
+  const modalRef = useRef();
+
+  const [modalInfo, setModalInfo] = useState({
+    message: "",
+    textButtonClose: "",
+    textButtonConfirm: "",
+    onConfirm: () => {},
+    onClose: () => {},
+  });
+
+  const openModal = ({
+    message,
+    textButtonClose,
+    textButtonConfirm,
+    onConfirm,
+  }) => {
+    const onClose = () => {
+      modalRef.current.close();
+    };
+    setModalInfo({
+      message,
+      textButtonClose,
+      textButtonConfirm,
+      onConfirm,
+      onClose,
+    });
+    modalRef.current.showModal();
+  };
 
   return (
     <SessionProvider session={pageProps.session}>
@@ -55,6 +84,9 @@ export default function App({ Component, pageProps }) {
             {...pageProps}
             onToggleBookmark={handleBookmarkedIcon}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+            openModal={openModal}
+            modalInfo={modalInfo}
+            modalRef={modalRef}
           />
         </Layout>
       </SWRConfig>
