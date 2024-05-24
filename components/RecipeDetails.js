@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import styled from "styled-components";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Image from "next/image";
 import { BookmarkIcon } from "./BookmarkIcon";

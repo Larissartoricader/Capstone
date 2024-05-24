@@ -1,65 +1,12 @@
 import { useRouter } from "next/router";
 import RecipeDetails from "@/components/RecipeDetails";
-import styled from "styled-components";
+import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
+ } from "styled-components";
 import useSWR from "swr";
 import Link from "next/link";
 import { GoStarFill } from "react-icons/go";
 
-const StyledRecipeHeader = styled.div`
-  display: flex;
-  padding-right: 10px;
-  justify-content: space-between;
-  align-items: center;
-`;
 
-const BackLink = styled(Link)`
-  background-color: #fcfbf4;
-  padding: 10px;
-  margin-top: 20px;
-  margin-left: 20px;
-  border-radius: 15px;
-  width: 10%;
-  height: 10%;
-  color: black;
-  text-align: center;
-  font-weight: bold;
-`;
-
-const StyledRecipeBy = styled.p`
-  font-size: small;
-`;
-
-const StyledHerbie = styled.p`
-  font-size: large;
-  font-family: var(--herbie-font);
-`;
-
-const StyledHerbieBox = styled.div`
-  display: flex;
-  gap: 3px;
-  align-items: center;
-`;
-
-const StyledStar = styled(GoStarFill)`
-  color: #ffa62f;
-  font-size: 20px;
-  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
-`;
-
-const HerbieStarBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1px;
-`;
-
-const ContentContainer = styled.div`
-  margin-top: 3px;
-`;
-
-const WhiteSpace = styled.div`
-  height: 20vh;
-`;
 
 export default function RecipeDetailsPage({
   onDeleteRecipe,
