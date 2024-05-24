@@ -5,7 +5,7 @@ import Login from "./Login"
 const HeaderWrapper = styled.article`display: flex;
 justify-content: space-between;
 align-items: center;
-position: fixed; z-index: 1;
+position: fixed; z-index: 2;
 padding-top: 0; margin-top: 0;
 width: 100%; color: white; background-color: var(--primary-button-and-header-color);`
 
