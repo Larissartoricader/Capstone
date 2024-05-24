@@ -63,15 +63,25 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const currentTip = recipes[currentTipIndex];
   return (
     <div>
-      {isPopupOpen ? <Backdrop onClick={closePopup} /> : null}
+      {isPopupOpen ? (
+        <Backdrop
+          onClick={closePopup}
+          role="button"
+          aria-label="Close tip popup"
+          tabIndex="0"
+        />
+      ) : null}
       <TipOfTheDayWrapper>
         {isPopupOpen ? (
           <TipOfTheDay recipe={currentTip} onClose={closePopup} />
         ) : null}
-        <Button onClick={handleNextTip}>
+        <Button
+          onClick={handleNextTip}
+          aria-label={isPopupOpen ? "Reload tip" : "Get tip"}
+        >
           <Image
             src={isPopupOpen ? ReloadButton : ClickButton}
-            alt={isPopupOpen ? "Click further" : "Click me"}
+            alt={isPopupOpen ? "Reloading tip" : "Get tip"}
             width={60}
             height={60}
           />
