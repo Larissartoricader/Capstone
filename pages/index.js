@@ -11,7 +11,6 @@ import React from "react";
 
 const Button = styled.button`
   background: transparent;
-
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -34,7 +33,6 @@ const Backdrop = styled.div`
   opacity: 0.4;
   z-index: 1;
 `;
-
 
 
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
