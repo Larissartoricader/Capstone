@@ -31,10 +31,16 @@ export default function RecipeList({
   onToggleBookmark,
   bookmarkedRecipesIDs,
 }) {
+  const sortedRecipes = recipes.sort((a, b) => {
+    if (a._id > b._id) return -1;
+    if (a._id < b._id) return 1;
+    return 0;
+  });
+
   return (
     <>
       <StyledList>
-        {recipes.map((recipe) => (
+        {sortedRecipes.map((recipe) => (
           <li key={recipe._id}>
             <RecipeCard
               onToggleBookmark={onToggleBookmark}
