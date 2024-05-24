@@ -5,7 +5,8 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import Image from "next/image";
 import { BookmarkIcon } from "./BookmarkIcon";
 import Link from "next/link";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "../node_modules/react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
 
 const RecipeArticle = styled.article`
