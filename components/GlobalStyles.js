@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
   
     --herbie-font: ${merienda.style.fontFamily};
     --general-font: 'Arial';
+    --general-font-size: 16px;
    
     --font-color: #013220;
     --box-background-color: white;

@@ -48,7 +48,7 @@ export const InputFieldLabel = styled.label`
 export const TitleInputField = styled.input`
   border: var(--general-border);
   border-radius: var(--small-box-border-radius);
-  font-size: 16px;
+  font-size: var(--general-font-size);
   font-family: var(--general-font);
   padding: 10px;
   width: 80%;
@@ -57,7 +57,7 @@ export const TitleInputField = styled.input`
 export const BiggerFormField = styled.textarea`
   border: var(--general-border);
   border-radius: 12px;
-  font-size: 16px;
+  font-size: var(--general-font-size);
   font-family: var(--general-font);
   padding: 10px;
   height: 15vh;
@@ -71,7 +71,7 @@ export const ContainerOfInputFieldAndDropDown = styled.div`
 
 export const IngredientsSymptomsInputField = styled.input`
   border: var(--general-border);
-  font-size: 16px;
+  font-size: var(--general-font-size);
   padding: 10px;
   font-family: var(--general-font);
   width: 100%;
@@ -92,7 +92,7 @@ export const DropDownOption = styled.button`
   text-align: left;
   border: none;
   width: 100%;
-  font-size: 16px;
+  font-size: var(--general-font-size);
 `;
 
 export const Selection = styled.ul`
@@ -141,6 +141,7 @@ background-color: var(--primary-button-and-header-color);
 color: white; border: none;
 border-radius: var(--small-box-border-radius); 
 height: 6vh;
+font-size: var(--general-font-size);
 font-family: var(--general-font);
 font-weight: bold;
 &:hover {
@@ -155,12 +156,12 @@ color: black;
 border: none;
 border-radius: var(--small-box-border-radius); 
 height: 6vh;
+font-size: var(--general-font-size);
 font-family: var(--general-font);
  font-weight: bold;&:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
-  
 `;
 
 
