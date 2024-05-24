@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 export const Wrapper = styled.div`
+position: relative;
   gap: 1rem;
   padding-inline: 2.5%;
 display: grid;
@@ -24,7 +25,8 @@ border-radius: var(--small-box-border-radius);`;
 
 export const SearchfieldAndDropDown = styled.div`
 width: 80%; 
-margin-right: 22px;`;
+margin-right: 22px;
+position: relative;`;
 
 
 export const Searchfield = styled.input`
@@ -67,6 +69,8 @@ export const ResetButton = styled.button`
 
 
 export const FakeDropDown = styled.div`
+position: absolute;
+z-index: 3;
   border: var(--general-border);
   border-radius: 0 0 8px 8px;
   background-color: var(--box-background-color);
