@@ -66,7 +66,7 @@ export const ConfirmationModal = ({ modalInfo, modalRef }) => {
     modalInfo;
 
   return (
-    <Dialog ref={modalRef}>
+    <Dialog ref={modalRef} aria-labelledby="confirmation-modal" role="dialog">
       <StyledHerbie src={Herbie} alt={"Herbie"} width={75} height={100} />
       <DialogMessage>{message}</DialogMessage>
       <ButtonWrap>
