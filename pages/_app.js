@@ -1,10 +1,10 @@
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
+import { CustomToastContainer } from "@/components/ToastContainer.styles";
 import { useRef, useState } from "react";
 
 const fetcher = async (url) => {
@@ -79,7 +79,7 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher }}>
         <GlobalStyle />
         <Layout>
-          <ToastContainer />
+          <CustomToastContainer />
           <Component
             {...pageProps}
             onToggleBookmark={handleBookmarkedIcon}

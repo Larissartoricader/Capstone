@@ -2,13 +2,6 @@ import styled from "styled-components";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Image from "next/image";
 
-export const StyledToast = styled.div`
-  background-color: #5cb85c;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-`;
-
 export const RecipeArticle = styled.article`
   background-color: var(--secondary-background-color);
   margin-inline: 15px;

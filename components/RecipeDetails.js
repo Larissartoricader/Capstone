@@ -1,13 +1,10 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import Image from "next/image";
 import { BookmarkIcon } from "./BookmarkIcon";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
-import { StyledToast, RecipeArticle, StyledRecipeDetailPicture, StyledBookmarkIcon, StyledImage, SytledRecipeTitle, StyledItemsBox, StyledItemListTitle, StyleItemsList, StyledItems, CollapsibleButton, CollapsibleContainer, StyledIcon, StyledTextButton, CollapsibleContent, CollapsibleText, EditButton, DeleteButton, ButtonsBox } from "./RecipeDetails.styles";
+import { RecipeArticle, StyledRecipeDetailPicture, StyledBookmarkIcon, StyledImage, SytledRecipeTitle, StyledItemsBox, StyledItemListTitle, StyleItemsList, StyledItems, CollapsibleButton, CollapsibleContainer, StyledIcon, StyledTextButton, CollapsibleContent, CollapsibleText, EditButton, DeleteButton, ButtonsBox } from "./RecipeDetails.styles";
 
 
 export default function RecipeDetails({
