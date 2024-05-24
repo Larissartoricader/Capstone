@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import RecipeDetails from "@/components/RecipeDetails";
+import RecipeDetails from "@/components/RecipeDetails/RecipeDetails";
 import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
  } from "@/components/RecipeDetailsPage.styles";
 import useSWR from "swr";

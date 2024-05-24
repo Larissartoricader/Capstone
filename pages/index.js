@@ -1,5 +1,5 @@
 "use client";
-import FilteredRecipes from "@/components/FilteredRecipes";
+import FilteredRecipes from "@/components/FilteredRecipes/FilteredRecipes";
 import TipOfTheDay from "@/components/TipOfTheDay";
 import styled from "styled-components";
 import { useState } from "react";

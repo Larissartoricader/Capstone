@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RecipeList from "./RecipeList";
+import RecipeList from "../RecipeList";
 import { SearchBox, SearchfieldAndDropDown, Searchfield, FakeDropDown, DropDownOption, Selection, ResetButton, Wrapper, SelectedSuggestion, SelectedSuggestionText, SelectedSuggestionCross } from "./FilteredRecipes.styles";
 
 

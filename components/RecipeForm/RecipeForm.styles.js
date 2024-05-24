@@ -48,7 +48,7 @@ export const InputFieldLabel = styled.label`
 export const TitleInputField = styled.input`
   border: var(--general-border);
   border-radius: var(--small-box-border-radius);
-  font-size: var(--input-field-font-size);
+  font-size: 16px;
   font-family: var(--general-font);
   padding: 10px;
   width: 80%;
@@ -57,7 +57,7 @@ export const TitleInputField = styled.input`
 export const BiggerFormField = styled.textarea`
   border: var(--general-border);
   border-radius: 12px;
-  font-size: var(--input-field-font-size);
+  font-size: 16px;
   font-family: var(--general-font);
   padding: 10px;
   height: 15vh;
@@ -71,8 +71,8 @@ export const ContainerOfInputFieldAndDropDown = styled.div`
 
 export const IngredientsSymptomsInputField = styled.input`
   border: var(--general-border);
+  font-size: 16px;
   padding: 10px;
-  font-size: var(--label-font-size);
   font-family: var(--general-font);
   width: 100%;
   border-radius: 8px;
@@ -92,6 +92,7 @@ export const DropDownOption = styled.button`
   text-align: left;
   border: none;
   width: 100%;
+  font-size: 16px;
 `;
 
 export const Selection = styled.ul`
@@ -110,7 +111,6 @@ gap: 2%;
   width: auto;
   padding: 2px 7px; 
   margin: 0 0;
-  font-size: var(--input-field-font-size); font-family: var(--label-font);
 `;
 
 export const SelectedValueText = styled.p`
@@ -141,14 +141,12 @@ background-color: var(--primary-button-and-header-color);
 color: white; border: none;
 border-radius: var(--small-box-border-radius); 
 height: 6vh;
-font-family: var(--general-font); font-size: var(--label-font-size);
+font-family: var(--general-font);
 font-weight: bold;
 &:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }`
-
-
 
 
 export const CancelButton = styled.button`
@@ -157,14 +155,13 @@ color: black;
 border: none;
 border-radius: var(--small-box-border-radius); 
 height: 6vh;
-font-family: var(--general-font); font-size: var(--label-font-size); font-weight: bold;&:hover {
+font-family: var(--general-font);
+ font-weight: bold;&:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   
 `;
-
-
 
 
 export const WhiteSpaceBottom = styled.div`

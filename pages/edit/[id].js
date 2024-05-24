@@ -1,4 +1,4 @@
-import RecipeForm from "@/components/RecipeForm";
+import RecipeForm from "@/components/RecipeForm/RecipeForm";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
