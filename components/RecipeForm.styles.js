@@ -98,7 +98,7 @@ gap: 2%;
   border-radius: var( --small-box-border-radius);
   background-color: lightgrey;
   width: auto;
-  padding: 0 2vw; 
+  padding: 2px 7px; 
   margin: 0 0;
   font-size: var(--input-field-font-size); font-family: var(--label-font);
 `;
