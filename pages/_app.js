@@ -1,10 +1,9 @@
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
-import { ToastContainer, toast } from "react-toastify";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
-import "../node_modules/react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import { CustomToastContainer } from "@/components/ToastContainer.styles";
 
 const fetcher = async (url) => {

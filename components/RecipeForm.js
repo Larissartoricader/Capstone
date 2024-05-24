@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { ToastContainer, toast } from "react-toastify";
-import "../node_modules/react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
 import {
