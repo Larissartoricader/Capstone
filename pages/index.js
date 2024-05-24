@@ -74,7 +74,7 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
             alt={isPopupOpen ? "Click further" : "Click me"}
             width={60}
             height={60}
-          ></Image>
+          />
         </Button>
       </TipOfTheDayWrapper>
       <FilteredRecipes

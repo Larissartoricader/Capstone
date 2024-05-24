@@ -3,12 +3,16 @@ import RecipeDetails from "@/components/RecipeDetails";
 import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
  } from "@/components/RecipeDetailsPage.styles";
 import useSWR from "swr";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
 
 
 export default function RecipeDetailsPage({
   onDeleteRecipe,
   bookmarkedRecipesIDs,
   onToggleBookmark,
+  modalInfo,
+  openModal,
+  modalRef,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -52,11 +56,13 @@ export default function RecipeDetailsPage({
       </StyledRecipeHeader>
 
       <ContentContainer>
+        <ConfirmationModal modalRef={modalRef} modalInfo={modalInfo} />
         <RecipeDetails
           currentRecipe={currentRecipe}
           onDeleteRecipe={onDeleteRecipe}
           onToggleBookmark={onToggleBookmark}
           bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          showDeleteModal={openModal}
         />
       </ContentContainer>
       <WhiteSpace />
