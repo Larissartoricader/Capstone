@@ -138,6 +138,7 @@ export default function RecipeDetails({
   currentRecipe,
   bookmarkedRecipesIDs,
   onToggleBookmark,
+  showDeleteModal,
 }) {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -165,6 +166,12 @@ export default function RecipeDetails({
       router.push("/");
       toast.success("Recipe deleted successfully!", {});
     }
+  };
+  const modalContent = {
+    message: "Do you really want to delete this Recipe?",
+    textButtonClose: "No",
+    textButtonConfirm: "Yes",
+    onConfirm: handleDelete,
   };
 
   return (
@@ -220,7 +227,12 @@ export default function RecipeDetails({
             <Link href={`/edit/${currentRecipe._id}`}>
               <EditButton type="button">Edit</EditButton>
             </Link>
-            <DeleteButton onClick={handleDelete} type="button">
+            <DeleteButton
+              onClick={() => {
+                showDeleteModal(modalContent);
+              }}
+              type="button"
+            >
               Delete
             </DeleteButton>
           </>
