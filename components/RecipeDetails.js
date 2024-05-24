@@ -196,7 +196,10 @@ export default function RecipeDetails({
         </StyleItemsList>
       </StyledItemsBox>
       <CollapsibleContainer>
-        <CollapsibleButton onClick={togglePreparationCollapse}>
+        <CollapsibleButton
+          onClick={togglePreparationCollapse}
+          aria-expanded={isPreparationOpen}
+        >
           <StyledTextButton>Preparation</StyledTextButton>
           <StyledIcon />
         </CollapsibleButton>
@@ -204,7 +207,10 @@ export default function RecipeDetails({
           <CollapsibleText>{preparation}</CollapsibleText>
         </CollapsibleContent>
 
-        <CollapsibleButton onClick={toggleUsageCollapse}>
+        <CollapsibleButton
+          onClick={toggleUsageCollapse}
+          aria-expanded={isUsageOpen}
+        >
           Usage
           <StyledIcon />
         </CollapsibleButton>
