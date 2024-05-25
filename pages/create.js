@@ -1,10 +1,8 @@
-import RecipeForm from "@/components/RecipeForm";
-import styled from "styled-components";
+import RecipeForm from "@/components/RecipeForm/RecipeForm";
 
 
 
-export default function CreateRecipePage({}) {
-
+export default function CreateRecipePage() {
 
   return (
       <RecipeForm />
