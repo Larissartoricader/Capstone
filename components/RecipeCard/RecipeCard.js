@@ -26,7 +26,7 @@ export default function RecipeCard({
               <p>{recipe.author}</p>
             ) : (
               <HerbieStarBox>
-                <StyledHerbie>Herbie</StyledHerbie>
+                <StyledHerbie>herbie</StyledHerbie>
                 <StyledStar />
               </HerbieStarBox>
             )}
