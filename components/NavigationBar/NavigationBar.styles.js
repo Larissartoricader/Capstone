@@ -13,6 +13,7 @@ z-index: 2;
   width: 100%;
   padding: 0.5rem 1rem;
   background: #ffffff;
+  color: var(--primary-button-and-header-color);
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 `;
 
@@ -32,22 +33,18 @@ export const StyledLink = styled.a`
 
 export const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 30px;
-  /* color: var(--primary-button-and-header-color); */
 `;
 
 export const StyledHomeIcon = styled(GoHome)`
   font-size: 30px;
-  color: var(--primary-button-and-header-color);
 `;
 
 export const StyledHeartIcon = styled(CiHeart)`
   font-size: 30px;
-  /* color: var(--primary-button-and-header-color); */
 `;
 
 export const MenuTitle = styled.p`
   font-size: 8px;
-  /* color: var(--primary-button-and-header-color); */
 `;
 
 export const MenuIconTitleBox = styled.div`
