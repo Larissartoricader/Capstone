@@ -1,6 +1,6 @@
 "use client";
 import FilteredRecipes from "@/components/FilteredRecipes/FilteredRecipes";
-import TipOfTheDay from "@/components/TipOfTheDay";
+import TipOfTheDay from "@/components/TipOfTheDay/TipOfTheDay";
 import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
