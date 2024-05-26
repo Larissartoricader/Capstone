@@ -12,9 +12,7 @@ const StyledRecipeHeader = styled.div`
   justify-content: space-between;
 `;
 
-const BackLink = styled(Link).attrs({
-  alt: "Back to recipes",
-})`
+const BackLink = styled(Link)`
   background-color: #fcfbf4;
   padding: 10px;
   margin-top: 20px;
@@ -95,7 +93,11 @@ export default function RecipeDetailsPage({
   return (
     <>
       <StyledRecipeHeader>
-        <BackLink href="/" onClick={handleBackClick}>
+        <BackLink
+          href="/"
+          onClick={handleBackClick}
+          aria-label="Back to recipes"
+        >
           back
         </BackLink>
         <StyledHerbieBox>
