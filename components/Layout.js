@@ -1,5 +1,5 @@
 import Head from "next/head.js";
-import NavigationBar from "./NavigationBar.js";
+import NavigationBar from "./NavigationBar/NavigationBar.js";
 import { Header } from "./Header.js";
 import styled from "styled-components";
 
