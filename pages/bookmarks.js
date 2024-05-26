@@ -1,11 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import RecipeList from "@/components/RecipeList/RecipeList";
 import useSWR from "swr";
-
-const WhiteSpace = styled.div`
-  height: 20vh;
-`;
+import { WhiteSpace } from "@/components/BookmarkPage.styles";
 
 export default function BookmarkPage({
   bookmarkedRecipesIDs,

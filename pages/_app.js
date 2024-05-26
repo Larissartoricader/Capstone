@@ -1,7 +1,7 @@
 import GlobalStyle from "@/components/GlobalStyles";
 import { SWRConfig } from "swr";
 import useLocalStorageState from "use-local-storage-state";
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import { SessionProvider } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
 import { CustomToastContainer } from "@/components/ToastContainer.styles";
