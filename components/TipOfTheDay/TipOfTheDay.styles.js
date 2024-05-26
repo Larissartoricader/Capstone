@@ -21,6 +21,7 @@ export const StyledCard = styled.div`
   position: absolute;
   bottom: 100%;
   left: 40%;
+  color: var(--font-color);
 
   &:hover {
     transform: scale(1.05);
