@@ -1,6 +1,6 @@
 import Head from "next/head.js";
 import NavigationBar from "./NavigationBar/NavigationBar.js";
-import { Header } from "./Header.js";
+import { Header } from "./Header/Header.js";
 import styled from "styled-components";
 
 const WhiteSpaceTop = styled.div`height: 90px;`

@@ -34,7 +34,6 @@ const Backdrop = styled.div`
   z-index: 1;
 `;
 
-
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
     return Math.floor(Math.random() * recipes.length);
