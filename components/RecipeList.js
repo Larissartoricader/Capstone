@@ -1,4 +1,4 @@
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "./RecipeCard/RecipeCard";
 import styled from "styled-components";
 
 const StyledList = styled.div`
