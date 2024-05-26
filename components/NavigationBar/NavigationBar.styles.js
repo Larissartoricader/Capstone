@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { GoHeart, GoHeartFill } from "react-icons/go";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export  const StyledNav = styled.nav`
 z-index: 2;
@@ -61,11 +62,11 @@ export const FilledHomeIcon = styled(GoHomeFill)`
   color: var(--primary-button-and-header-color);
 `;
 
-export const EmptyHeartIcon = styled(GoHeart)`
+export const EmptyHeartIcon = styled(FaRegHeart)`
   font-size: 30px;
 `;
 
-export const FilledHeartIcon = styled(GoHeartFill)`
+export const FilledHeartIcon = styled(FaHeart)`
   font-size: 30px;
   color: var(--primary-button-and-header-color);
 `;

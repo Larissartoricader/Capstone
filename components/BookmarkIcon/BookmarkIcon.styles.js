@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export const StyledBookmarkIcon = styled.button`
   border: none;
