@@ -77,6 +77,7 @@ export const AuthorBox = styled.div`
   left: 1px;
   font-size: small;
   margin-left: 10px;
+  color: var(--font-color);
 `;
 
 export const StyledRecipeBy = styled.p`
