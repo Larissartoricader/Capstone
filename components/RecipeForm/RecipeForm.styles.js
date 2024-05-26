@@ -67,6 +67,7 @@ export const BiggerFormField = styled.textarea`
 export const ContainerOfInputFieldAndDropDown = styled.div`
   width: 80%;
   margin-right: 22px;
+  position: relative;
 `;
 
 export const IngredientsSymptomsInputField = styled.input`
@@ -85,6 +86,7 @@ export const FakeDropDown = styled.div`
   background-color: var(--box-background-color);
   width: 100%;
   z-index: 1;
+  position: absolute;
 `;
 
 export const DropDownOption = styled.button`
