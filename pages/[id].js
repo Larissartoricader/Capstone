@@ -3,7 +3,7 @@ import RecipeDetails from "@/components/RecipeDetails/RecipeDetails";
 import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
  } from "@/components/RecipeDetailsPage.styles";
 import useSWR from "swr";
-import { ConfirmationModal } from "@/components/ConfirmationModal";
+import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
 
 
 export default function RecipeDetailsPage({
