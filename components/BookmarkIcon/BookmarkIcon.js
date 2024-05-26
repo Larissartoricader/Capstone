@@ -2,7 +2,6 @@ import React from "react";
 import { StyledBookmarkIcon, StyledFilledHeart, StyledUnfilledHeart } from "./BookmarkIcon.styles";
 
 
-
 export function BookmarkIcon({
   onToggleBookmark,
   recipe,
