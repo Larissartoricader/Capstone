@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import RecipeList from "@/components/RecipeList";
+import RecipeList from "@/components/RecipeList/RecipeList";
 import useSWR from "swr";
 
 const WhiteSpace = styled.div`
