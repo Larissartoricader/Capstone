@@ -45,7 +45,11 @@ export function BookmarkIcon({
       onClick={handleClick}
       aria-label={isBookmarked ? "Remove Bookmark" : "Add Bookmark"}
     >
-      {isBookmarked ? <StyledFilledHeart /> : <StyledUnfilledHeart />}
+      {isBookmarked ? (
+        <StyledFilledHeart alt="Bookmarked" />
+      ) : (
+        <StyledUnfilledHeart alt="Not Bookmarked" />
+      )}
     </StyledBookmarkIcon>
   );
 }
