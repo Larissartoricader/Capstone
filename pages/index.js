@@ -1,38 +1,15 @@
 "use client";
 import FilteredRecipes from "@/components/FilteredRecipes/FilteredRecipes";
 import TipOfTheDay from "@/components/TipOfTheDay/TipOfTheDay";
-import styled from "styled-components";
 import { useState } from "react";
 import useSWR from "swr";
 import Image from "next/image";
 import ClickButton from "@/assets/ClickButton.png";
 import ReloadButton from "@/assets/ReloadButton.png";
 import React from "react";
+import { Button, TipOfTheDayWrapper, Backdrop } from "@/components/HomePage.styles";
 
-const Button = styled.button`
-  background: transparent;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-`;
-const TipOfTheDayWrapper = styled.div`
-  position: fixed;
-  z-index: 1;
-  bottom: 100px;
-  display: flex;
-  flex-direction: column;
-`;
 
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  opacity: 0.4;
-  z-index: 1;
-`;
 
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
