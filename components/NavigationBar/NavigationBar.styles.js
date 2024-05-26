@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GoHome } from "react-icons/go";
-import { CiHeart } from "react-icons/ci";
+import { GoHome, GoHomeFill } from "react-icons/go";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 
 export  const StyledNav = styled.nav`
 z-index: 2;
@@ -18,6 +18,25 @@ z-index: 2;
 `;
 
 export const StyledLink = styled.a`
+width: 33%;
+display: flex; justify-content: center;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 1px solid var(--primary-button-and-header-color);
+  cursor: pointer;
+  ${(props) =>
+    props.active &&
+    css`
+      color: #ffffff;
+      background-color: var(--primary-button-and-header-color);
+      border: none;
+    `}
+`;
+
+export const StyledLinkHeartAndHome = styled.a`
+width: 33%;
   padding: 0.5rem 1rem;
   margin: 0 1rem;
   text-decoration: none;
@@ -26,8 +45,6 @@ export const StyledLink = styled.a`
     props.active &&
     css`
       color: #ffffff;
-      background-color: var(--primary-button-and-header-color);;
-      border-radius: 5px;
     `}
 `;
 
@@ -35,16 +52,27 @@ export const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 30px;
 `;
 
-export const StyledHomeIcon = styled(GoHome)`
+export const EmptyHomeIcon = styled(GoHome)`
   font-size: 30px;
 `;
 
-export const StyledHeartIcon = styled(CiHeart)`
+export const FilledHomeIcon = styled(GoHomeFill)`
   font-size: 30px;
+  color: var(--primary-button-and-header-color);
+`;
+
+export const EmptyHeartIcon = styled(GoHeart)`
+  font-size: 30px;
+`;
+
+export const FilledHeartIcon = styled(GoHeartFill)`
+  font-size: 30px;
+  color: var(--primary-button-and-header-color);
 `;
 
 export const MenuTitle = styled.p`
   font-size: 8px;
+  color: var(--primary-button-and-header-color);
 `;
 
 export const MenuIconTitleBox = styled.div`

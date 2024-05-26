@@ -2,10 +2,11 @@
 import { useRouter } from "next/router";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react";
-import {StyledNav, StyledLink, StyledIcon, StyledHomeIcon, StyledHeartIcon, MenuTitle, MenuIconTitleBox} from './NavigationBar.styles';
+import {StyledLinkHeartAndHome, StyledNav, StyledLink, StyledIcon, EmptyHomeIcon, FilledHomeIcon, EmptyHeartIcon, FilledHeartIcon, MenuTitle, MenuIconTitleBox} from './NavigationBar.styles';
 
 export default function NavigationBar() {
   const router = useRouter();
+  const { pathname } = router;
 
   const { data: session } = useSession();
 
@@ -13,31 +14,32 @@ export default function NavigationBar() {
     return router.pathname === path;
   };
 
+
   return (
     <StyledNav>
-      <StyledLink onClick={() => router.push("/")} active={isActive("/")}>
+      <StyledLinkHeartAndHome onClick={() => router.push("/")} active={isActive("/")}>
         <MenuIconTitleBox>
-          <StyledHomeIcon />
+          {pathname === "/" ? <FilledHomeIcon /> : <EmptyHomeIcon/>}
           <MenuTitle>HOME</MenuTitle>
         </MenuIconTitleBox>
-      </StyledLink>
+      </StyledLinkHeartAndHome>
       {session && (
         <StyledLink
           onClick={() => router.push("/create")}
           active={isActive("/create")}
         >
-          <StyledIcon icon={faPlus} />
+        <StyledIcon icon={faPlus}/>
         </StyledLink>
       )}
-      <StyledLink
+      <StyledLinkHeartAndHome
         onClick={() => router.push("/bookmarks")}
         active={isActive("/bookmarks")}
       >
         <MenuIconTitleBox>
-          <StyledHeartIcon />
+        {pathname === "/bookmarks" ? <FilledHeartIcon /> : <EmptyHeartIcon/>}
           <MenuTitle>FAVORITES</MenuTitle>
         </MenuIconTitleBox>
-      </StyledLink>
+      </StyledLinkHeartAndHome>
     </StyledNav>
   );
 }
