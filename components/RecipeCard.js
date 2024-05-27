@@ -5,7 +5,6 @@ import { BookmarkIcon } from "./BookmarkIcon";
 import { useSession } from "next-auth/react";
 import { GoStarFill } from "react-icons/go";
 
-// Container
 const StyledArticle = styled.article`
   display: grid;
   grid-template-columns: 4fr 3fr;
@@ -33,7 +32,7 @@ const ReadMoreLink = styled(Link)`
   height: 100%;
 `;
 
-// Image-BOX
+
 const WrapperBookmarkIcon = styled.div`
   position: absolute;
   top: 10px;
@@ -55,7 +54,7 @@ const StyledImage = styled(Image)`
   left: 0;
 `;
 
-// Text-Box
+
 const StyledContentWrapper = styled.div`
   background-color: #fcfbf4;
   border-radius: 20px 0 0 20px;

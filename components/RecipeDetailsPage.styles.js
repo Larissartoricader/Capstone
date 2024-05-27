@@ -19,6 +19,7 @@ export const BackLink = styled(Link)`
   color: var(--font-color);
   text-align: center;
   font-weight: bold;
+  text-decoration: none;
 `;
 
 export const StyledRecipeBy = styled.p`
@@ -57,3 +58,5 @@ export const ContentContainer = styled.div`
 export const WhiteSpace = styled.div`
   height: 20vh;
 `;
+
+export const AuthorName = styled.p`color: var(--font-color);`
