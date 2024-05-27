@@ -133,7 +133,10 @@ export default function RecipeCard({
   return (
     <StyledArticle>
       <StyledContentWrapper>
-        <ReadMoreLink href={`/${recipe._id}`}>
+        <ReadMoreLink
+          href={`/${recipe._id}`}
+          aria-label={`Read more about ${recipe.title}`}
+        >
           <StyledInfoBox>
             <StyledHeader>{recipe.title}</StyledHeader>
             <StyleItemsList>
@@ -168,6 +171,7 @@ export default function RecipeCard({
             onToggleBookmark={onToggleBookmark}
             bookmarkedRecipesIDs={bookmarkedRecipesIDs}
             recipe={recipe}
+            aria-label={`Bookmark ${recipe.title}`}
           />
         </WrapperBookmarkIcon>
       </StyledImageWrapper>
