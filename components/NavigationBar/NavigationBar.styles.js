@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GoHome, GoHomeFill } from "react-icons/go";
-import { GoHeart, GoHeartFill } from "react-icons/go";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export  const StyledNav = styled.nav`
@@ -12,7 +11,8 @@ z-index: 2;
   align-items: center;
   bottom: 0;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background: #ffffff;
   color: var(--primary-button-and-header-color);
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
@@ -81,4 +81,5 @@ export const MenuIconTitleBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 `;
