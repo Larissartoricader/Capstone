@@ -10,7 +10,6 @@ import React from "react";
 import { Button, TipOfTheDayWrapper, Backdrop } from "@/components/HomePage.styles";
 
 
-
 export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   const getRandomIndex = () => {
     return Math.floor(Math.random() * recipes.length);
@@ -44,10 +43,13 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
         {isPopupOpen ? (
           <TipOfTheDay recipe={currentTip} onClose={closePopup} />
         ) : null}
-        <Button onClick={handleNextTip}>
+        <Button
+          onClick={handleNextTip}
+          aria-label={isPopupOpen ? "Reload tip" : "Get tip"}
+        >
           <Image
             src={isPopupOpen ? ReloadButton : ClickButton}
-            alt={isPopupOpen ? "Click further" : "Click me"}
+            alt={isPopupOpen ? "Reloading tip" : "Get tip"}
             width={60}
             height={60}
           />

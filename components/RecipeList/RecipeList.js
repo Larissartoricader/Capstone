@@ -21,6 +21,7 @@ export default function RecipeList({
               onToggleBookmark={onToggleBookmark}
               bookmarkedRecipesIDs={bookmarkedRecipesIDs}
               recipe={recipe}
+              aria-label={`Recipe card for ${recipe.title}`}
             />
           </li>
         ))}
