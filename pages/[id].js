@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import RecipeDetails from "@/components/RecipeDetails/RecipeDetails";
-import { StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
+import { AuthorName, StyledRecipeHeader, BackLink, StyledRecipeBy, StyledHerbie, StyledHerbieBox, StyledStar, HerbieStarBox, ContentContainer, WhiteSpace
  } from "@/components/RecipeDetailsPage.styles";
 import useSWR from "swr";
-import { ConfirmationModal } from "@/components/ConfirmationModal";
+import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
 
 
 export default function RecipeDetailsPage({
@@ -48,7 +48,7 @@ export default function RecipeDetailsPage({
         <StyledHerbieBox>
           <StyledRecipeBy>Recipe by</StyledRecipeBy>
           {currentRecipe.author ? (
-            <p>{currentRecipe.author}</p>
+            <AuthorName>{currentRecipe.author}</AuthorName>
           ) : (
             <HerbieStarBox>
               <StyledHerbie>herbie</StyledHerbie>

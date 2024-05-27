@@ -1,9 +1,7 @@
-import React from "react";
 import styled from "styled-components";
-import Herbie from "@/assets/Herbie.png";
 import Image from "next/image";
 
-const Dialog = styled.dialog`
+export const Dialog = styled.dialog`
   padding: 1.7rem 0;
   margin: auto;
   border: solid 1px var(--secondary-background-color);
@@ -15,7 +13,7 @@ const Dialog = styled.dialog`
   }
 `;
 
-const DialogMessage = styled.p`
+export const DialogMessage = styled.p`
   margin: 0 4rem 1.4rem 4rem;
   color: white;
   font: var(--font-color);
@@ -23,14 +21,14 @@ const DialogMessage = styled.p`
   text-align: center;
 `;
 
-const ButtonWrap = styled.div`
+export const ButtonWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 10px;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   padding: 6px 30px;
   font: var(--general-font);
   color: var(--font-color);
@@ -54,11 +52,12 @@ const Button = styled.button`
   }
 `;
 
-const StyledHerbie = styled(Image)`
+export const StyledHerbie = styled(Image)`
   position: absolute;
   top: 50px;
   right: 5px;
   z-index: -1;
+<<<<<<< HEAD:components/ConfirmationModal.js
 `;
 
 export const ConfirmationModal = ({ modalInfo, modalRef }) => {
@@ -80,3 +79,6 @@ export const ConfirmationModal = ({ modalInfo, modalRef }) => {
     </Dialog>
   );
 };
+=======
+`;
+>>>>>>> main:components/ConfirmationModal/ConfirmationModal.styles.js

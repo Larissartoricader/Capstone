@@ -115,10 +115,13 @@ export const StyledButton = styled.button`
 
 export const EditButton = styled(StyledButton)`
   background-color: var( --secondary-button-color);
+  color: black;
+  font-weight: bold;
 `;
 
 export const DeleteButton = styled(StyledButton)`
   background-color: #ff0000;
+  font-weight: bold;
 `;
 
 export const ButtonsBox = styled.div`
