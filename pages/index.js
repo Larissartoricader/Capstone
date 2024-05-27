@@ -1,5 +1,5 @@
 "use client";
-import FilteredRecipes from "@/components/FilteredRecipes";
+import FilteredRecipes from "@/components/FilteredRecipes/FilteredRecipes";
 import TipOfTheDay from "@/components/TipOfTheDay";
 import styled from "styled-components";
 import { useState } from "react";
@@ -11,7 +11,6 @@ import React from "react";
 
 const Button = styled.button`
   background: transparent;
-
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -62,10 +61,8 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
   };
   const currentTip = recipes[currentTipIndex];
   return (
-    <div>
-      {isPopupOpen ? (
-        <Backdrop onClick={closePopup} role="button" tabIndex="0" />
-      ) : null}
+    <>
+      {isPopupOpen ? <Backdrop onClick={closePopup} /> : null}
       <TipOfTheDayWrapper>
         {isPopupOpen ? (
           <TipOfTheDay recipe={currentTip} onClose={closePopup} />
@@ -87,6 +84,6 @@ export default function HomePage({ bookmarkedRecipesIDs, onToggleBookmark }) {
         bookmarkedRecipesIDs={bookmarkedRecipesIDs}
         onToggleBookmark={onToggleBookmark}
       />
-    </div>
+    </>
   );
 }

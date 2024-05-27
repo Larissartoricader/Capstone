@@ -7,22 +7,17 @@ const StyledList = styled.div`
   column-gap: 30px;
   row-gap: 20px;
   grid-template-columns: 1fr;
-  padding-inline: 10px;
-
-  /* @media only screen and (min-width: 425px) {
-    grid-template-columns: 1fr;
-  } */
-
   @media only screen and (min-width: 580px) {
     grid-template-columns: 1fr 1fr;
   }
-
   @media only screen and (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
+  top: 100px;
+  left: 5%;
 `;
 
-const WhiteSpace = styled.div`
+const WhiteSpaceBottom = styled.div`
   height: 20vh;
 `;
 
@@ -51,7 +46,7 @@ export default function RecipeList({
           </li>
         ))}
       </StyledList>
-      <WhiteSpace />
+      <WhiteSpaceBottom />
     </>
   );
 }

@@ -7,6 +7,7 @@ import { GoHome } from "react-icons/go";
 import { CiHeart } from "react-icons/ci";
 
 const StyledNav = styled.nav`
+z-index: 2;
   position: fixed;
   display: flex;
   justify-content: center;

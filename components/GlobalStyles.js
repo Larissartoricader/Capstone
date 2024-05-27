@@ -12,14 +12,13 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     background-color: var(--primary-background-color);
     font-family: var(--general-font);
-  
   }
 
   :root{
   
     --herbie-font: ${merienda.style.fontFamily};
     --general-font: 'Arial';
- 
+    --general-font-size: 16px;
    
     --font-color: #013220;
     --box-background-color: white;
@@ -27,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
     --secondary-background-color: #fcfbf4;
     --primary-button-and-header-color: #014F32;
     --secondary-button-color: #FFC107;
+    --selected-value-color: #f1efe2;
  
  
     --big-box-border-radius: 20px;
