@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { filterArray } from "@/utils/filter-array";
 import { useSession } from "next-auth/react";
 import {
+  LoadingSpinner,
   FormHeadline,
   StyledForm,
   ErrorMessage,
@@ -22,20 +23,9 @@ import {
   ButtonContainer,
   SubmitButton,
   CancelButton,
-  WhiteSpace,
+  WhiteSpaceBottom,
 } from "./RecipeForm.styles";
 import { Circles } from "react-loader-spinner";
-import styled from "styled-components";
-
-const LoadingSpinner = styled.div`
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  z-index: 999;
-`;
 
 export default function RecipeForm({ recipeToEdit }) {
   const [ingredientSuggestions, setIngredientSuggestions] = useState();
@@ -404,7 +394,7 @@ export default function RecipeForm({ recipeToEdit }) {
           <SubmitButton type="submit">Save</SubmitButton>
         </ButtonContainer>
       </StyledForm>
-      <WhiteSpace />
+      <WhiteSpaceBottom />
     </>
   );
 }
