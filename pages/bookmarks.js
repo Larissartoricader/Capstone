@@ -1,7 +1,7 @@
 import React from "react";
 import RecipeList from "@/components/RecipeList/RecipeList";
 import useSWR from "swr";
-import { WhiteSpace } from "@/components/BookmarkPage.styles";
+import { WhiteSpace, BookmarkWrapper } from "@/components/BookmarkPage.styles";
 
 export default function BookmarkPage({
   bookmarkedRecipesIDs,
@@ -18,16 +18,18 @@ export default function BookmarkPage({
   }
 
   const bookmarkedRecipes = recipes.filter((recipe) =>
-    bookmarkedRecipesIDs.includes(recipe._id),
+    bookmarkedRecipesIDs.includes(recipe._id)
   );
 
   return (
     <>
-      <RecipeList
-        bookmarkedRecipesIDs={bookmarkedRecipesIDs}
-        recipes={bookmarkedRecipes}
-        onToggleBookmark={onToggleBookmark}
-      />
+      <BookmarkWrapper>
+        <RecipeList
+          bookmarkedRecipesIDs={bookmarkedRecipesIDs}
+          recipes={bookmarkedRecipes}
+          onToggleBookmark={onToggleBookmark}
+        />
+      </BookmarkWrapper>
       <WhiteSpace />
     </>
   );
